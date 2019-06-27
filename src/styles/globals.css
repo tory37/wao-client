@@ -1,0 +1,11 @@
+body {
+  background-color: #e8e8e5;
+  font-family: roboto, "Noto Sans Myanmar UI", arial, sans-serif;
+}
+
+input {
+  font: 400 16px Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+  height: 24px;
+  line-height: 24px;
+  width: 100%;
+}
