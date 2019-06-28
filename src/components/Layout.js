@@ -2,18 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-import UserMenu from './UserMenu';
+import Header from './Header';
 
 const StyledLayout = styled.div`
-	height: 100vh;
-	width: 100vw;
+	width: 100%;
 	position: relative;
-
-	.user-menu {
-		position: absolute;
-		right: 5px;
-		top: 5px;
-	}
 
 	main {
 		height: 100%;
@@ -27,9 +20,7 @@ const StyledLayout = styled.div`
 
 const Layout = ({ children }) => (
 	<StyledLayout>
-		<div className="user-menu">
-			<UserMenu />
-		</div>
+		<Header />
 		<main>{children}</main>
 	</StyledLayout>
 );
