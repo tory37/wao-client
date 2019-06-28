@@ -6,10 +6,11 @@ import Header from './Header';
 
 const StyledLayout = styled.div`
 	width: 100%;
-	position: relative;
 
 	main {
 		height: 100%;
+		padding: 20px;
+		overflow-y: scroll;
 	}
 
 	footer {

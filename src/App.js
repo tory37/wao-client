@@ -40,6 +40,8 @@ const StyledApp = styled.div`
 	.content {
 		width: 100%;
 		max-width: 1020px;
+		background-color: #4d4d4d;
+		height: 100vh;
 	}
 `;
 
