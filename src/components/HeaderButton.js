@@ -24,8 +24,8 @@ const StyledHeaderButton = styled.div`
 	@media only screen and (min-width: 810px) {
 		width: 100px;
 		height: 50px;
-		margin-left: 10px;
-		margin-right: 10px;
+		margin-left: 15px;
+		margin-right: 15px;
 	}
 
 	color: white;
