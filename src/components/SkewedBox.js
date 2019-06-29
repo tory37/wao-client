@@ -13,9 +13,11 @@ const StyledSkewedBox = styled.div`
 	position: relative;
 	z-index: 1;
 
+	transform-origin: bottom;
+	transform: scale(${props => (props.isSelected ? 1.2 : 1)});
+
 	&:hover {
-		transform-origin: bottom;
-		transform: scale(${props => (props.shouldGrowOnHover ? 1.2 : 1)});
+		transform: scale(${props => (props.shouldGrowOnHover || props.isSelected ? 1.2 : 1)});
 	}
 
 	.inner {
@@ -27,9 +29,9 @@ const StyledSkewedBox = styled.div`
 	}
 `;
 
-const SkewedBox = ({ children, clipPath, color, shouldGrowOnHover }) => {
+const SkewedBox = ({ children, clipPath, color, shouldGrowOnHover, isSelected }) => {
 	return (
-		<StyledSkewedBox clipPath={clipPath} borderWidth={borderWidth} color={color} shouldGrowOnHover={shouldGrowOnHover}>
+		<StyledSkewedBox clipPath={clipPath} borderWidth={borderWidth} color={color} shouldGrowOnHover={shouldGrowOnHover} isSelected={isSelected}>
 			<div className="inner">{children}</div>
 		</StyledSkewedBox>
 	);

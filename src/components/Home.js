@@ -8,7 +8,7 @@ const StyledHome = styled.div`
 	width: 100%;
 
 	.home-content {
-		width: 98%;
+		width: 97%;
 	}
 
 	.divider {
@@ -26,7 +26,7 @@ const Home = () => {
 	return (
 		<StyledHome>
 			<div className="home-content">
-				<SkewedBox clipPath="3% 0, 100% 0, 98% 100%, 0 100%" color="#c70213" shouldGrowOnHover>
+				<SkewedBox clipPath="3% 0, 100% 0, 98% 100%, 0 100%" color="#c70213">
 					<div className="body">
 						1. Welcome to the home of the Weebs and Otakus of Acadiana! We area a group of anime, video game, and etc. Welcome to the home of the Weebs and Otakus of Acadiana! We area a group of anime, video game, and etc. Welcome to the home of the Weebs and Otakus of Acadiana! We area
 						a group of anime, v

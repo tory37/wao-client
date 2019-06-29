@@ -14,11 +14,16 @@ const StyledHeader = styled.div`
 
 	border-bottom: solid 5px black;
 
+	@media only screen and (min-width: 410px) {
+		padding-bottom: 10px;
+	}
+
 	@media only screen and (min-width: 810px) {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: flex-end;
+		padding-bottom: 0;
 	}
 
 	a {
@@ -27,9 +32,18 @@ const StyledHeader = styled.div`
 
 	.header-title {
 		color: white;
-		font-size: 36px;
+		font-size: 25px;
 		text-align: center;
 		margin-top: 20px;
+		padding-bottom: 10px;
+
+		@media only screen and (min-width: 410px) {
+			font-size: 36px;
+		}
+
+		@media only screen and (min-width: 810px) {
+			padding-bottom: 0;
+		}
 
 		:hover {
 			transform: scale(1.02);
@@ -43,10 +57,12 @@ const StyledHeader = styled.div`
 		justify-content: space-around;
 		align-items: flex-end;
 		margin-bottom: -5px;
+		padding-left: 5px;
+		padding-right: 5px;
 	}
 `;
 
-const Header = () => {
+const Header = ({ location }) => {
 	return (
 		<StyledHeader>
 			<Link to="/">
@@ -54,13 +70,13 @@ const Header = () => {
 			</Link>
 			<div className="header-buttons">
 				<Link to="/">
-					<HeaderButton title="Home" clipPath="0 0, 99% 13%, 96% 100%, 7% 100%" />
+					<HeaderButton title="Home" clipPath="0 0, 99% 13%, 96% 100%, 7% 100%" isSelected={location.pathname === '/'} />
 				</Link>
 				<Link to="/events">
-					<HeaderButton title="Events" clipPath="3% 17%, 96% 5%, 94% 100%, 7% 100%" />
+					<HeaderButton title="Events" clipPath="5% 17%, 96% 5%, 94% 100%, 7% 100%" isSelected={location.pathname === '/events'} />
 				</Link>
-				<Link to="/gallery">
-					<HeaderButton title="Gallery" clipPath="5% 5%, 95% 11%, 92% 100%, 15% 100%" />
+				<Link to="/photos">
+					<HeaderButton title="photos" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={location.pathname === '/photos'} />
 				</Link>
 			</div>
 		</StyledHeader>
