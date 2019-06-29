@@ -21,10 +21,12 @@ const StyledHeader = styled.div`
 		width: 100%;
 		height: 100%;
 
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: flex-end;
+		@media only screen and (min-width: 810px) {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: flex-end;
+		}
 
 		a {
 			text-decoration: none;
@@ -33,6 +35,8 @@ const StyledHeader = styled.div`
 		.title {
 			color: white;
 			font-size: 36px;
+			text-align: center;
+			margin-top: 20px;
 
 			:hover {
 				transform: scale(1.02);

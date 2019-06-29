@@ -12,6 +12,7 @@ import styled from '@emotion/styled';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import Routes from './routes';
+import Layout from './components/Layout';
 
 // Check for token to keep user loggied in
 if (localStorage.jwtToken) {

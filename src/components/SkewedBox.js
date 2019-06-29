@@ -7,6 +7,7 @@ const StyledSkewedBox = styled.div`
 	background-color: black;
 	width: 100%;
 	height: 100%;
+	padding: ${props => props.borderWidth};
 	clip-path: polygon(${props => props.clipPath});
 
 	position: relative;
@@ -14,11 +15,8 @@ const StyledSkewedBox = styled.div`
 
 	.inner {
 		background-color: ${props => props.color};
-		width: calc(100% - (${props => props.borderWidth} * 2));
-		height: calc(100% - (${props => props.borderWidth} * 2));
-		position: absolute;
-		top: ${props => props.borderWidth};
-		left: ${props => props.borderWidth};
+		width: 100%;
+		height: 100%;
 		clip-path: polygon(${props => props.clipPath});
 		z-index: 2;
 	}
