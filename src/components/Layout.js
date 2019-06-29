@@ -6,11 +6,31 @@ import Header from './Header';
 
 const StyledLayout = styled.div`
 	width: 100%;
+	height: 100%;
+
+	.layout-header-wrapper {
+		height: 60px;
+		margin-bottom: 65px;
+	}
 
 	main {
-		height: 100%;
-		padding: 20px;
+		height: calc(100% - 155px);
+		width: 100%;
 		overflow-y: scroll;
+
+		.layout-content {
+			padding-bottom: 20px;
+		}
+	}
+
+	@media only screen and (min-width: 810px) {
+		.layout-header-wrapper {
+			margin-bottom: 30px;
+		}
+
+		main {
+			height: calc(100% - 100px);
+		}
 	}
 
 	footer {
@@ -21,8 +41,12 @@ const StyledLayout = styled.div`
 
 const Layout = ({ children }) => (
 	<StyledLayout>
-		<Header />
-		<main>{children}</main>
+		<div className="layout-header-wrapper">
+			<Header />
+		</div>
+		<main>
+			<div className="layout-content">{children}</div>
+		</main>
 	</StyledLayout>
 );
 

@@ -11,7 +11,7 @@ import styled from '@emotion/styled';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
-import Routes from './routes';
+import Routes from './Routes';
 import Layout from './components/Layout';
 
 // Check for token to keep user loggied in
@@ -33,16 +33,29 @@ if (localStorage.jwtToken) {
 }
 
 const StyledApp = styled.div`
-	width: 100wh;
+	width: 100vw;
+	height: 100vh;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+	overflow-y: hidden;
 
-	.content {
+	.app-content {
 		width: 100%;
+		height: 100%;
 		max-width: 1020px;
 		background-color: #4d4d4d;
-		height: 100vh;
+		padding: 20px;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		.app-content-inner {
+			width: calc(100% - 20px);
+			height: calc(100% - 20px);
+		}
 	}
 `;
 
@@ -51,9 +64,11 @@ function App() {
 		<ThemeProvider theme={theme}>
 			<Provider store={store}>
 				<StyledApp>
-					<div className="content">
-						<ToastContainer />
-						<Routes />
+					<div className="app-content">
+						<div className="app-content-inner">
+							<ToastContainer />
+							<Routes />
+						</div>
 					</div>
 				</StyledApp>
 			</Provider>
