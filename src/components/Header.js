@@ -15,7 +15,7 @@ const StyledHeader = styled.div`
 	border-bottom: solid 5px black;
 
 	@media only screen and (min-width: 410px) {
-		padding-bottom: 10px;
+		padding-bottom: 60px;
 	}
 
 	@media only screen and (min-width: 810px) {
@@ -35,10 +35,12 @@ const StyledHeader = styled.div`
 		font-size: 25px;
 		text-align: center;
 		margin-top: 20px;
-		padding-bottom: 10px;
+		padding-bottom: 20px;
 
 		@media only screen and (min-width: 410px) {
 			font-size: 36px;
+			margin-bottom: 5px;
+			padding-bottom: 10px;
 		}
 
 		@media only screen and (min-width: 810px) {
@@ -56,9 +58,13 @@ const StyledHeader = styled.div`
 		flex-direction: row;
 		justify-content: space-around;
 		align-items: flex-end;
-		margin-bottom: -5px;
 		padding-left: 5px;
 		padding-right: 5px;
+		margin-top: -10px;
+
+		@media only screen and (min-width: 810px) {
+			margin-bottom: -20px;
+		}
 	}
 `;
 

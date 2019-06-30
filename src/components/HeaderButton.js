@@ -5,8 +5,8 @@ import SkewedBox from './SkewedBox';
 import CenteredContent from './CenteredContent';
 
 const StyledHeaderButton = styled.div`
-	width: 70px;
-	height: 30px;
+	width: 80px;
+	height: 40px;
 	font-size: 11px;
 
 	@media only screen and (min-width: 410px) {
@@ -16,16 +16,16 @@ const StyledHeaderButton = styled.div`
 	}
 
 	@media only screen and (min-width: 500px) {
-		width: 115px;
+		width: 120px;
 		height: 50px;
 		font-size: 16px;
 	}
 
-	@media only screen and (min-width: 810px) {
-		width: 100px;
-		height: 50px;
-		margin-left: 15px;
-		margin-right: 15px;
+	@media only screen and (min-width: 835px) {
+		width: 120px;
+		height: 60px;
+		margin-left: 10px;
+		margin-right: 10px;
 	}
 
 	color: white;
@@ -34,7 +34,7 @@ const StyledHeaderButton = styled.div`
 const HeaderButton = ({ title, clipPath, isSelected }) => {
 	return (
 		<StyledHeaderButton clipPath={clipPath}>
-			<SkewedBox clipPath={clipPath} color="#4d4d4d" isSelected={isSelected}>
+			<SkewedBox clipPath={clipPath} color="#4d4d4d" isSelected={isSelected} useScale={true}>
 				<CenteredContent>
 					<span>{title}</span>
 				</CenteredContent>

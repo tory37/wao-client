@@ -12,10 +12,10 @@ const fetchUser = () => {
 	return axios.get('localhost:5000//api/users');
 };
 
-const auth = {
+const authApi = {
 	registerUser,
 	loginUser,
 	fetchUser
 };
 
-export default auth;
+export default authApi;

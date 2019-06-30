@@ -1,20 +1,19 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import Layout from './Layout';
 import SkewedBox from './SkewedBox';
 
 const StyledHome = styled.div`
 	width: 100%;
 
 	.home-content {
-		width: 97%;
+		width: 100%;
 	}
 
 	.divider {
 		width: 80px;
 		height: 40px;
-		margin-left: 50px;
+		margin-left: 110px;
 	}
 
 	.body {
@@ -34,7 +33,7 @@ const Home = () => {
 				</SkewedBox>
 
 				<div className="divider">
-					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" />
+					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
 				</div>
 
 				<SkewedBox clipPath="3% 0, 100% 0, 98% 100%, 0 100%" color="lightblue">
@@ -45,7 +44,7 @@ const Home = () => {
 				</SkewedBox>
 
 				<div className="divider">
-					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" />
+					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
 				</div>
 
 				<SkewedBox clipPath="3% 0, 100% 0, 98% 100%, 0 100%" color="lightblue">
@@ -56,7 +55,7 @@ const Home = () => {
 				</SkewedBox>
 
 				<div className="divider">
-					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" />
+					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
 				</div>
 
 				<SkewedBox clipPath="3% 0, 100% 0, 98% 100%, 0 100%" color="lightblue">
@@ -67,7 +66,7 @@ const Home = () => {
 				</SkewedBox>
 
 				<div className="divider">
-					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" />
+					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
 				</div>
 
 				<SkewedBox clipPath="3% 0, 100% 0, 98% 100%, 0 100%" color="lightblue">
@@ -78,7 +77,7 @@ const Home = () => {
 				</SkewedBox>
 
 				<div className="divider">
-					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" />
+					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
 				</div>
 
 				<SkewedBox clipPath="3% 0, 100% 0, 98% 100%, 0 100%" color="lightblue">
@@ -89,7 +88,7 @@ const Home = () => {
 				</SkewedBox>
 
 				<div className="divider">
-					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" />
+					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
 				</div>
 
 				<SkewedBox clipPath="3% 0, 100% 0, 98% 100%, 0 100%" color="lightblue">

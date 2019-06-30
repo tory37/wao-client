@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Layout from './components/Layout';
+import Events from './components/Events';
 // import PrivateRoute from './components/PrivateRoute';
 // import Dashboard from './components/Dashboard';
 
@@ -12,6 +13,7 @@ const Routes = () => (
 	<Router>
 		<Layout>
 			<Route exact path="/" component={Home} />
+			<Route exact path="/events" component={Events} />
 			<Route exact path="/login" component={Login} />
 			<Route exact path="/signup" component={Signup} />
 			{/* <Switch>

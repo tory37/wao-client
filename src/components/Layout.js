@@ -10,7 +10,15 @@ const StyledLayout = styled.div`
 
 	.layout-header-wrapper {
 		height: 60px;
-		margin-bottom: 65px;
+		margin-bottom: 30px;
+
+		@media only screen and (min-width: 410px) {
+			margin-bottom: 50px;
+		}
+
+		@media only screen and (min-width: 810px) {
+			margin-bottom: 40px;
+		}
 	}
 
 	main {
@@ -18,18 +26,12 @@ const StyledLayout = styled.div`
 		width: 100%;
 		overflow-y: scroll;
 
+		@media only screen and (min-width: 810px) {
+			height: calc(100% - 100px);
+		}
+
 		.layout-content {
 			padding-bottom: 20px;
-		}
-	}
-
-	@media only screen and (min-width: 810px) {
-		.layout-header-wrapper {
-			margin-bottom: 30px;
-		}
-
-		main {
-			height: calc(100% - 100px);
 		}
 	}
 
