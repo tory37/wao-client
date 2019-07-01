@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import SkewedBox from './SkewedBox';
 import EventAdd from './events/EventAdd';
 
 // 500 x 262

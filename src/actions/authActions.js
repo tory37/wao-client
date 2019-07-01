@@ -1,14 +1,9 @@
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
-import React from 'react';
 import setAuthToken from '../utils/auth';
 
 import api from '../utils/api/auth';
 
 import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types';
 import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification } from '../utils/notifications';
-import { getErrorPayload } from '../utils/apiErrors';
-import ApiToastError from '../components/ApiToastError';
 
 // Set logged in user
 export const setCurrentUser = user => ({
@@ -24,25 +19,24 @@ export const settUserLoading = () => ({
 // Register User
 export const registerUser = (userData, history) => dispatch => {
 	const notificationId = displayLoadingNotification('Signing up...');
-	api.registerUser(userData)
+	return api
+		.registerUser(userData)
 		.then(res => {
 			displaySuccessNotification('You signed up! Welcome!', notificationId);
 			history.push('/login');
 		}) // re-direct to login on siccessful register
 		.catch(err => {
-			const errorPayload = getErrorPayload(err);
-			displayErrorNotification(<ApiToastError apiErrorPayload={errorPayload} />, notificationId);
-			dispatch({
-				type: GET_ERRORS,
-				payload: errorPayload
-			});
+			displayErrorNotification(err, notificationId);
 		});
 };
 
 // Login - get user token
 export const loginUser = userData => (dispatch, history) => {
-	api.loginUser(userData)
+	const notificationId = displayLoadingNotification('Loggin in...');
+	return api
+		.loginUser(userData)
 		.then(res => {
+			displaySuccessNotification('You are online!', notificationId);
 			// Save to localStorage
 
 			// Set token to localStorage
@@ -55,19 +49,19 @@ export const loginUser = userData => (dispatch, history) => {
 			// Set current user
 			dispatch(setCurrentUser(user));
 		})
-		.catch(err =>
-			dispatch({
-				type: GET_ERRORS,
-				payload: err.response.data
-			})
-		);
+		.catch(err => displayErrorNotification(err, notificationId));
 };
 
 export const fetchUser = () => (dispatch, history) => {
-	api.fetchUser().then(res => {
-		const user = res.data;
-		dispatch(setCurrentUser(user));
-	});
+	return api
+		.fetchUser()
+		.then(res => {
+			const user = res.data;
+			dispatch(setCurrentUser(user));
+		})
+		.catch(err => {
+			displayErrorNotification(err);
+		});
 };
 
 // Log user out

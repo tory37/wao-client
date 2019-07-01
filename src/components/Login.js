@@ -90,9 +90,9 @@ const Login = ({ auth, history, errors, loginUser }) => {
 
 	useEffect(() => {
 		// If logged in user naviages here, redirect
-		if (auth.isAuthenticated) {
-			history.push('/home');
-		}
+		// if (auth.isAuthenticated) {
+		// 	history.push('/');
+		// }
 
 		if (errors) {
 			const moddedState = _.clone(login);

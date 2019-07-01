@@ -12,10 +12,9 @@ const StyledSkewedBox = styled.div`
 	margin: auto;
 
 	position: relative;
-	z-index: 1;
 
 	transform-origin: ${props => (props.fromCenter ? 'center' : 'bottom')};
-	transform: scale(${props => ((props.shouldGrowOnHover || props.isSelected) && props.useScale ? 1.2 : 1)});
+	transform: scale(${props => (props.isSelected && props.useScale ? 1.2 : 1)});
 
 	&:hover {
 		transform: scale(${props => ((props.shouldGrowOnHover || props.isSelected) && props.useScale ? 1.2 : 1)});
@@ -28,7 +27,6 @@ const StyledSkewedBox = styled.div`
 		width: 100%;
 		height: 100%;
 		clip-path: polygon(${props => props.clipPath});
-		z-index: 2;
 	}
 `;
 

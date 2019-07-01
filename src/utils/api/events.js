@@ -2,7 +2,9 @@ import axios from 'axios';
 
 const getEvents = () => {};
 
-const createEvent = event => {};
+const createEvent = eventData => {
+	return axios.put('http://localhost:5000/api/events', eventData);
+};
 
 const updateEvent = event => {};
 

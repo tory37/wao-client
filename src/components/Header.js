@@ -3,9 +3,6 @@ import styled from '@emotion/styled';
 import { Link, withRouter } from 'react-router-dom';
 
 import HeaderButton from './HeaderButton';
-import SkewedBox from './SkewedBox';
-
-const padding = '10px';
 
 const StyledHeader = styled.div`
 	width: 100%;

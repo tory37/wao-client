@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import moment from 'moment';
 import _ from 'lodash';
@@ -6,6 +7,8 @@ import _ from 'lodash';
 import SkewedBox from '../SkewedBox';
 import CenteredContent from '../CenteredContent';
 import DataField from '../DataField';
+import WAOButton from '../WAOButton';
+import { createEvent as createEventAction } from '../../actions/eventActions';
 
 // 500 x 262
 const StyledEventAdd = styled.div`
@@ -32,34 +35,57 @@ const StyledEventAdd = styled.div`
 			padding-right: 28px;
 			padding-bottom: 5px;
 
+			.spacer {
+				height: 10px;
+			}
+
 			.eventadd-content-split {
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
 				align-items: center;
 
-				div {
+				.eventadd-content-split-column {
 					width: 49%;
 				}
 
-				&:first-child {
+				&:first-of-type(div) {
 					margin-right: 2%;
+				}
+			}
+
+			.eventadd-buttons {
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-end;
+				align-items: center;
+
+				margin-top: 15px;
+
+				.eventadd-button-wrapper {
+					margin-right: 5px;
 				}
 			}
 		}
 	}
 `;
 
-const EventAdd = () => {
-	const [eventAdd, setEventAdd] = useState({
-		imageUrl: '',
-		startTimestamp: moment().unix(),
-		endTimestamp: moment().unix(),
-		title: '',
-		location: {},
-		description: '',
-		isCreating: ''
-	});
+const EventAdd = ({ createEvent }) => {
+	const createInitialState = () => {
+		return {
+			imageUrl: '',
+			startMoment: moment().unix(),
+			endMoment: moment().unix(),
+			title: '',
+			location: {},
+			locationString: '',
+			description: '',
+			isCreating: false,
+			isSaving: false
+		};
+	};
+
+	const [eventAdd, setEventAdd] = useState(createInitialState());
 
 	const onAddClick = e => {
 		const moddedState = _.clone(eventAdd);
@@ -67,37 +93,64 @@ const EventAdd = () => {
 		setEventAdd(moddedState);
 	};
 
-	const onSubmit = event => {};
+	const onCancel = e => {
+		const moddedState = _.clone(eventAdd);
+		moddedState.isCreating = false;
+		setEventAdd(moddedState);
+	};
+
+	const onSave = e => {
+		const moddedState = _.clone(eventAdd);
+		moddedState.isSaving = true;
+		setEventAdd(moddedState);
+
+		const newEvent = {
+			imageUrl: eventAdd.imageUrl,
+			startTimestamp: eventAdd.startMoment, //  Make timestamp from date and time
+			endTimestamp: eventAdd.endMoment, // same
+			title: eventAdd.title,
+			location: eventAdd.location,
+			description: eventAdd.description
+		};
+
+		console.log('New Event: ', newEvent);
+
+		createEvent(newEvent);
+		// .then(() => {
+		// 	setEventAdd(createInitialState());
+		// })
+		// .catch(e => {
+		// 	const moddedState = _.clone(eventAdd);
+		// 	moddedState.isSaving = false;
+		// 	setEventAdd(moddedState);
+		// });
+	};
 
 	return (
 		<StyledEventAdd>
-			{!eventAdd.isCreating && (
-				<div className="eventadd-new-button" onClick={onAddClick}>
-					<SkewedBox clipPath="3% 0, 97% 0, 98% 100%, 0 100%" color="purple" shouldGrowOnHover fromCenter>
-						<CenteredContent>
-							<div className="text">Add New</div>
-						</CenteredContent>
-					</SkewedBox>
-				</div>
-			)}
+			{!eventAdd.isCreating && <WAOButton title="Add New" color="purple" xl3 clickCallback={onAddClick} />}
 			{eventAdd.isCreating && (
 				<div className="eventadd-view">
 					<SkewedBox clipPath="3% 0, 100% 0, 96% 100%, 0% 100%" color="darkgray" isSelected>
-						<form noValidate onSubmit={onSubmit}>
+						<form id="event-add-form" noValidate onSubmit={onSave}>
 							<CenteredContent>
 								<div className="eventadd-content">
 									<DataField statePropertyPath="title" formState={eventAdd} formSetState={setEventAdd} title="Title" isText />
 									<DataField statePropertyPath="imageUrl" formState={eventAdd} formSetState={setEventAdd} title="Image URL" isText />
-									<div className="eventadd-content-split">
-										<DataField statePropertyPath="startDate" formState={eventAdd} formSetState={setEventAdd} title="Start Date" isText />
-										<DataField statePropertyPath="startTime" formState={eventAdd} formSetState={setEventAdd} title="Start Time" isText />
-									</div>
-									<div className="eventadd-content-split">
-										<DataField statePropertyPath="endDate" formState={eventAdd} formSetState={setEventAdd} title="End Date" isText />
-										<DataField statePropertyPath="endTime" formState={eventAdd} formSetState={setEventAdd} title="End Time" isText />
-									</div>
-									<DataField statePropertyPath="location" formState={eventAdd} formSetState={setEventAdd} title="Location" isText />
+									<DataField statePropertyPath="startMoment" formState={eventAdd} formSetState={setEventAdd} title="Start Date" isNumber />
+									{/* <div className="spacer" /> */}
+									<DataField statePropertyPath="endMoment" formState={eventAdd} formSetState={setEventAdd} title="End Date" isNumber />
+									<DataField statePropertyPath="locationString" locationObjectStatePath="location" formState={eventAdd} formSetState={setEventAdd} title="Location" isLocation />
 									<DataField statePropertyPath="description" formState={eventAdd} formSetState={setEventAdd} title="Description" isTextArea />
+
+									<div className="eventadd-buttons">
+										<div className="eventadd-button-wrapper">
+											<WAOButton title="Quit" color="red" clickCallback={onCancel} md />
+										</div>
+										<div onClick={onSave}>
+											<WAOButton title="Save" color="Green" md />
+										</div>
+									</div>
 								</div>
 							</CenteredContent>
 						</form>
@@ -108,4 +161,9 @@ const EventAdd = () => {
 	);
 };
 
-export default EventAdd;
+const mapStateToProps = state => ({});
+
+export default connect(
+	mapStateToProps,
+	{ createEvent: createEventAction }
+)(EventAdd);
