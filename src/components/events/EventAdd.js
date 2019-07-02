@@ -150,9 +150,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 										<div className="eventadd-button-wrapper">
 											<WAOButton title="Quit" color="red" clickCallback={onCancel} md />
 										</div>
-										<div onClick={onSave}>
-											<WAOButton title="Save" color="Green" md />
-										</div>
+										<WAOButton title="Save" color="green" md clickCallback={onSave} />
 									</div>
 								</div>
 							</CenteredContent>

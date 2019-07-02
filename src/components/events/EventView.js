@@ -203,7 +203,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd }) => {
 
 	return (
 		<StyledEventView>
-			<SkewedBox clipPath="0% 0, 100% 0, 100% 100%, 0% 100%" color="darkgray">
+			<SkewedBox clipPath="0% 0, 100% 0, 100% 100%, 0% 100%" color="darkgray" isSelected={isEditing}>
 				<CenteredContent>
 					<div className="eventview-wrapper">
 						{!isEditing && (

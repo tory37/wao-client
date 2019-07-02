@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import EventAdd from './events/EventAdd';
 import EventView from './events/EventView';
+import SkewedBox from './SkewedBox';
 
 // 500 x 262
 const StyledEvents = styled.div`
@@ -22,14 +23,25 @@ const StyledEvents = styled.div`
 	}
 
 	.divider {
-		width: 80px;
-		height: 40px;
-		margin-left: 50px;
+		width: 100px;
+		height: 30px;
+		margin-left: 100px;
 	}
 `;
 
 const Events = ({ events }) => {
 	const [isEditing, setIsEdit] = useState(false);
+	const [isAdding, setIsAdd] = useState(false);
+
+	const onAddStart = () => {
+		setIsAdd(true);
+		onEditStart();
+	};
+
+	const onAddEnd = () => {
+		setIsAdd(false);
+		onEditEnd();
+	};
 
 	const onEditStart = () => {
 		setIsEdit(true);
@@ -42,8 +54,25 @@ const Events = ({ events }) => {
 	return (
 		<StyledEvents>
 			<div className="events-content">
-				<EventAdd canAdd={!isEditing} onAddStart={onEditStart} onAddEnd={onEditEnd} />
-				{events && events.length > 0 && events.map((event, i) => <EventView event={event} canEdit={!isEditing} onEditStart={onEditStart} onEditEnd={onEditEnd} key={i} />)}
+				<EventAdd canAdd={!isEditing} onAddStart={onAddStart} onAddEnd={onAddEnd} />
+				{isAdding && (
+					<div className="divider">
+						<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
+					</div>
+				)}
+
+				{events &&
+					events.length > 0 &&
+					events.map((event, i) => (
+						<div>
+							<EventView event={event} canEdit={!isEditing} onEditStart={onEditStart} onEditEnd={onEditEnd} key={i} />
+							{i < events.length - 1 && (
+								<div className="divider">
+									<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
+								</div>
+							)}
+						</div>
+					))}
 
 				{(!events || events.length === 0) && <div>No future events</div>}
 			</div>
