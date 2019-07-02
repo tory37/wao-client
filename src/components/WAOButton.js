@@ -8,13 +8,20 @@ import CenteredContent from './CenteredContent';
 const StyledButton = styled.div`
 	width: ${props => (props.xs ? '60px' : props.sm ? '70px' : props.md ? '80px' : props.lg ? '90px' : props.xl ? '100px' : props.xl2 ? '110px' : props.xl3 ? '120px' : '80px')};
 	height: 40px;
+	cursor: ${props => (props.isDisabled ? 'not-allowed' : 'pointer')};
 `;
 
-const WAOButton = ({ title, color, clickCallback, xs, sm, md, lg, xl, xl2, xl3 }) => {
+const WAOButton = ({ title, color, clickCallback, isDisabled, xs, sm, md, lg, xl, xl2, xl3 }) => {
+	const onClick = () => {
+		if (!isDisabled) {
+			clickCallback();
+		}
+	};
+
 	return (
-		<div onClick={clickCallback}>
-			<StyledButton xs={xs} sm={sm} md={md} lg={lg} xl={xl} xl2={xl2} xl3={xl3}>
-				<SkewedBox clipPath="3% 0, 100% 0, 96% 100%, 0% 100%" shouldGrowOnHover fromCenter useScale color={color}>
+		<div onClick={onClick}>
+			<StyledButton xs={xs} sm={sm} md={md} lg={lg} xl={xl} xl2={xl2} xl3={xl3} isDisabled={isDisabled}>
+				<SkewedBox clipPath="3% 0, 100% 0, 96% 100%, 0% 100%" shouldGrowOnHover fromCenter useScale color={color} isDisabled={isDisabled}>
 					<CenteredContent>{title}</CenteredContent>
 				</SkewedBox>
 			</StyledButton>

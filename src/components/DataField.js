@@ -10,6 +10,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const StyledDataField = styled.div`
 	text-align: left;
+	width: 100%;
 
 	label {
 		width: 100%;
@@ -25,13 +26,13 @@ const StyledDataField = styled.div`
 			border: solid 5px black;
 			padding-left: 5px;
 			padding-right: 5px;
-			width: calc(100% - 10px);
+			width: calc(100% - 20px);
 		}
 
 		textarea {
 			padding: 5px;
 			height: 200px;
-			width: calc(100% - 10px);
+			width: calc(100% - 20px);
 			resize: none;
 			border: solid 5px black;
 		}

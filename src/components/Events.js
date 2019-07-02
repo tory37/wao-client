@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { connect } from 'react-redux';
 
 import EventAdd from './events/EventAdd';
+import EventView from './events/EventView';
 
 // 500 x 262
 const StyledEvents = styled.div`
@@ -26,14 +28,31 @@ const StyledEvents = styled.div`
 	}
 `;
 
-const Events = () => {
+const Events = ({ events }) => {
+	const [isEditing, setIsEdit] = useState(false);
+
+	const onEditStart = () => {
+		setIsEdit(true);
+	};
+
+	const onEditEnd = () => {
+		setIsEdit(false);
+	};
+
 	return (
 		<StyledEvents>
 			<div className="events-content">
-				<EventAdd />
+				<EventAdd canAdd={!isEditing} onAddStart={onEditStart} onAddEnd={onEditEnd} />
+				{events && events.length > 0 && events.map((event, i) => <EventView event={event} canEdit={!isEditing} onEditStart={onEditStart} onEditEnd={onEditEnd} key={i} />)}
+
+				{(!events || events.length === 0) && <div>No future events</div>}
 			</div>
 		</StyledEvents>
 	);
 };
 
-export default Events;
+const mapStateToProps = state => ({
+	events: state.events
+});
+
+export default connect(mapStateToProps)(Events);

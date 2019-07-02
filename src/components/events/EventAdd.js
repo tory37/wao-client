@@ -32,7 +32,7 @@ const StyledEventAdd = styled.div`
 		.eventadd-content {
 			width: 100%;
 			padding-left: 19px;
-			padding-right: 28px;
+			padding-right: 30px;
 			padding-bottom: 5px;
 
 			.spacer {
@@ -70,7 +70,7 @@ const StyledEventAdd = styled.div`
 	}
 `;
 
-const EventAdd = ({ createEvent }) => {
+const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 	const createInitialState = () => {
 		return {
 			imageUrl: '',
@@ -88,12 +88,14 @@ const EventAdd = ({ createEvent }) => {
 	const [eventAdd, setEventAdd] = useState(createInitialState());
 
 	const onAddClick = e => {
+		onAddStart();
 		const moddedState = _.clone(eventAdd);
 		moddedState.isCreating = true;
 		setEventAdd(moddedState);
 	};
 
 	const onCancel = e => {
+		onAddEnd();
 		const moddedState = _.clone(eventAdd);
 		moddedState.isCreating = false;
 		setEventAdd(moddedState);
@@ -118,6 +120,7 @@ const EventAdd = ({ createEvent }) => {
 		createEvent(newEvent);
 		// .then(() => {
 		// 	setEventAdd(createInitialState());
+		// onAddEnd();
 		// })
 		// .catch(e => {
 		// 	const moddedState = _.clone(eventAdd);
@@ -128,7 +131,7 @@ const EventAdd = ({ createEvent }) => {
 
 	return (
 		<StyledEventAdd>
-			{!eventAdd.isCreating && <WAOButton title="Add New" color="purple" xl3 clickCallback={onAddClick} />}
+			{!eventAdd.isCreating && <WAOButton title="Add New" color="purple" xl3 clickCallback={onAddClick} isDisabled={!canAdd} />}
 			{eventAdd.isCreating && (
 				<div className="eventadd-view">
 					<SkewedBox clipPath="3% 0, 100% 0, 96% 100%, 0% 100%" color="darkgray" isSelected>
