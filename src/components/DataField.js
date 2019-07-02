@@ -46,7 +46,7 @@ const StyledDataField = styled.div`
 	}
 `;
 
-const DataField = ({ statePropertyPath, formState, formSetState, locationObjectStatePath, min, max, title, isText, isTextArea, isLocation, isNumber, isEmail, isPassword, isDate }) => {
+const DataField = ({ statePropertyPath, formState, formSetState, min, max, title, isText, isTextArea, isLocation, isNumber, isEmail, isPassword, isDate }) => {
 	const onPlaceSelected = place => {
 		console.log(place);
 		let location = {
@@ -56,7 +56,9 @@ const DataField = ({ statePropertyPath, formState, formSetState, locationObjectS
 		};
 		console.log(location);
 		const moddedState = _.clone(formState);
-		moddedState[locationObjectStatePath] = location;
+		moddedState.address = location.address;
+		moddedState.lat = location.lat;
+		moddedState.lng = location.lng;
 		moddedState[statePropertyPath] = place.formatted_address;
 		formSetState(moddedState);
 	};

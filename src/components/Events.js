@@ -20,6 +20,10 @@ const StyledEvents = styled.div`
 		flex-direction: column;
 		justify-content: center;
 		align-items: flex-start;
+
+		.events-event-wrapper {
+			width: 100%;
+		}
 	}
 
 	.divider {
@@ -64,7 +68,7 @@ const Events = ({ events }) => {
 				{events &&
 					events.length > 0 &&
 					events.map((event, i) => (
-						<div>
+						<div className="events-event-wrapper">
 							<EventView event={event} canEdit={!isEditing} onEditStart={onEditStart} onEditEnd={onEditEnd} key={i} />
 							{i < events.length - 1 && (
 								<div className="divider">

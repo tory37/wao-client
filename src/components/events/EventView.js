@@ -230,14 +230,14 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd }) => {
 							{isEditing && <DataField statePropertyPath="endTimestamp" formState={moddedEvent} formSetState={setModdedEvent} title="End Timestamp" isNumber />}
 
 							{!isEditing && (
-								<a href={'http://www.google.com/maps/place/' + event.location.lat + ',' + event.location.lng} className="eventview-location eventview-entry">
+								<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} className="eventview-location eventview-entry">
 									<i className="fas fa-street-view"></i>
-									<div className="eventview-location-address">{event.location.address}</div>
+									<div className="eventview-location-address">{event.address}</div>
 									<span>Show Map</span>
 								</a>
 							)}
 
-							{isEditing && <DataField statePropertyPath="location.address" locationObjectStatePath="location" formState={moddedEvent} formSetState={setModdedEvent} title="Location" isLocation />}
+							{isEditing && <DataField statePropertyPath="address" formState={moddedEvent} formSetState={setModdedEvent} title="Location" isLocation />}
 
 							{!isEditing && (
 								<div className="eventview-description">
@@ -263,7 +263,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd }) => {
 										<WAOButton title="Quit" color="red" clickCallback={onCancel} md />
 									</div>
 									<div>
-										<WAOButton title="Save" color="Green" clickCallback={onSave} md />
+										<WAOButton title="Save" color="green" clickCallback={onSave} md />
 									</div>
 								</div>
 							)}

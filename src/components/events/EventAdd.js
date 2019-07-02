@@ -74,11 +74,12 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 	const createInitialState = () => {
 		return {
 			imageUrl: '',
-			startMoment: moment().unix(),
-			endMoment: moment().unix(),
+			startTimestamp: moment().unix(),
+			endTimestamp: moment().unix(),
 			title: '',
-			location: {},
-			locationString: '',
+			address: '',
+			lat: '',
+			lng: '',
 			description: '',
 			isCreating: false,
 			isSaving: false
@@ -108,10 +109,12 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 
 		const newEvent = {
 			imageUrl: eventAdd.imageUrl,
-			startTimestamp: eventAdd.startMoment, //  Make timestamp from date and time
-			endTimestamp: eventAdd.endMoment, // same
+			startTimestamp: parseInt(eventAdd.startTimestamp), //  Make timestamp from date and time
+			endTimestamp: parseInt(eventAdd.endTimestamp), // same
 			title: eventAdd.title,
-			location: eventAdd.location,
+			address: eventAdd.address,
+			lat: eventAdd.lat,
+			lng: eventAdd.lng,
 			description: eventAdd.description
 		};
 
@@ -140,15 +143,15 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 								<div className="eventadd-content">
 									<DataField statePropertyPath="title" formState={eventAdd} formSetState={setEventAdd} title="Title" isText />
 									<DataField statePropertyPath="imageUrl" formState={eventAdd} formSetState={setEventAdd} title="Image URL" isText />
-									<DataField statePropertyPath="startMoment" formState={eventAdd} formSetState={setEventAdd} title="Start Date" isNumber />
+									<DataField statePropertyPath="startTimestamp" formState={eventAdd} formSetState={setEventAdd} title="Start Date" isNumber />
 									{/* <div className="spacer" /> */}
-									<DataField statePropertyPath="endMoment" formState={eventAdd} formSetState={setEventAdd} title="End Date" isNumber />
-									<DataField statePropertyPath="locationString" locationObjectStatePath="location" formState={eventAdd} formSetState={setEventAdd} title="Location" isLocation />
+									<DataField statePropertyPath="endTimestamp" formState={eventAdd} formSetState={setEventAdd} title="End Date" isNumber />
+									<DataField statePropertyPath="address" formState={eventAdd} formSetState={setEventAdd} title="Location" isLocation />
 									<DataField statePropertyPath="description" formState={eventAdd} formSetState={setEventAdd} title="Description" isTextArea />
 
 									<div className="eventadd-buttons">
 										<div className="eventadd-button-wrapper">
-											<WAOButton title="Quit" color="red" clickCallback={onCancel} md />
+											<WAOButton title="Quit" color="red" md clickCallback={onCancel} />
 										</div>
 										<WAOButton title="Save" color="green" md clickCallback={onSave} />
 									</div>

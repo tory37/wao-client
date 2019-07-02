@@ -22,7 +22,7 @@ const StyledSkewedBox = styled.div`
 		height: ${props => (!props.isDisabled && (props.shouldGrowOnHover || props.isSelected) && !props.useScale ? '100%' : '90%')};
 	}
 
-	.inner {
+	& > .skewedbox-inner {
 		background-color: ${props => (props.isDisabled ? 'black' : props.color)};
 		width: 100%;
 		height: 100%;
@@ -33,7 +33,7 @@ const StyledSkewedBox = styled.div`
 const SkewedBox = ({ children, clipPath, color, shouldGrowOnHover, isSelected, fromCenter, useScale, isDisabled }) => {
 	return (
 		<StyledSkewedBox clipPath={clipPath} borderWidth={borderWidth} color={color} shouldGrowOnHover={shouldGrowOnHover} isSelected={isSelected} fromCenter={fromCenter} useScale={useScale} isDisabled={isDisabled}>
-			<div className="inner">{children}</div>
+			<div className="skewedbox-inner">{children}</div>
 		</StyledSkewedBox>
 	);
 };
