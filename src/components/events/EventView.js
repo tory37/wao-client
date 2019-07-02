@@ -55,6 +55,10 @@ const StyledEventView = styled.div`
 
 			.eventview-date {
 				margin-bottom: 1px;
+
+				span {
+					text-align: left;
+				}
 			}
 
 			.eventview-location {
@@ -191,7 +195,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd }) => {
 		if (startMoment.isSame(endMoment, 'day')) {
 			display += endMoment.format('h:mm A');
 		} else {
-			endMoment.format('dddd, MMMM D h:mm A');
+			display += endMoment.format('dddd, MMMM D [at] h:mm A');
 		}
 
 		return display;

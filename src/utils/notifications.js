@@ -1,19 +1,18 @@
 import React from 'react';
+import _ from 'lodash';
 import { toast } from 'react-toastify';
 
-const getContentFromRequestError = error => {
+const getContentFromRequestError = (error, defaultMessage) => {
 	console.log(error);
-	if (error && error.response && error.response.data && error.response.data.messages) {
-		return (
-			<div>
-				{error.response.data.messages.map((message, i) => (
-					<div key={i}>{message}</div>
-				))}
-			</div>
-		);
-	}
+	var messages = _.get(error, 'response.data.messages', [defaultMessage]);
 
-	return <div>Unknown Error</div>;
+	return (
+		<div>
+			{messages.map((message, i) => (
+				<div key={i}>{message}</div>
+			))}
+		</div>
+	);
 };
 
 const displayLoadingNotification = content => {
@@ -40,10 +39,10 @@ const displaySuccessNotification = (content, toastId) => {
 	}
 };
 
-const displayErrorNotification = (err, toastId) => {
+const displayErrorNotification = (err, defaultMessage, toastId) => {
 	if (toastId) {
 		toast.update(toastId, {
-			render: getContentFromRequestError(err),
+			render: getContentFromRequestError(err, defaultMessage),
 			type: toast.TYPE.ERROR,
 			autoClose: null,
 			closeOnClick: null,

@@ -2,5 +2,8 @@ export const GET_ERRORS = 'GET_ERRORS';
 export const USER_LOADING = 'USER_LOADING';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
-export const ADD_NEW_EVENT = 'ADD_NEW_EVENT';
+export const ADD_NEW_EVENTS = 'ADD_NEW_EVENTS';
 export const SET_EVENTS = 'SET_EVENTS';
+export const SET_HAS_FETCHED_PAST = 'SET_HAS_FETCHED_PAST"';
+
+export const SET_IS_LOADING = 'SET_IS_LOADING';

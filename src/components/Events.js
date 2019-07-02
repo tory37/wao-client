@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
+import { fetchPastEvents as fetchPastEventsAction } from '../actions/eventActions';
 
 import EventAdd from './events/EventAdd';
 import EventView from './events/EventView';
 import SkewedBox from './SkewedBox';
+import WAOButton from './WAOButton';
 
 // 500 x 262
 const StyledEvents = styled.div`
@@ -13,16 +15,20 @@ const StyledEvents = styled.div`
 
 	.events-content {
 		width: 100%;
-		max-width: 500px;
+		max-width: 600px;
 		margin: auto;
 
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		align-items: flex-start;
+		align-items: center;
 
 		.events-event-wrapper {
 			width: 100%;
+		}
+
+		.events-show-past-button {
+			margin-top: 10px;
 		}
 	}
 
@@ -33,9 +39,10 @@ const StyledEvents = styled.div`
 	}
 `;
 
-const Events = ({ events }) => {
+const Events = ({ events, hasFetchedPast, fetchPastEvents }) => {
 	const [isEditing, setIsEdit] = useState(false);
 	const [isAdding, setIsAdd] = useState(false);
+	const [isLoadingPast, setIsLoadingPast] = useState(false);
 
 	const onAddStart = () => {
 		setIsAdd(true);
@@ -55,6 +62,15 @@ const Events = ({ events }) => {
 		setIsEdit(false);
 	};
 
+	const onShowPastEvents = () => {
+		console.log("Fetching");
+		setIsLoadingPast(true);
+		fetchPastEvents()
+			.then(() => {
+				setIsLoadingPast(false);
+			})
+	};
+
 	return (
 		<StyledEvents>
 			<div className="events-content">
@@ -68,8 +84,8 @@ const Events = ({ events }) => {
 				{events &&
 					events.length > 0 &&
 					events.map((event, i) => (
-						<div className="events-event-wrapper">
-							<EventView event={event} canEdit={!isEditing} onEditStart={onEditStart} onEditEnd={onEditEnd} key={i} />
+						<div className="events-event-wrapper"  key={event._id} >
+							<EventView event={event} canEdit={!isEditing} onEditStart={onEditStart} onEditEnd={onEditEnd}/>
 							{i < events.length - 1 && (
 								<div className="divider">
 									<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
@@ -78,14 +94,24 @@ const Events = ({ events }) => {
 						</div>
 					))}
 
-				{(!events || events.length === 0) && <div>No future events</div>}
+				{!hasFetchedPast && (
+					<div className="events-show-past-button">
+						<WAOButton title="Show Past" color="blue" xl3 clickCallback={onShowPastEvents} isLoading={isLoadingPast} isDisabled={isLoadingPast}/>
+					</div>
+				)}
+
+				{(!events || events.length === 0) && <div>No upcoming events</div>}
 			</div>
 		</StyledEvents>
 	);
 };
 
 const mapStateToProps = state => ({
-	events: state.events
+	events: state.events,
+	hasFetchedPast: state.hasFetchedPast
 });
 
-export default connect(mapStateToProps)(Events);
+export default connect(
+	mapStateToProps,
+	{ fetchPastEvents: fetchPastEventsAction }
+)(Events);

@@ -73,87 +73,81 @@ const StyledEventAdd = styled.div`
 const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 	const createInitialState = () => {
 		return {
-			imageUrl: '',
-			startTimestamp: moment().unix(),
-			endTimestamp: moment().unix(),
-			title: '',
-			address: '',
-			lat: '',
-			lng: '',
-			description: '',
-			isCreating: false,
-			isSaving: false
+			imageUrl: 'https://i.ytimg.com/vi/rehbyT4njbY/maxresdefault.jpg',
+			startTimestamp: 1561852800, //moment().unix()
+			endTimestamp: 1561906800, //moment().unix()
+			title: 'Test Event 1',
+			address: '318 Harrell Dr, Lafayette, LA 70503, USA',
+			lat: 30.180797,
+			lng: -92.06473890000001,
+			description: 'Test'
 		};
 	};
 
-	const [eventAdd, setEventAdd] = useState(createInitialState());
+	const [newEvent, setNewEvent] = useState(createInitialState());
+	const [isAdding, setIsAdding] = useState(false);
+	const [isSaving, setIsSaving] = useState(false);
 
 	const onAddClick = e => {
 		onAddStart();
-		const moddedState = _.clone(eventAdd);
-		moddedState.isCreating = true;
-		setEventAdd(moddedState);
+		setIsAdding(true);
 	};
 
 	const onCancel = e => {
+		setIsAdding(false);
+		setNewEvent(createInitialState());
 		onAddEnd();
-		const moddedState = _.clone(eventAdd);
-		moddedState.isCreating = false;
-		setEventAdd(moddedState);
 	};
 
 	const onSave = e => {
-		const moddedState = _.clone(eventAdd);
-		moddedState.isSaving = true;
-		setEventAdd(moddedState);
+		setIsSaving(true);
 
-		const newEvent = {
-			imageUrl: eventAdd.imageUrl,
-			startTimestamp: parseInt(eventAdd.startTimestamp), //  Make timestamp from date and time
-			endTimestamp: parseInt(eventAdd.endTimestamp), // same
-			title: eventAdd.title,
-			address: eventAdd.address,
-			lat: eventAdd.lat,
-			lng: eventAdd.lng,
-			description: eventAdd.description
+		const eventToAdd = {
+			imageUrl: newEvent.imageUrl,
+			startTimestamp: parseInt(newEvent.startTimestamp), //  Make timestamp from date and time
+			endTimestamp: parseInt(newEvent.endTimestamp), // same
+			title: newEvent.title,
+			address: newEvent.address,
+			lat: newEvent.lat,
+			lng: newEvent.lng,
+			description: newEvent.description
 		};
 
-		console.log('New Event: ', newEvent);
+		console.log('New Event: ', eventToAdd);
 
-		createEvent(newEvent);
-		// .then(() => {
-		// 	setEventAdd(createInitialState());
-		// onAddEnd();
-		// })
-		// .catch(e => {
-		// 	const moddedState = _.clone(eventAdd);
-		// 	moddedState.isSaving = false;
-		// 	setEventAdd(moddedState);
-		// });
+		createEvent(newEvent)
+			.then(() => {
+				setIsAdding(false);
+				onAddEnd();
+				setNewEvent(createInitialState());
+			})
+			.finally(() => {
+				setIsSaving(false);
+			});
 	};
 
 	return (
 		<StyledEventAdd>
-			{!eventAdd.isCreating && <WAOButton title="Add New" color="purple" xl3 clickCallback={onAddClick} isDisabled={!canAdd} />}
-			{eventAdd.isCreating && (
+			{!isAdding && <WAOButton title="Add New" color="purple" xl3 clickCallback={onAddClick} isDisabled={!canAdd} />}
+			{isAdding && (
 				<div className="eventadd-view">
 					<SkewedBox clipPath="3% 0, 100% 0, 96% 100%, 0% 100%" color="darkgray" isSelected>
 						<form id="event-add-form" noValidate onSubmit={onSave}>
 							<CenteredContent>
 								<div className="eventadd-content">
-									<DataField statePropertyPath="title" formState={eventAdd} formSetState={setEventAdd} title="Title" isText />
-									<DataField statePropertyPath="imageUrl" formState={eventAdd} formSetState={setEventAdd} title="Image URL" isText />
-									<DataField statePropertyPath="startTimestamp" formState={eventAdd} formSetState={setEventAdd} title="Start Date" isNumber />
+									<DataField statePropertyPath="title" formState={newEvent} formSetState={setNewEvent} title="Title" isText />
+									<DataField statePropertyPath="imageUrl" formState={newEvent} formSetState={setNewEvent} title="Image URL" isText />
+									<DataField statePropertyPath="startTimestamp" formState={newEvent} formSetState={setNewEvent} title="Start Date" isNumber />
 									{/* <div className="spacer" /> */}
-									<DataField statePropertyPath="endTimestamp" formState={eventAdd} formSetState={setEventAdd} title="End Date" isNumber />
-									<DataField statePropertyPath="address" formState={eventAdd} formSetState={setEventAdd} title="Location" isLocation />
-									<DataField statePropertyPath="description" formState={eventAdd} formSetState={setEventAdd} title="Description" isTextArea />
+									<DataField statePropertyPath="endTimestamp" formState={newEvent} formSetState={setNewEvent} title="End Date" isNumber />
+									<DataField statePropertyPath="address" formState={newEvent} formSetState={setNewEvent} title="Location" isLocation />
+									<DataField statePropertyPath="description" formState={newEvent} formSetState={setNewEvent} title="Description" isTextArea />
 
 									<div className="eventadd-buttons">
 										<div className="eventadd-button-wrapper">
-											<WAOButton title="Quit" color="red" md clickCallback={onCancel} />
+											<WAOButton title="Quit" color="red" md clickCallback={onCancel} isLoading={isSaving} isDisabled={isSaving} />
 										</div>
-										<WAOButton title="Save" color="green" md clickCallback={onSave} />
+										<WAOButton title="Save" color="green" md clickCallback={onSave} isLoading={isSaving} isDisabled={isSaving} />
 									</div>
 								</div>
 							</CenteredContent>
