@@ -1,11 +1,19 @@
 import api from '../utils/api/events';
 
-import { ADD_NEW_EVENTS, SET_EVENTS, SET_HAS_FETCHED_PAST } from './types';
+import { ADD_NEW_EVENTS, UPDATE_EVENT, SET_EVENTS, SET_HAS_FETCHED_PAST } from './types';
 import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification } from '../utils/notifications';
 
 export const addNewEvents = event => ({
 	type: ADD_NEW_EVENTS,
 	payload: event
+});
+
+export const updateExistingEvent = (id, updatedEvent) => ({
+	type: UPDATE_EVENT,
+	payload: {
+		updatedEvent,
+		id
+	}
 });
 
 export const setEvents = events => ({
@@ -16,7 +24,7 @@ export const setEvents = events => ({
 export const setHasFetchedPast = hasFetchedPast => ({
 	type: SET_HAS_FETCHED_PAST,
 	payload: hasFetchedPast
-})
+});
 
 export const fetchFutureEvents = () => dispatch => {
 	return api
@@ -27,7 +35,7 @@ export const fetchFutureEvents = () => dispatch => {
 		})
 		.catch(err => {
 			displayErrorNotification(err, 'Error fetching future events');
-			return err;
+			throw err;
 		});
 };
 
@@ -43,22 +51,36 @@ export const fetchPastEvents = () => dispatch => {
 		})
 		.catch(err => {
 			displayErrorNotification(err, 'Error fetching past events');
-			return err;
+			throw err;
 		});
 };
 
 export const createEvent = eventData => dispatch => {
-	console.log('creating event');
 	const notificationId = displayLoadingNotification('Saving event...');
 	return api
 		.createEvent(eventData)
 		.then(res => {
-			displaySuccessNotification('Event save successfully', notificationId);
+			displaySuccessNotification('Event added successfully', notificationId);
 			dispatch(addNewEvents(res.data));
 			return res.data;
 		})
 		.catch(err => {
 			displayErrorNotification(err, 'Error creating event', notificationId);
-			return err;
+			throw err;
+		});
+};
+
+export const updateEvent = (id, eventData) => dispatch => {
+	const notificationId = displayLoadingNotification('Updating event...');
+	return api
+		.updateEvent(id, eventData)
+		.then(res => {
+			displaySuccessNotification('Event updated successfully', notificationId);
+			dispatch(updateExistingEvent(id, res.data));
+			return res.data;
+		})
+		.catch(err => {
+			displayErrorNotification(err, 'Error updating event', notificationId);
+			throw err;
 		});
 };

@@ -6,6 +6,7 @@ import { fetchPastEvents as fetchPastEventsAction } from '../actions/eventAction
 import EventAdd from './events/EventAdd';
 import EventView from './events/EventView';
 import SkewedBox from './SkewedBox';
+import CenteredContent from './CenteredContent';
 import WAOButton from './WAOButton';
 
 // 500 x 262
@@ -25,6 +26,11 @@ const StyledEvents = styled.div`
 
 		.events-event-wrapper {
 			width: 100%;
+		}
+
+		.events-no-upcoming {
+			width: 200px;
+			height: 50px;
 		}
 
 		.events-show-past-button {
@@ -63,12 +69,11 @@ const Events = ({ events, hasFetchedPast, fetchPastEvents }) => {
 	};
 
 	const onShowPastEvents = () => {
-		console.log("Fetching");
+		console.log('Fetching');
 		setIsLoadingPast(true);
-		fetchPastEvents()
-			.then(() => {
-				setIsLoadingPast(false);
-			})
+		fetchPastEvents().then(() => {
+			setIsLoadingPast(false);
+		});
 	};
 
 	return (
@@ -84,8 +89,8 @@ const Events = ({ events, hasFetchedPast, fetchPastEvents }) => {
 				{events &&
 					events.length > 0 &&
 					events.map((event, i) => (
-						<div className="events-event-wrapper"  key={event._id} >
-							<EventView event={event} canEdit={!isEditing} onEditStart={onEditStart} onEditEnd={onEditEnd}/>
+						<div className="events-event-wrapper" key={event._id}>
+							<EventView event={event} canEdit={!isEditing} onEditStart={onEditStart} onEditEnd={onEditEnd} />
 							{i < events.length - 1 && (
 								<div className="divider">
 									<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
@@ -94,13 +99,19 @@ const Events = ({ events, hasFetchedPast, fetchPastEvents }) => {
 						</div>
 					))}
 
-				{!hasFetchedPast && (
-					<div className="events-show-past-button">
-						<WAOButton title="Show Past" color="blue" xl3 clickCallback={onShowPastEvents} isLoading={isLoadingPast} isDisabled={isLoadingPast}/>
+				{(!events || events.length === 0) && (
+					<div className="events-no-upcoming">
+						<SkewedBox clipPath="0% 0, 97% 0, 100% 100%, 3% 100%" color="plum" isSelected={true}>
+							<CenteredContent>No Upcoming Events</CenteredContent>
+						</SkewedBox>
 					</div>
 				)}
 
-				{(!events || events.length === 0) && <div>No upcoming events</div>}
+				{!hasFetchedPast && (
+					<div className="events-show-past-button">
+						<WAOButton title="Show Past" color="blue" xl3 clickCallback={onShowPastEvents} isLoading={isLoadingPast} isDisabled={isLoadingPast} />
+					</div>
+				)}
 			</div>
 		</StyledEvents>
 	);

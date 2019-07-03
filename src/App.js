@@ -21,14 +21,15 @@ if (localStorage.jwtToken) {
 	setAuthToken(token);
 	// Decode token and get user info and exp
 	const decoded = jwtDecode(token);
-	// Set user and isAuthenticated
-	store.dispatch(fetchUser());
 
 	// Check for expired token
 	const currentTime = Date.now() / 1000; // to get in milliseconds
 	if (decoded.exp < currentTime) {
 		// Logout user
 		store.dispatch(logoutUser());
+	} else {
+		// Set user and isAuthenticated
+		store.dispatch(fetchUser());
 	}
 }
 

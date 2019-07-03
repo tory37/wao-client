@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import _ from 'lodash';
 import moment from 'moment';
+import { updateEvent as updateEventAction } from '../../actions/eventActions';
 
 import Img from 'react-image';
 import SkewedBox from '../SkewedBox';
@@ -163,7 +164,7 @@ const StyledEventView = styled.div`
 	}
 `;
 
-const EventView = ({ event, canEdit, onEditStart, onEditEnd }) => {
+const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 	const [moddedEvent, setModdedEvent] = useState(_.clone(event));
 	const [isEditing, setIsEditing] = useState(false);
 	const [isSaving, setIsSaving] = useState(false);
@@ -181,14 +182,35 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd }) => {
 	};
 
 	const onSave = e => {
-		//setIsSaving(true);
-		//saveEvent(moddedEvent);
+		setIsSaving(true);
+		setIsEditing(true);
+
+		const formattedModdedEvent = {
+			imageUrl: moddedEvent.imageUrl,
+			startTimestamp: parseInt(moddedEvent.startTimestamp), //  Make timestamp from date and time
+			endTimestamp: parseInt(moddedEvent.endTimestamp), // same
+			title: moddedEvent.title,
+			address: moddedEvent.address,
+			lat: moddedEvent.lat,
+			lng: moddedEvent.lng,
+			description: moddedEvent.description
+		};
+
+		updateEvent(event._id, moddedEvent)
+			.then(() => {
+				setModdedEvent(_.clone(event));
+				setIsEditing(false);
+				onEditEnd();
+			})
+			.finally(() => {
+				setIsSaving(false);
+			});
 	};
 
 	const getDateDisplay = () => {
 		let nowMoment = moment();
-		let startMoment = moment(event.startTimestamp);
-		let endMoment = moment(event.endTimestamp);
+		let startMoment = moment.unix(event.startTimestamp);
+		let endMoment = moment.unix(event.endTimestamp);
 
 		let display = startMoment.format('dddd, MMMM D, YYYY [at] h:mm A') + ' - ';
 
@@ -281,4 +303,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd }) => {
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps)(EventView);
+export default connect(
+	mapStateToProps,
+	{ updateEvent: updateEventAction }
+)(EventView);

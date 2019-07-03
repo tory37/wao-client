@@ -49,7 +49,7 @@ const displayErrorNotification = (err, defaultMessage, toastId) => {
 			closeButton: null
 		});
 	} else {
-		toast.error(getContentFromRequestError(err));
+		toast.error(getContentFromRequestError(err, defaultMessage));
 	}
 };
 

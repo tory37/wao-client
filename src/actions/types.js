@@ -3,6 +3,7 @@ export const USER_LOADING = 'USER_LOADING';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 export const ADD_NEW_EVENTS = 'ADD_NEW_EVENTS';
+export const UPDATE_EVENT = 'UPDATE_EVENT';
 export const SET_EVENTS = 'SET_EVENTS';
 export const SET_HAS_FETCHED_PAST = 'SET_HAS_FETCHED_PAST"';
 

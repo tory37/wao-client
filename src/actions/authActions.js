@@ -27,6 +27,7 @@ export const registerUser = (userData, history) => dispatch => {
 		}) // re-direct to login on siccessful register
 		.catch(err => {
 			displayErrorNotification(err, 'Registration error occured. Plz contact admins', notificationId);
+			throw err;
 		});
 };
 
@@ -49,7 +50,10 @@ export const loginUser = userData => (dispatch, history) => {
 			// Set current user
 			dispatch(setCurrentUser(user));
 		})
-		.catch(err => displayErrorNotification(err, 'Login error occured. Plz contact admins', notificationId));
+		.catch(err => {
+			displayErrorNotification(err, 'Login error occured. Plz contact admins', notificationId);
+			throw err;
+		});
 };
 
 export const fetchUser = () => (dispatch, history) => {
@@ -60,7 +64,8 @@ export const fetchUser = () => (dispatch, history) => {
 			dispatch(setCurrentUser(user));
 		})
 		.catch(err => {
-			displayErrorNotification(err, 'Error getting user information. Plz contact admins');
+			displayErrorNotification(err, 'Error refreshing user information. Plz contact admins');
+			throw err;
 		});
 };
 
