@@ -27,6 +27,10 @@ const StyledDataField = styled.div`
 			padding-left: 5px;
 			padding-right: 5px;
 			width: calc(100% - 20px);
+
+			&:focus {
+				outline: yellow auto 5px;
+			}
 		}
 
 		textarea {
@@ -88,6 +92,16 @@ const DataField = ({ statePropertyPath, formState, formSetState, min, max, title
 					<div>
 						<span>{formState[statePropertyPath] && formState[statePropertyPath].length > 0 ? title : '\u00A0'}</span>
 						<input onChange={onChange} value={formState[statePropertyPath]} id={statePropertyPath} type="text" placeholder={title} />
+					</div>
+				) : isPassword ? (
+					<div>
+						<span>{formState[statePropertyPath] && formState[statePropertyPath].length > 0 ? title : '\u00A0'}</span>
+						<input onChange={onChange} value={formState[statePropertyPath]} id={statePropertyPath} type="password" placeholder={title} />
+					</div>
+				) : isEmail ? (
+					<div>
+						<span>{formState[statePropertyPath] && formState[statePropertyPath].length > 0 ? title : '\u00A0'}</span>
+						<input onChange={onChange} value={formState[statePropertyPath]} id={statePropertyPath} type="email" placeholder={title} />
 					</div>
 				) : isTextArea ? (
 					<div>

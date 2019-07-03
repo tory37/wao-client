@@ -45,7 +45,7 @@ const StyledEvents = styled.div`
 	}
 `;
 
-const Events = ({ events, hasFetchedPast, fetchPastEvents }) => {
+const Events = ({ events, hasFetchedPast, fetchPastEvents, auth }) => {
 	const [isEditing, setIsEdit] = useState(false);
 	const [isAdding, setIsAdd] = useState(false);
 	const [isLoadingPast, setIsLoadingPast] = useState(false);
@@ -79,7 +79,8 @@ const Events = ({ events, hasFetchedPast, fetchPastEvents }) => {
 	return (
 		<StyledEvents>
 			<div className="events-content">
-				<EventAdd canAdd={!isEditing} onAddStart={onAddStart} onAddEnd={onAddEnd} />
+				{auth.isAuthenticated && auth.user.roles.includes(`ADMIN`) && <EventAdd canAdd={!isEditing} onAddStart={onAddStart} onAddEnd={onAddEnd} />}
+
 				{isAdding && (
 					<div className="divider">
 						<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
@@ -90,7 +91,7 @@ const Events = ({ events, hasFetchedPast, fetchPastEvents }) => {
 					events.length > 0 &&
 					events.map((event, i) => (
 						<div className="events-event-wrapper" key={event._id}>
-							<EventView event={event} canEdit={!isEditing} onEditStart={onEditStart} onEditEnd={onEditEnd} />
+							<EventView event={event} canEdit={!isEditing && auth.isAuthenticated && auth.user.roles.includes(`ADMIN`)} onEditStart={onEditStart} onEditEnd={onEditEnd} />
 							{i < events.length - 1 && (
 								<div className="divider">
 									<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
@@ -119,7 +120,8 @@ const Events = ({ events, hasFetchedPast, fetchPastEvents }) => {
 
 const mapStateToProps = state => ({
 	events: state.events,
-	hasFetchedPast: state.hasFetchedPast
+	hasFetchedPast: state.hasFetchedPast,
+	auth: state.auth
 });
 
 export default connect(

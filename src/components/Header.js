@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Link, withRouter } from 'react-router-dom';
 
 import HeaderButton from './HeaderButton';
+import UserStatus from './UserStatus';
 
 const StyledHeader = styled.div`
 	width: 100%;
@@ -15,7 +16,7 @@ const StyledHeader = styled.div`
 		padding-bottom: 60px;
 	}
 
-	@media only screen and (min-width: 810px) {
+	@media only screen and (min-width: 945px) {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
@@ -40,7 +41,7 @@ const StyledHeader = styled.div`
 			padding-bottom: 10px;
 		}
 
-		@media only screen and (min-width: 810px) {
+		@media only screen and (min-width: 945px) {
 			padding-bottom: 0;
 		}
 
@@ -59,9 +60,12 @@ const StyledHeader = styled.div`
 		padding-right: 5px;
 		margin-top: -10px;
 
-		@media only screen and (min-width: 810px) {
+		@media only screen and (min-width: 945px) {
 			margin-bottom: -20px;
 		}
+	}
+
+	.header-user {
 	}
 `;
 
@@ -81,6 +85,9 @@ const Header = ({ location }) => {
 				<Link to="/photos">
 					<HeaderButton title="photos" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={location.pathname === '/photos'} />
 				</Link>
+				<div className="header-user">
+					<UserStatus></UserStatus>
+				</div>
 			</div>
 		</StyledHeader>
 	);

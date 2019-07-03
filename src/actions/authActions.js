@@ -22,7 +22,7 @@ export const registerUser = (userData, history) => dispatch => {
 	return api
 		.registerUser(userData)
 		.then(res => {
-			displaySuccessNotification('You signed up! Welcome!', notificationId);
+			displaySuccessNotification('Signedup! Plz Login', notificationId);
 			history.push('/login');
 		}) // re-direct to login on siccessful register
 		.catch(err => {

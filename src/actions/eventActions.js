@@ -61,7 +61,7 @@ export const createEvent = eventData => dispatch => {
 		.createEvent(eventData)
 		.then(res => {
 			displaySuccessNotification('Event added successfully', notificationId);
-			dispatch(addNewEvents(res.data));
+			dispatch(addNewEvents([res.data]));
 			return res.data;
 		})
 		.catch(err => {

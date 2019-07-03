@@ -6,7 +6,7 @@ const registerUser = userData => {
 };
 
 const loginUser = userData => {
-	return axios.post(`${process.env.REACT_APP_API_URL}users/login`, userData);
+	return axios.post(`${process.env.REACT_APP_API_URL}/users/login`, userData);
 };
 
 const fetchUser = () => {

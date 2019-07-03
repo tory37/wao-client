@@ -277,7 +277,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 
 							{isEditing && <DataField statePropertyPath="description" formState={moddedEvent} formSetState={setModdedEvent} title="Description" isTextArea />}
 
-							{!isEditing && (
+							{!isEditing && canEdit && (
 								<div className="eventview-buttons">
 									<WAOButton title="Edit" color="orange" clickCallback={onEdit} md isDisabled={!canEdit} />
 								</div>

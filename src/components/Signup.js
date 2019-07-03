@@ -1,82 +1,66 @@
 import React, { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import styled from '@emotion/styled';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { registerUser } from '../actions/authActions';
-import StyledShadowedBox from '../styles/StyledShadowedBox';
 
-import BUSButton from './BUSButton';
+import SkewedBox from './SkewedBox';
+import CenteredContent from './CenteredContent';
+import DataField from './DataField';
+import WAOButton from './WAOButton';
 
+// 500 x 262
 const StyledSignup = styled.div`
-	height: 100%;
+	width: 100%;
+
 	display: flex;
-	flex-direction: row;
-	justify-content: center;
+	flex-direction: column;
+	justify-content: flex-start;
 	align-items: center;
 
-	.content {
-		width: 450px;
-		height: auto;
-		padding: 48px 40px 36px;
-		background-color: white;
+	.signup-view {
+		width: 100%;
+		margin: auto;
+		max-width: 500px;
 
-		.title-row {
+		.signup-content {
 			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
-			align-items: center;
+			flex-direction: column;
+			width: 100%;
+			padding-left: 19px;
+			padding-right: 30px;
+			padding-bottom: 5px;
+			padding-top: 20px;
 
-			.title {
-				font-family: 'Google Sans', 'Noto Sans Myanmar UI', arial, sans-serif;
+			.signup-title {
+				font-family: NinjaNaruto;
+				margin-right: auto;
 				font-size: 24px;
-				font-weight: 400;
-				line-height: 1.3333;
-				align-self: center;
 			}
 
-			a {
-				font-size: 10px;
-			}
-		}
-
-		form {
-			width: 100%;
-		}
-
-		label {
-			/* display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center; */
-			margin-top: 25px;
-			width: 100%;
-			display: inline-block;
-			height: 54px;
-
-			span {
-				/* width: 115px;
-      margin-right: 20px; */
-				font-size: 12px;
-				color: darkgray;
+			.spacer {
+				height: 10px;
 			}
 
-			input {
-				border-top: none;
-				border-right: none;
-				border-left: none;
+			.signup-button {
+				margin-left: auto;
 			}
-		}
 
-		.bus-button {
-			margin-left: auto;
-			margin-top: 25px;
+			.signup-to-login {
+				margin-left: auto;
+				font-size: 14px;
+
+				a {
+					color: white;
+					cursor: pointer;
+				}
+			}
 		}
 	}
 `;
-
-const Signup = props => {
+const Signup = ({ auth, history, registerUser }) => {
 	const [signup, setSignup] = useState({
 		username: '',
 		email: '',
@@ -87,16 +71,10 @@ const Signup = props => {
 
 	useEffect(() => {
 		// If logged in user naviages here, redirect
-		if (props.auth.isAuthenticated) {
-			props.history.push('/login');
+		if (auth.isAuthenticated) {
+			history.push('/');
 		}
-
-		if (props.errors) {
-			const moddedState = _.clone(signup);
-			moddedState.errors = props.errors;
-			setSignup(moddedState);
-		}
-	}, [props.auth.isAuthenticated, props.errors, props.history, signup]);
+	}, [auth.isAuthenticated, history, signup]);
 
 	const onChange = e => {
 		// TODO: ASK ABOUT THIS
@@ -106,8 +84,6 @@ const Signup = props => {
 	};
 
 	const onSubmit = e => {
-		e.preventDefault();
-
 		const newUser = {
 			username: signup.username,
 			email: signup.email,
@@ -115,59 +91,36 @@ const Signup = props => {
 			password2: signup.password
 		};
 
-		props.registerUser(newUser, props.history);
+		registerUser(newUser, history);
 	};
-
-	const usernameLabel = 'Username';
-	const emailLabel = 'Email';
-	const passwordLabel = 'Password';
-	const password2Label = 'Confirm Password';
-
-	const usernameSpan = signup.username && signup.username.length > 0 ? usernameLabel : '\u00A0';
-	const emailSpan = signup.email && signup.email.length > 0 ? emailLabel : '\u00A0';
-	const passwordSpan = signup.password && signup.password.length > 0 ? passwordLabel : '\u00A0';
-	const password2Span = signup.password2 && signup.password2.length > 0 ? password2Label : '\u00A0';
 
 	return (
 		<StyledSignup>
-			<StyledShadowedBox>
-				<div className="content">
-					<form noValidate onSubmit={onSubmit}>
-						<div className="title-row">
-							<div className="title">Signup</div>
-							<Link to="/login">Login</Link>
+			<div className="signup-view">
+				<SkewedBox clipPath="2% 3%, 100% 0, 100% 99%, 0 100%" color="darkgray" isSelected>
+					<CenteredContent>
+						<div className="signup-content">
+							<div className="signup-title">Signup</div>
+
+							<form noValidate onSubmit={onSubmit}>
+								<DataField statePropertyPath="username" formState={signup} formSetState={setSignup} title="Username" isText />
+								<DataField statePropertyPath="email" formState={signup} formSetState={setSignup} title="Email" isEmail />
+								<DataField statePropertyPath="password" formState={signup} formSetState={setSignup} title="Password" isPassword />
+								<DataField statePropertyPath="password2" formState={signup} formSetState={setSignup} title="Confirm Password" isPassword />
+							</form>
+							<div className="spacer" />
+
+							<div className="signup-button">
+								<WAOButton title="Signup" color="blue" clickCallback={onSubmit} />
+							</div>
+
+							<div className="signup-to-login">
+								Already have an account? <Link to="/login">Login</Link>
+							</div>
 						</div>
-
-						<label htmlFor="username">
-							<span>{usernameSpan}</span>
-							<input onChange={onChange} value={signup.username} error={signup.errors.username} id="username" type="text" placeholder={usernameLabel} className={signup.errors.username ? 'error' : ''} />
-							<span>{signup.errors.username}</span>
-						</label>
-
-						<label htmlFor="email">
-							<span>{emailSpan}</span>
-							<input onChange={onChange} value={signup.email} error={signup.errors.email} id="email" type="email" placeholder={emailLabel} className={signup.errors.email ? 'error' : ''} />
-							<span>{signup.errors.email}</span>
-						</label>
-
-						<label htmlFor="password">
-							<span>{passwordSpan}</span>
-							<input onChange={onChange} value={signup.password} error={signup.errors.password} id="password" type="password" placeholder={passwordLabel} className={signup.errors.password ? 'error' : ''} />
-							<span>{signup.errors.password}</span>
-						</label>
-
-						<label htmlFor="password2">
-							<span>{password2Span}</span>
-							<input onChange={onChange} value={signup.password2} error={signup.errors.password2} id="password2" type="password" placeholder={password2Label} className={signup.errors.password2 ? 'error' : ''} />
-							<span>{signup.errors.password2}</span>
-						</label>
-
-						<div className="bus-button">
-							<BUSButton className="bus-button" title="Signup" clickAction={onSubmit} />
-						</div>
-					</form>
-				</div>
-			</StyledShadowedBox>
+					</CenteredContent>
+				</SkewedBox>
+			</div>
 		</StyledSignup>
 	);
 };

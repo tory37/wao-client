@@ -76,7 +76,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 			imageUrl: 'https://i.ytimg.com/vi/rehbyT4njbY/maxresdefault.jpg',
 			startTimestamp: 1561852800, //moment().unix()
 			endTimestamp: 1561906800, //moment().unix()
-			title: 'Test Event 1',
+			title: 'Test Event 2',
 			address: '318 Harrell Dr, Lafayette, LA 70503, USA',
 			lat: 30.180797,
 			lng: -92.06473890000001,
