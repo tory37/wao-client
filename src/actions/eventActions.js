@@ -46,7 +46,7 @@ export const fetchPastEvents = () => dispatch => {
 		.then(res => {
 			dispatch(addNewEvents(res.data));
 			dispatch(setHasFetchedPast(true));
-			displaySuccessNotification('Past events achieved!', notificationId);
+			displaySuccessNotification('Past events acquired!', notificationId);
 			return res.data;
 		})
 		.catch(err => {

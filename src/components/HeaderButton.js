@@ -34,7 +34,7 @@ const StyledHeaderButton = styled.div`
 const HeaderButton = ({ title, clipPath, isSelected }) => {
 	return (
 		<StyledHeaderButton clipPath={clipPath}>
-			<SkewedBox clipPath={clipPath} color="#4d4d4d" isSelected={isSelected} useScale={true}>
+			<SkewedBox clipPath={clipPath} color={isSelected ? 'purple' : '#4d4d4d'} isSelected={isSelected} shouldGrowOnHover useScale={true}>
 				<CenteredContent>
 					<span>{title}</span>
 				</CenteredContent>

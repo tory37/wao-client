@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import _ from 'lodash';
 import moment from 'moment';
 import { updateEvent as updateEventAction } from '../../actions/eventActions';
+import StyledShadowedBox from '../../styles/StyledShadowedBox';
 
 import Img from 'react-image';
 import SkewedBox from '../SkewedBox';
@@ -138,7 +139,6 @@ const StyledEventView = styled.div`
 					text-align: left;
 
 					overflow-y: scroll;
-					border: solid 3px black;
 					padding: 5px;
 
 					&.expanded {
@@ -256,7 +256,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 							{isEditing && <DataField statePropertyPath="endTimestamp" formState={moddedEvent} formSetState={setModdedEvent} title="End Timestamp" isNumber />}
 
 							{!isEditing && (
-								<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} className="eventview-location eventview-entry">
+								<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} target="_blank" className="eventview-location eventview-entry">
 									<i className="fas fa-street-view"></i>
 									<div className="eventview-location-address">{event.address}</div>
 									<span>Show Map</span>
@@ -271,6 +271,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 										<div>Description</div>
 										{isDescExpanded ? <span>Collapse</span> : <span>Expand</span>}
 									</div>
+
 									<div className={'content ' + (isDescExpanded ? 'collapsed' : 'expanded')}>{event.description}</div>
 								</div>
 							)}
