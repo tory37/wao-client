@@ -14,7 +14,6 @@ const defaultProfileImage = 'https://upload.wikimedia.org/wikipedia/commons/2/25
 const StyledUserStatus = styled.div`
 	width: 45px;
 	height: 45px;
-	position: relative;
 
 	@media only screen and (min-width: 410px) {
 		width: 50px;
@@ -26,43 +25,50 @@ const StyledUserStatus = styled.div`
 		height: 60px;
 	}
 
-	.userstatus-profile-image {
+	.usestatus-content {
 		width: 100%;
 		height: 100%;
-		cursor: pointer;
+		position: relative;
 
-		img {
+		.userstatus-profile-image {
 			width: 100%;
 			height: 100%;
-		}
-	}
+			cursor: pointer;
 
-	.userstatus-buttondropdown {
-		position: absolute;
-		top: 60px;
-		right: 0;
-		z-index: 1000;
-
-		.userstatus-buttondropdown-inner {
-			display: flex;
-			flex-direction: column;
-			justify-content: space-around;
-			align-items: center;
-			padding: 10px 15px 5px 15px;
-
-			.userstatus-buttondropdown-entry {
-				margin-bottom: 5px;
+			img {
+				width: 100%;
+				height: 100%;
 			}
 		}
-	}
 
-	color: white;
+		.userstatus-buttondropdown {
+			position: absolute;
+			top: 60px;
+			right: 0;
+			z-index: 1000;
+
+			.userstatus-buttondropdown-inner {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: center;
+				padding: 10px 15px 5px 15px;
+
+				.userstatus-buttondropdown-entry {
+					margin-bottom: 5px;
+				}
+			}
+		}
+
+		color: white;
+	}
 `;
 
 const UserStatus = ({ auth, logoutUser, history }) => {
 	const [isOpen, setIsOpen] = useState(true);
 
-	const node = useRef();
+	const userImage = useRef();
+	const buttonDropdown = useRef();
 
 	useEffect(() => {
 		// add when mounted
@@ -90,7 +96,7 @@ const UserStatus = ({ auth, logoutUser, history }) => {
 	};
 
 	const handleClick = e => {
-		if (node.current.contains(e.target)) {
+		if (userImage.current.contains(e.target)) {
 			if (isOpen) {
 				setIsOpen(false);
 				return;
@@ -98,50 +104,52 @@ const UserStatus = ({ auth, logoutUser, history }) => {
 			setIsOpen(true);
 			// inside click
 			return;
-		}
-
-		// outside click
-		if (isOpen) {
-			setIsOpen(false);
+		} else if (buttonDropdown && buttonDropdown.current && !buttonDropdown.current.contains(e.target)) {
+			// outside click
+			if (isOpen) {
+				setIsOpen(false);
+			}
 		}
 	};
 
 	return (
 		<StyledUserStatus>
-			<div className="userstatus-profile-image" ref={node}>
-				<SkewedBox shouldGrowOnHover useScale>
-					<Img src={auth.isAuthenticated && auth.user.imageUrl && auth.user.imageUrl.length > 0 ? auth.user.imageUrl : defaultProfileImage} />
-				</SkewedBox>
-			</div>
-
-			{isOpen && (
-				<div className="userstatus-buttondropdown">
-					<SkewedBox color="darkgray" clipPath="0 6%, 100% 0, 100% 96%, 0% 100%">
-						{auth.isAuthenticated && (
-							<div className="userstatus-buttondropdown-inner">
-								<div className="userstatus-buttondropdown-entry">{auth.user.username}</div>
-								<div className="userstatus-buttondropdown-entry">
-									<WAOButton color="green" title="Profile" xl3></WAOButton>
-								</div>
-								<div className="userstatus-buttondropdown-entry">
-									<WAOButton color="Purple" title="Logout" clickCallback={onLogoutClick} xl3></WAOButton>
-								</div>
-							</div>
-						)}
-
-						{!auth.isAuthenticated && (
-							<div className="userstatus-buttondropdown-inner">
-								<div className="userstatus-buttondropdown-entry">
-									<WAOButton color="green" title="Login" clickCallback={onLoginClick} xl3></WAOButton>
-								</div>
-								<div className="userstatus-buttondropdown-entry">
-									<WAOButton color="Blue" title="Signup" clickCallback={onSignupClick} xl3></WAOButton>
-								</div>
-							</div>
-						)}
+			<div className="usestatus-content">
+				<div className="userstatus-profile-image" ref={userImage}>
+					<SkewedBox shouldGrowOnHover useScale>
+						<Img src={auth.isAuthenticated && auth.user.imageUrl && auth.user.imageUrl.length > 0 ? auth.user.imageUrl : defaultProfileImage} />
 					</SkewedBox>
 				</div>
-			)}
+
+				{isOpen && (
+					<div className="userstatus-buttondropdown" ref={buttonDropdown}>
+						<SkewedBox color="darkgray" clipPath="0 6%, 100% 0, 100% 96%, 0% 100%">
+							{auth.isAuthenticated && (
+								<div className="userstatus-buttondropdown-inner">
+									<div className="userstatus-buttondropdown-entry">{auth.user.username}</div>
+									<div className="userstatus-buttondropdown-entry">
+										<WAOButton color="green" title="Profile" xl3></WAOButton>
+									</div>
+									<div className="userstatus-buttondropdown-entry">
+										<WAOButton color="Purple" title="Logout" clickCallback={onLogoutClick} xl3></WAOButton>
+									</div>
+								</div>
+							)}
+
+							{!auth.isAuthenticated && (
+								<div className="userstatus-buttondropdown-inner">
+									<div className="userstatus-buttondropdown-entry">
+										<WAOButton color="green" title="Login" clickCallback={onLoginClick} xl3></WAOButton>
+									</div>
+									<div className="userstatus-buttondropdown-entry">
+										<WAOButton color="Blue" title="Signup" clickCallback={onSignupClick} xl3></WAOButton>
+									</div>
+								</div>
+							)}
+						</SkewedBox>
+					</div>
+				)}
+			</div>
 		</StyledUserStatus>
 	);
 };
