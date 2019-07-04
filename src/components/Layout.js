@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import Header from './Header';
+import UserStatus from './UserStatus';
 
 const StyledLayout = styled.div`
 	width: 100%;
 	height: 100%;
+	position: relative;
 
 	.layout-header-wrapper {
 		height: 60px;
@@ -22,12 +24,13 @@ const StyledLayout = styled.div`
 	}
 
 	main {
-		height: calc(100% - 155px);
+		height: calc(100% - 165px);
 		width: 100%;
 		overflow-y: scroll;
+		padding-top: 10px;
 
 		@media only screen and (min-width: 810px) {
-			height: calc(100% - 100px);
+			height: calc(100% - 120px);
 		}
 
 		.layout-content {

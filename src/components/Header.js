@@ -33,16 +33,16 @@ const StyledHeader = styled.div`
 		font-size: 25px;
 		text-align: center;
 		margin-top: 20px;
-		padding-bottom: 20px;
+		padding-bottom: 0px;
 
-		@media only screen and (min-width: 410px) {
+		@media only screen and (min-width: 500px) {
 			font-size: 36px;
-			margin-bottom: 5px;
-			padding-bottom: 10px;
+			margin-bottom: 15px;
 		}
 
 		@media only screen and (min-width: 945px) {
 			padding-bottom: 0;
+			margin-bottom: 0;
 		}
 
 		:hover {
@@ -58,14 +58,15 @@ const StyledHeader = styled.div`
 		align-items: flex-end;
 		padding-left: 5px;
 		padding-right: 5px;
-		margin-top: -10px;
+
+		@media only screen and (min-width: 500px) {
+			margin-top: -10px;
+		}
 
 		@media only screen and (min-width: 945px) {
-			margin-bottom: -20px;
+			margin-top: 0;
+			margin-bottom: -10px;
 		}
-	}
-
-	.header-user {
 	}
 `;
 
@@ -85,8 +86,8 @@ const Header = ({ location }) => {
 				<Link to="/photos">
 					<HeaderButton title="photos" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={location.pathname === '/photos'} />
 				</Link>
-				<div className="header-user">
-					<UserStatus></UserStatus>
+				<div className="user-menu-wrapper">
+					<UserStatus />
 				</div>
 			</div>
 		</StyledHeader>
