@@ -65,7 +65,7 @@ const StyledUserStatus = styled.div`
 `;
 
 const UserStatus = ({ isSelected, auth, logoutUser, history }) => {
-	const [isOpen, setIsOpen] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
 
 	const userImage = useRef();
 	const buttonDropdown = useRef();

@@ -4,13 +4,14 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loginUser } from '../actions/authActions';
+import { updatePassword as updatePasswordAction, updateUserProfile as updateUserProfileAction } from '../actions/authActions';
 
 import SkewedBox from './SkewedBox';
 import CenteredContent from './CenteredContent';
 import DataField from './DataField';
 import WAOButton from './WAOButton';
 import Img from 'react-image';
+import ColorPicker from './ColorPicker';
 
 const defaultProfileImage = 'https://upload.wikimedia.org/wikipedia/commons/2/25/Wikipe-tan_silhouette.png';
 
@@ -67,11 +68,14 @@ const StyledUserProfile = styled.div`
 	}
 `;
 
-const UserProfile = ({ auth, updateUser, updateUserPassword }) => {
+const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
+	const colorsArray = ['black', 'red', 'blue', 'purple', 'brown', 'orange', 'green'];
+
 	const [moddedUser, setModdedUser] = useState({
 		imageUrl: auth.user.imageUrl,
 		username: auth.user.username,
-		email: auth.user.email
+		email: auth.user.email,
+		color: auth.user.color && auth.user.color.length > 0 ? auth.user.color : 'black'
 	});
 
 	const [newPassword, setNewPassword] = useState({
@@ -91,7 +95,8 @@ const UserProfile = ({ auth, updateUser, updateUserPassword }) => {
 			setModdedUser({
 				imageUrl: auth.user.imageUrl,
 				username: auth.user.username,
-				email: auth.user.email
+				email: auth.user.email,
+				color: auth.user.color
 			});
 
 			setIsEditing(false);
@@ -108,21 +113,35 @@ const UserProfile = ({ auth, updateUser, updateUserPassword }) => {
 	};
 
 	const onSave = e => {
-		const updatedUser = {
-			imageUrl: moddedUser.imageUrl,
-			username: moddedUser.username,
-			email: moddedUser.email
-		};
+		if (isEditing) {
+			const updatedUser = {
+				imageUrl: moddedUser.imageUrl,
+				username: moddedUser.username,
+				email: moddedUser.email,
+				color: moddedUser.color
+			};
 
-		updateUser(updatedUser);
+			updateUserProfile(updatedUser, auth.user._id).then(() => {
+				setIsEditing(false);
+			});
+		}
+
+		if (isUpdatingPassword) {
+			updatePassword(newPassword.password, newPassword.password2, auth.user._id).then(() => {
+				setIsUpdatingPassword(false);
+			});
+		}
+	};
+
+	const onSelectColor = color => {
+		setModdedUser({
+			...moddedUser,
+			color: color
+		});
 	};
 
 	const onUpdatePasswordClick = e => {
 		setIsUpdatingPassword(true);
-	};
-
-	const onResetPassword = () => {
-		updateUserPassword(newPassword.password, newPassword.password2);
 	};
 
 	return (
@@ -156,6 +175,10 @@ const UserProfile = ({ auth, updateUser, updateUserPassword }) => {
 									<DataField statePropertyPath="password2" formState={newPassword} formSetState={setNewPassword} title="Confirm New Password" isPassword />
 								</div>
 							)}
+
+							<div className="spacer" />
+
+							<ColorPicker colorsArray={colorsArray} onSelectColor={onSelectColor} selectedColor={moddedUser.color} isEditing={isEditing} />
 
 							{!isEditing && !isUpdatingPassword && (
 								<div className="userprofile-buttons">
@@ -192,5 +215,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ loginUser }
+	{ updateUserProfile: updateUserProfileAction, updatePassword: updatePasswordAction }
 )(UserProfile);

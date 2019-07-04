@@ -78,3 +78,32 @@ export const logoutUser = () => dispatch => {
 	// Set current user to empty object {} which will set isAuthenticated to false
 	dispatch(setCurrentUser({}));
 };
+
+export const updateUserProfile = (userData, id) => dispatch => {
+	return api
+		.updateUserProfile(userData, id)
+		.then(res => {
+			dispatch(setCurrentUser(res.data));
+			displaySuccessNotification('Succesfully updated profile');
+		})
+		.catch(err => {
+			displayErrorNotification(err, 'Error updating profile');
+			throw err;
+		});
+};
+
+export const updatePassword = (password, password2, id) => dispatch => {
+	return api
+		.updatePassword({ password, password2 }, id)
+		.then(res => {
+			const { token } = res.data;
+			localStorage.setItem('jwtToken', token);
+			// Set token to Auth header
+			setAuthToken(token);
+			displaySuccessNotification('Password updated.  You will need to relogin on other devices');
+		})
+		.catch(err => {
+			displayErrorNotification(err, 'Error updating password');
+			throw err;
+		});
+};
