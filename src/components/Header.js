@@ -87,7 +87,7 @@ const Header = ({ location }) => {
 					<HeaderButton title="photos" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={location.pathname === '/photos'} />
 				</Link>
 				<div className="user-menu-wrapper">
-					<UserStatus />
+					<UserStatus isSelected={location.pathname === '/profile'} />
 				</div>
 			</div>
 		</StyledHeader>

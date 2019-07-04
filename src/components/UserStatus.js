@@ -64,7 +64,7 @@ const StyledUserStatus = styled.div`
 	}
 `;
 
-const UserStatus = ({ auth, logoutUser, history }) => {
+const UserStatus = ({ isSelected, auth, logoutUser, history }) => {
 	const [isOpen, setIsOpen] = useState(true);
 
 	const userImage = useRef();
@@ -79,6 +79,11 @@ const UserStatus = ({ auth, logoutUser, history }) => {
 			document.removeEventListener('mousedown', handleClick);
 		};
 	}, [isOpen]);
+
+	const onProfileClick = e => {
+		history.push('/profile');
+		setIsOpen(false);
+	};
 
 	const onLogoutClick = e => {
 		logoutUser();
@@ -116,7 +121,7 @@ const UserStatus = ({ auth, logoutUser, history }) => {
 		<StyledUserStatus>
 			<div className="usestatus-content">
 				<div className="userstatus-profile-image" ref={userImage}>
-					<SkewedBox shouldGrowOnHover useScale>
+					<SkewedBox shouldGrowOnHover useScale isSelected={isSelected}>
 						<Img src={auth.isAuthenticated && auth.user.imageUrl && auth.user.imageUrl.length > 0 ? auth.user.imageUrl : defaultProfileImage} />
 					</SkewedBox>
 				</div>
@@ -128,7 +133,7 @@ const UserStatus = ({ auth, logoutUser, history }) => {
 								<div className="userstatus-buttondropdown-inner">
 									<div className="userstatus-buttondropdown-entry">{auth.user.username}</div>
 									<div className="userstatus-buttondropdown-entry">
-										<WAOButton color="green" title="Profile" xl3></WAOButton>
+										<WAOButton color="green" title="Profile" clickCallback={onProfileClick} xl3></WAOButton>
 									</div>
 									<div className="userstatus-buttondropdown-entry">
 										<WAOButton color="Purple" title="Logout" clickCallback={onLogoutClick} xl3></WAOButton>
