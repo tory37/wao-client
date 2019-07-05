@@ -33,7 +33,7 @@ const Home = () => {
 					<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
 				</div>
 
-				<SkewedBox clipPath="3% 0, 100% 0, 98% 100%, 0 100%" color="lightblue">
+				<SkewedBox clipPath="3% 0, 100% 0, 98% 100%, 0 100%" color="green">
 					<div className="body">If you are a beta tester, or would like to be, please contact ya boi Tory or Brandon and let them know. Arigatou!</div>
 				</SkewedBox>
 			</div>
