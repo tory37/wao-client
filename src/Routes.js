@@ -8,18 +8,20 @@ import Layout from './components/Layout';
 import Events from './components/Events';
 import UserProfile from './components/UserProfile';
 import Verify from './components/Verify';
+import NotFound from './components/NotFound';
 import PrivateRoute from './components/PrivateRoute';
 
 const Routes = () => (
 	<Router>
 		<Layout>
-			<Route exact path="/" component={Home} />
-			<Route exact path="/events" component={Events} />
-			<Route exact path="/login" component={Login} />
-			<Route exact path="/signup" component={Signup} />
-			<Route exact path="/verify/:token" component={Verify} />
 			<Switch>
+				<Route exact path="/" component={Home} />
+				<Route exact path="/events" component={Events} />
+				<Route exact path="/login" component={Login} />
+				<Route exact path="/signup" component={Signup} />
+				<Route exact path="/verify/:token" component={Verify} />
 				<PrivateRoute exact path="/profile" component={UserProfile} />
+				<Route component={NotFound} />
 			</Switch>
 		</Layout>
 	</Router>
