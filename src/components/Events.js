@@ -16,6 +16,10 @@ const StyledEvents = styled.div`
 		height: 50px;
 	}
 
+	.events-event-wrapper {
+		width: 100%;
+	}
+
 	.events-show-past-button {
 		margin-top: 10px;
 	}
