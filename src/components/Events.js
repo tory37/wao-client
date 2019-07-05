@@ -11,31 +11,13 @@ import WAOButton from './WAOButton';
 
 // 500 x 262
 const StyledEvents = styled.div`
-	width: 100%;
-	margin-top: 20px;
+	.events-no-upcoming {
+		width: 200px;
+		height: 50px;
+	}
 
-	.events-content {
-		width: 100%;
-		max-width: 600px;
-		margin: auto;
-
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-
-		.events-event-wrapper {
-			width: 100%;
-		}
-
-		.events-no-upcoming {
-			width: 200px;
-			height: 50px;
-		}
-
-		.events-show-past-button {
-			margin-top: 10px;
-		}
+	.events-show-past-button {
+		margin-top: 10px;
 	}
 
 	.divider {
@@ -78,7 +60,7 @@ const Events = ({ events, hasFetchedPast, fetchPastEvents, auth }) => {
 
 	return (
 		<StyledEvents>
-			<div className="events-content">
+			<div className="page-content">
 				{auth.isAuthenticated && auth.user.roles.includes(`ADMIN`) && <EventAdd canAdd={!isEditing} onAddStart={onAddStart} onAddEnd={onAddEnd} />}
 
 				{isAdding && (

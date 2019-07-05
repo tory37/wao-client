@@ -21,12 +21,28 @@ const updatePassword = (passwordData, id) => {
 	return axios.post(`${process.env.REACT_APP_API_URL}/users/password?id=${id}`, passwordData);
 };
 
+const verifyUser = verificationToken => {
+	return axios.post(
+		`${process.env.REACT_APP_API_URL}/users/verify`,
+		{},
+		{
+			headers: { 'x-access-token': verificationToken }
+		}
+	);
+};
+
+const resendVerification = email => {
+	return axios.post(`${process.env.REACT_APP_API_URL}/users/verify/resend`, { email });
+};
+
 const authApi = {
 	registerUser,
 	loginUser,
 	fetchUser,
 	updateUserProfile,
-	updatePassword
+	updatePassword,
+	verifyUser,
+	resendVerification
 };
 
 export default authApi;

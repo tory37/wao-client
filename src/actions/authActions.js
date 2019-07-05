@@ -22,7 +22,7 @@ export const registerUser = (userData, history) => dispatch => {
 	return api
 		.registerUser(userData)
 		.then(res => {
-			displaySuccessNotification('Signedup! Plz Login', notificationId);
+			displaySuccessNotification(res.data, notificationId);
 			history.push('/login');
 		}) // re-direct to login on siccessful register
 		.catch(err => {
@@ -33,7 +33,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 // Login - get user token
 export const loginUser = userData => (dispatch, history) => {
-	const notificationId = displayLoadingNotification('Loggin in...');
+	const notificationId = displayLoadingNotification('Logging in...');
 	return api
 		.loginUser(userData)
 		.then(res => {
@@ -104,6 +104,30 @@ export const updatePassword = (password, password2, id) => dispatch => {
 		})
 		.catch(err => {
 			displayErrorNotification(err, 'Error updating password');
+			throw err;
+		});
+};
+
+export const verifyUser = verificationToken => dispatch => {
+	return api
+		.verifyUser(verificationToken)
+		.then(res => {
+			displaySuccessNotification('Email verified! Please login');
+		})
+		.catch(err => {
+			displayErrorNotification(err, 'Error verifying email');
+			throw err;
+		});
+};
+
+export const resendVerification = email => dispatch => {
+	return api
+		.resendVerification(email)
+		.then(res => {
+			displaySuccessNotification('Verification email sent! Please check your inbox (Check your spam)');
+		})
+		.catch(err => {
+			displayErrorNotification(err, 'Error sending verification email');
 			throw err;
 		});
 };

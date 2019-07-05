@@ -13,49 +13,36 @@ import WAOButton from './WAOButton';
 
 // 500 x 262
 const StyledLogin = styled.div`
-	width: 100%;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-
-	.login-view {
+	.login-content {
+		display: flex;
+		flex-direction: column;
 		width: 100%;
-		margin: auto;
-		max-width: 500px;
+		padding-left: 19px;
+		padding-right: 30px;
+		padding-bottom: 5px;
+		padding-top: 20px;
 
-		.login-content {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			padding-left: 19px;
-			padding-right: 30px;
-			padding-bottom: 5px;
-			padding-top: 20px;
+		.login-title {
+			font-family: NinjaNaruto;
+			margin-right: auto;
+			font-size: 24px;
+		}
 
-			.login-title {
-				font-family: NinjaNaruto;
-				margin-right: auto;
-				font-size: 24px;
-			}
+		.spacer {
+			height: 10px;
+		}
 
-			.spacer {
-				height: 10px;
-			}
+		.login-button {
+			margin-left: auto;
+		}
 
-			.login-button {
-				margin-left: auto;
-			}
+		.login-to-signup {
+			margin-left: auto;
+			font-size: 14px;
 
-			.login-to-signup {
-				margin-left: auto;
-				font-size: 14px;
-
-				a {
-					color: white;
-					cursor: pointer;
-				}
+			a {
+				color: white;
+				cursor: pointer;
 			}
 		}
 	}
@@ -85,7 +72,7 @@ const Login = ({ auth, history, loginUser }) => {
 
 	return (
 		<StyledLogin>
-			<div className="login-view">
+			<div className="page-content">
 				<SkewedBox clipPath="2% 3%, 100% 0, 100% 99%, 0 100%" color="darkgray" isSelected>
 					<CenteredContent>
 						<div className="login-content">
