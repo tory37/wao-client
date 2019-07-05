@@ -22,7 +22,15 @@
 		"react-scripts": "3.0.1",
 		"react-toastify": "^5.2.1",
 		"redux": "^4.0.1",
-		"redux-thunk": "^2.3.0"
+		"redux-thunk": "^2.3.0",
+		// dev-dep
+		"copy-webpack-plugin": "^5.0.3",
+		"eslint": "^5.16.0",
+		"eslint-config-airbnb": "^17.1.0",
+		"eslint-plugin-import": "^2.17.3",
+		"eslint-plugin-jsx-a11y": "^6.2.1",
+		"eslint-plugin-react": "^7.13.0",
+		"prettier": "^1.18.2"
 	},
 	"scripts": {
 		"start": "react-scripts start",
@@ -45,13 +53,5 @@
 			"last 1 safari version"
 		]
 	},
-	"devDependencies": {
-		"copy-webpack-plugin": "^5.0.3",
-		"eslint": "^5.16.0",
-		"eslint-config-airbnb": "^17.1.0",
-		"eslint-plugin-import": "^2.17.3",
-		"eslint-plugin-jsx-a11y": "^6.2.1",
-		"eslint-plugin-react": "^7.13.0",
-		"prettier": "^1.18.2"
-	}
+	"devDependencies": {}
 }
