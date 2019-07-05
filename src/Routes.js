@@ -7,6 +7,7 @@ import Signup from './components/Signup';
 import Layout from './components/Layout';
 import Events from './components/Events';
 import UserProfile from './components/UserProfile';
+import Verify from './components/Verify';
 import PrivateRoute from './components/PrivateRoute';
 
 const Routes = () => (
@@ -16,6 +17,7 @@ const Routes = () => (
 			<Route exact path="/events" component={Events} />
 			<Route exact path="/login" component={Login} />
 			<Route exact path="/signup" component={Signup} />
+			<Route exact path="/verify/:token" component={Verify} />
 			<Switch>
 				<PrivateRoute exact path="/profile" component={UserProfile} />
 			</Switch>

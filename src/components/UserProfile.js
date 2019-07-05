@@ -16,53 +16,40 @@ import ColorPicker from './ColorPicker';
 const defaultProfileImage = 'https://upload.wikimedia.org/wikipedia/commons/2/25/Wikipe-tan_silhouette.png';
 
 const StyledUserProfile = styled.div`
-	width: 100%;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-
-	.userprofile-view {
+	.userprofile-content {
+		display: flex;
+		flex-direction: column;
 		width: 100%;
-		margin: auto;
-		max-width: 500px;
+		padding-left: 19px;
+		padding-right: 30px;
+		padding-bottom: 5px;
+		padding-top: 20px;
 
-		.userprofile-content {
+		.userprofile-image {
+			width: 120px;
+			height: 120px;
+			align-self: center;
+
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		.spacer {
+			height: 10px;
+		}
+
+		.userprofile-buttons {
 			display: flex;
-			flex-direction: column;
-			width: 100%;
-			padding-left: 19px;
-			padding-right: 30px;
-			padding-bottom: 5px;
-			padding-top: 20px;
+			flex-direction: row;
+			justify-content: flex-end;
+			align-items: center;
+			margin-top: 10px;
+			margin-left: auto;
 
-			.userprofile-image {
-				width: 120px;
-				height: 120px;
-				align-self: center;
-
-				img {
-					width: 100%;
-					height: 100%;
-				}
-			}
-
-			.spacer {
-				height: 10px;
-			}
-
-			.userprofile-buttons {
-				display: flex;
-				flex-direction: row;
-				justify-content: flex-end;
-				align-items: center;
-				margin-top: 10px;
-				margin-left: auto;
-
-				.userprofile-button-wrapper {
-					margin-right: 5px;
-				}
+			.userprofile-button-wrapper {
+				margin-right: 5px;
 			}
 		}
 	}
@@ -146,7 +133,7 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 
 	return (
 		<StyledUserProfile>
-			<div className="userprofile-view">
+			<div className="page-content">
 				<SkewedBox clipPath="2% 3%, 100% 0, 100% 99%, 0 100%" color="darkgray" isSelected>
 					<CenteredContent>
 						<div className="userprofile-content">
@@ -169,16 +156,16 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 
 							{isEditing && <DataField statePropertyPath="email" formState={moddedUser} formSetState={setModdedUser} title="Email" isText />}
 
+							<div className="spacer" />
+
+							<ColorPicker colorsArray={colorsArray} onSelectColor={onSelectColor} selectedColor={moddedUser.color} isEditing={isEditing} />
+
 							{isUpdatingPassword && (
 								<div>
 									<DataField statePropertyPath="password" formState={newPassword} formSetState={setNewPassword} title="New Password" isPassword />
 									<DataField statePropertyPath="password2" formState={newPassword} formSetState={setNewPassword} title="Confirm New Password" isPassword />
 								</div>
 							)}
-
-							<div className="spacer" />
-
-							<ColorPicker colorsArray={colorsArray} onSelectColor={onSelectColor} selectedColor={moddedUser.color} isEditing={isEditing} />
 
 							{!isEditing && !isUpdatingPassword && (
 								<div className="userprofile-buttons">

@@ -13,49 +13,36 @@ import WAOButton from './WAOButton';
 
 // 500 x 262
 const StyledSignup = styled.div`
-	width: 100%;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-
-	.signup-view {
+	.signup-content {
+		display: flex;
+		flex-direction: column;
 		width: 100%;
-		margin: auto;
-		max-width: 500px;
+		padding-left: 19px;
+		padding-right: 30px;
+		padding-bottom: 5px;
+		padding-top: 20px;
 
-		.signup-content {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			padding-left: 19px;
-			padding-right: 30px;
-			padding-bottom: 5px;
-			padding-top: 20px;
+		.signup-title {
+			font-family: NinjaNaruto;
+			margin-right: auto;
+			font-size: 24px;
+		}
 
-			.signup-title {
-				font-family: NinjaNaruto;
-				margin-right: auto;
-				font-size: 24px;
-			}
+		.spacer {
+			height: 10px;
+		}
 
-			.spacer {
-				height: 10px;
-			}
+		.signup-button {
+			margin-left: auto;
+		}
 
-			.signup-button {
-				margin-left: auto;
-			}
+		.signup-to-login {
+			margin-left: auto;
+			font-size: 14px;
 
-			.signup-to-login {
-				margin-left: auto;
-				font-size: 14px;
-
-				a {
-					color: white;
-					cursor: pointer;
-				}
+			a {
+				color: white;
+				cursor: pointer;
 			}
 		}
 	}
@@ -96,7 +83,7 @@ const Signup = ({ auth, history, registerUser }) => {
 
 	return (
 		<StyledSignup>
-			<div className="signup-view">
+			<div className="page-content">
 				<SkewedBox clipPath="2% 3%, 100% 0, 100% 99%, 0 100%" color="darkgray" isSelected>
 					<CenteredContent>
 						<div className="signup-content">
