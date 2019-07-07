@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import moment from 'moment';
@@ -70,17 +70,24 @@ const StyledEventAdd = styled.div`
 `;
 
 const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
-	const [imageUrl, setImageUrl] = useDataFieldState('');
-	const [startTimestamp, setStartTimestamp] = useDataFieldState(moment().unix());
-	const [endTimestamp, setEndTimestamp] = useDataFieldState(moment().unix());
-	const [title, setTitle] = useDataFieldState('');
-	const [address, setAddress] = useDataFieldState('');
-	const [lat, setLat] = useDataFieldState('');
-	const [lng, setLng] = useDataFieldState('');
-	const [description, setDescription] = useDataFieldState('');
+	const [imageUrl, setImageUrl] = useState('');
+	const [isImageUrlInvalid, setIsImageUrlInvalid] = useState(false);
+	const [startTimestamp, setStartTimestamp] = useState(moment().unix());
+	const [isStartTimestampInvalid, setIsStartTimestampInvalid] = useState(false);
+	const [endTimestamp, setEndTimestamp] = useState(moment().unix());
+	const [isEndTimestampInvalid, setIsEndTimestampInvalid] = useState(false);
+	const [title, setTitle] = useState('');
+	const [isTitleInvalid, setIsTitleInvalid] = useState(false);
+	const [address, setAddress] = useState('');
+	const [lat, setLat] = useState('');
+	const [lng, setLng] = useState('');
+	const [isAddressInvalid, setIsAddressInvalid] = useState(false);
+	const [description, setDescription] = useState('');
+	const [isDescriptionInvalid, setIsDescriptionInvalid] = useState(false);
 
 	const [isAdding, setIsAdding] = useState(false);
 	const [isSaving, setIsSaving] = useState(false);
+	const [isInvalid, setIsInvalid] = useState(false);
 
 	const resetState = () => {
 		// Reset state
@@ -93,6 +100,10 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 		setLng('');
 		setDescription('');
 	};
+
+	useEffect(() => {
+		setIsInvalid(isImageUrlInvalid || isStartTimestampInvalid || isEndTimestampInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid);
+	})
 
 	const onAddClick = e => {
 		onAddStart();
@@ -143,10 +154,10 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 						<form id="event-add-form" noValidate onSubmit={onSave}>
 							<CenteredContent>
 								<div className="eventadd-content">
-									<DataFieldText state={imageUrl} setState={setImageUrl} title="Image Url" isRequired />
-									<DataFieldText state={title} setState={setTitle} title="Title" isRequired />
-									<DataFieldNumber state={startTimestamp} setState={setStartTimestamp} title="Start Timestamp" min={1000} max={5000} step={1} isRequired />
-									<DataFieldNumber state={endTimestamp} setState={setEndTimestamp} title="End Timestamp" min={1000} max={5000} step={1} isRequired />
+									<DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" isRequired />
+									<DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />
+									<DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={1000} max={5000} step={1} isRequired />
+									<DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={1000} max={5000} step={1} isRequired />
 									{/* <DataField statePropertyPath="address" formState={newEvent} formSetState={setNewEvent} title="Location" isLocation /> */}
 									{/* <DataField statePropertyPath="description" formState={newEvent} formSetState={setNewEvent} title="Description" isTextArea /> */}
 
