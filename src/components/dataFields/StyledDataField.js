@@ -4,7 +4,6 @@ const StyledDataField = styled.div`
 	text-align: left;
 	width: 100%;
 	display: inline-block;
-	height: 54px;
 	position: relative;
 
 	.datafield-title {

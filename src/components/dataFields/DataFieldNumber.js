@@ -7,7 +7,6 @@ const DataFieldNumber = ({ title, state, setState, isInvalid, setIsInvalid, isRe
 	const [errorMessage, setErrorMessage] = useState('');
 
 	const getIsInvalid = newValue => {
-		
 		let number = parseFloat(newValue);
 
 		if (isRequired && _.isNaN(number)) {
@@ -39,13 +38,12 @@ const DataFieldNumber = ({ title, state, setState, isInvalid, setIsInvalid, isRe
 	}, [state]);
 
 	const onChange = e => {
-		console.log("Changed");
 		setState(e.target.value);
 	};
 
 	return (
 		<StyledDataField isInvalid={isInvalid}>
-			<span className="datafield-title">{state && state.length > 0 ? title : '\u00A0'}</span>
+			<span className="datafield-title">{state === '' ? '\u00A0' : title}</span>
 			<input onChange={onChange} onKeyUp={onChange} value={state} type="number" step={step} min={min} max={max} placeholder={title} />
 			<div className="datafield-error">
 				{isInvalid && <i className="fas fa-exclamation"></i>}

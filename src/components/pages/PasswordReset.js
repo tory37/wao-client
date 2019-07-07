@@ -10,6 +10,7 @@ import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
 import DataField from '../DataField';
 import WAOButton from '../WAOButton';
+import DataFieldEmail from '../dataFields/DataFieldEmail';
 
 const StyledPasswordReset = styled.div`
 	width: 100%;
@@ -36,9 +37,8 @@ const StyledPasswordReset = styled.div`
 `;
 
 const PasswordReset = ({ resetPassword, auth }) => {
-	const [email, setEmail] = useState({
-		email: ''
-	});
+	const [email, setEmail] = useState('');
+	const [isInvalid, setIsInvalid] = useState(false);
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [isFinishedSending, setIsFinishedSending] = useState(false);
@@ -61,11 +61,11 @@ const PasswordReset = ({ resetPassword, auth }) => {
 				<StyledPasswordReset>
 					<div className="passwordreset-title">Password Reset</div>
 
-					{!auth.isAuthenticated && !isFinishedSending && <DataField statePropertyPath="email" formState={email} formSetState={setEmail} title="Email" isEmail />}
+					{!auth.isAuthenticated && !isFinishedSending && <DataFieldEmail state={email} setState={setEmail} isInvalid={isInvalid} setIsInvalid={setIsInvalid} title="Email" isRequired />}
 
 					{!auth.isAuthenticated && !isFinishedSending && (
 						<div className="passwordreset-button">
-							<WAOButton title="Reset" color="purple" clickCallback={onResetPasswordClick} isDisabled={isLoading} isLoading={isLoading} />
+							<WAOButton title="Reset" color="purple" clickCallback={onResetPasswordClick} isDisabled={isLoading || isInvalid} isLoading={isLoading} />
 						</div>
 					)}
 
