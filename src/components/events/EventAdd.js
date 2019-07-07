@@ -12,6 +12,7 @@ import WAOButton from '../WAOButton';
 import { createEvent as createEventAction } from '../../actions/eventActions';
 import DataFieldText from '../dataFields/DataFieldText';
 import DataFieldNumber from '../dataFields/DataFieldNumber';
+import DataFieldGoogleAddress from '../dataFields/DataFieldGoogleAddress';
 
 // 500 x 262
 const StyledEventAdd = styled.div`
@@ -158,6 +159,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 									<DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />
 									<DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={1000} max={5000} step={1} isRequired />
 									<DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={1000} max={5000} step={1} isRequired />
+									<DataFieldGoogleAddress address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired/>
 									{/* <DataField statePropertyPath="address" formState={newEvent} formSetState={setNewEvent} title="Location" isLocation /> */}
 									{/* <DataField statePropertyPath="description" formState={newEvent} formSetState={setNewEvent} title="Description" isTextArea /> */}
 
