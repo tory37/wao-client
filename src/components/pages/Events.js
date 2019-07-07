@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import { fetchPastEvents as fetchPastEventsAction } from '../actions/eventActions';
+import { fetchPastEvents as fetchPastEventsAction } from '../../actions/eventActions';
 
-import EventAdd from './events/EventAdd';
-import EventView from './events/EventView';
-import SkewedBox from './SkewedBox';
-import CenteredContent from './CenteredContent';
-import WAOButton from './WAOButton';
+import PageWrapper from '../PageWrapper';
+import EventAdd from '../events/EventAdd';
+import EventView from '../events/EventView';
+import SkewedBox from '../SkewedBox';
+import CenteredContent from '../CenteredContent';
+import WAOButton from '../WAOButton';
 
 // 500 x 262
 const StyledEvents = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+
 	.events-no-upcoming {
 		width: 200px;
 		height: 50px;
@@ -63,8 +70,8 @@ const Events = ({ events, hasFetchedPast, fetchPastEvents, auth }) => {
 	};
 
 	return (
-		<StyledEvents>
-			<div className="page-content">
+		<PageWrapper>
+			<StyledEvents>
 				{auth.isAuthenticated && auth.user.roles.includes(`ADMIN`) && <EventAdd canAdd={!isEditing} onAddStart={onAddStart} onAddEnd={onAddEnd} />}
 
 				{isAdding && (
@@ -99,8 +106,8 @@ const Events = ({ events, hasFetchedPast, fetchPastEvents, auth }) => {
 						<WAOButton title="Show Past" color="blue" xl3 clickCallback={onShowPastEvents} isLoading={isLoadingPast} isDisabled={isLoadingPast} />
 					</div>
 				)}
-			</div>
-		</StyledEvents>
+			</StyledEvents>
+		</PageWrapper>
 	);
 };
 

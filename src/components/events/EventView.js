@@ -6,6 +6,7 @@ import moment from 'moment';
 import { updateEvent as updateEventAction } from '../../actions/eventActions';
 import StyledShadowedBox from '../../styles/StyledShadowedBox';
 
+import PageCard from '../PageCard';
 import Img from 'react-image';
 import SkewedBox from '../SkewedBox';
 import CenteredContent from '../CenteredContent';
@@ -24,8 +25,8 @@ const StyledEventView = styled.div`
 			width: 100%;
 
 			img {
-				width: 100%;
-				border-bottom: solid 5px black;
+				width: calc(100% - 10px);
+				border: solid 5px black;
 			}
 		}
 
@@ -229,75 +230,73 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 
 	return (
 		<StyledEventView>
-			<SkewedBox clipPath="0% 0, 100% 0, 100% 100%, 0% 100%" color="darkgray" isSelected={isEditing}>
-				<CenteredContent>
-					<div className="eventview-wrapper">
+			<PageCard isLoading={isSaving}>
+				<div className="eventview-wrapper">
+					{!isEditing && (
+						<div className="eventview-image-wrapper">
+							<Img src={event.imageUrl} />
+						</div>
+					)}
+
+					<div className="eventview-content">
+						{isEditing && <DataField statePropertyPath="imageUrl" formState={moddedEvent} formSetState={setModdedEvent} title="Image URL" isText />}
+
+						{!isEditing && <div className="eventview-title">{event.title}</div>}
+
+						{isEditing && <DataField statePropertyPath="title" formState={moddedEvent} formSetState={setModdedEvent} title="Title" isText />}
+
 						{!isEditing && (
-							<div className="eventview-image-wrapper">
-								<Img src={event.imageUrl} />
+							<div className="eventview-date eventview-entry">
+								<i className="far fa-clock"></i>
+								<span>{getDateDisplay()}</span>
 							</div>
 						)}
 
-						<div className="eventview-content">
-							{isEditing && <DataField statePropertyPath="imageUrl" formState={moddedEvent} formSetState={setModdedEvent} title="Image URL" isText />}
+						{isEditing && <DataField statePropertyPath="startTimestamp" formState={moddedEvent} formSetState={setModdedEvent} title="Start Timestamp" isNumber />}
+						{isEditing && <DataField statePropertyPath="endTimestamp" formState={moddedEvent} formSetState={setModdedEvent} title="End Timestamp" isNumber />}
 
-							{!isEditing && <div className="eventview-title">{event.title}</div>}
+						{!isEditing && (
+							<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} target="_blank" className="eventview-location eventview-entry">
+								<i className="fas fa-street-view"></i>
+								<div className="eventview-location-address">{event.address}</div>
+								<span>Show Map</span>
+							</a>
+						)}
 
-							{isEditing && <DataField statePropertyPath="title" formState={moddedEvent} formSetState={setModdedEvent} title="Title" isText />}
+						{isEditing && <DataField statePropertyPath="address" formState={moddedEvent} formSetState={setModdedEvent} title="Location" isLocation />}
 
-							{!isEditing && (
-								<div className="eventview-date eventview-entry">
-									<i className="far fa-clock"></i>
-									<span>{getDateDisplay()}</span>
+						{!isEditing && (
+							<div className="eventview-description">
+								<div className="header-row" onClick={toggleDescExpanded}>
+									<div>Description</div>
+									{isDescExpanded ? <span>Collapse</span> : <span>Expand</span>}
 								</div>
-							)}
 
-							{isEditing && <DataField statePropertyPath="startTimestamp" formState={moddedEvent} formSetState={setModdedEvent} title="Start Timestamp" isNumber />}
-							{isEditing && <DataField statePropertyPath="endTimestamp" formState={moddedEvent} formSetState={setModdedEvent} title="End Timestamp" isNumber />}
+								<div className={'content ' + (isDescExpanded ? 'collapsed' : 'expanded')}>{event.description}</div>
+							</div>
+						)}
 
-							{!isEditing && (
-								<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} target="_blank" className="eventview-location eventview-entry">
-									<i className="fas fa-street-view"></i>
-									<div className="eventview-location-address">{event.address}</div>
-									<span>Show Map</span>
-								</a>
-							)}
+						{isEditing && <DataField statePropertyPath="description" formState={moddedEvent} formSetState={setModdedEvent} title="Description" isTextArea />}
 
-							{isEditing && <DataField statePropertyPath="address" formState={moddedEvent} formSetState={setModdedEvent} title="Location" isLocation />}
+						{!isEditing && canEdit && (
+							<div className="eventview-buttons">
+								<WAOButton title="Edit" color="orange" clickCallback={onEdit} md isDisabled={!canEdit} />
+							</div>
+						)}
 
-							{!isEditing && (
-								<div className="eventview-description">
-									<div className="header-row" onClick={toggleDescExpanded}>
-										<div>Description</div>
-										{isDescExpanded ? <span>Collapse</span> : <span>Expand</span>}
-									</div>
-
-									<div className={'content ' + (isDescExpanded ? 'collapsed' : 'expanded')}>{event.description}</div>
+						{isEditing && (
+							<div className="eventview-buttons">
+								<div className="eventview-button-wrapper">
+									<WAOButton title="Quit" color="red" clickCallback={onCancel} md />
 								</div>
-							)}
-
-							{isEditing && <DataField statePropertyPath="description" formState={moddedEvent} formSetState={setModdedEvent} title="Description" isTextArea />}
-
-							{!isEditing && canEdit && (
-								<div className="eventview-buttons">
-									<WAOButton title="Edit" color="orange" clickCallback={onEdit} md isDisabled={!canEdit} />
+								<div>
+									<WAOButton title="Save" color="green" clickCallback={onSave} md />
 								</div>
-							)}
-
-							{isEditing && (
-								<div className="eventview-buttons">
-									<div className="eventview-button-wrapper">
-										<WAOButton title="Quit" color="red" clickCallback={onCancel} md />
-									</div>
-									<div>
-										<WAOButton title="Save" color="green" clickCallback={onSave} md />
-									</div>
-								</div>
-							)}
-						</div>
+							</div>
+						)}
 					</div>
-				</CenteredContent>
-			</SkewedBox>
+				</div>
+			</PageCard>
 		</StyledEventView>
 	);
 };

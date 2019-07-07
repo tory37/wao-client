@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import SkewedBox from './SkewedBox';
+import SkewedBox from '../SkewedBox';
 
 const StyledHome = styled.div`
 	width: 100%;
