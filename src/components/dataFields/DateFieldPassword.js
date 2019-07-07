@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import StyledDataField from './StyledDataField';
 
-const DataFieldPassword = ({ title, state, setState, isInvalid, setIsInvalid, shouldValidate }) => {
+const DataFieldPassword = ({ state, setState, isInvalid, setIsInvalid, shouldValidate, shouldNotTestPassword }) => {
 	const [errorMessage, setErrorMessage] = useState('');
 
 	const isPasswordSecure = pass => {
@@ -18,7 +18,7 @@ const DataFieldPassword = ({ title, state, setState, isInvalid, setIsInvalid, sh
 			return true;
 		}
 
-		if (!isPasswordSecure(newValue)) {
+		if (!shouldNotTestPassword && !isPasswordSecure(newValue)) {
 			setErrorMessage(passwordSecurityMessage);
 			return true;
 		}
@@ -28,16 +28,12 @@ const DataFieldPassword = ({ title, state, setState, isInvalid, setIsInvalid, sh
 	};
 
 	useEffect(() => {
-		if (shouldValidate) {
-			setIsInvalid(getIsInvalid(state));
-		}
+		setIsInvalid(getIsInvalid(state));
 	}, []);
 
 	const onChange = e => {
 		setState(e.target.value);
-		if (shouldValidate) {
-			setIsInvalid(getIsInvalid(e.target.value));
-		}
+		setIsInvalid(getIsInvalid(e.target.value));
 	};
 
 	return (

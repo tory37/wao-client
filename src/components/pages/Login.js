@@ -9,8 +9,9 @@ import { routeDefs } from '../../routeDefs';
 
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
-import DataField from '../DataField';
 import WAOButton from '../WAOButton';
+import DataFieldEmail from '../dataFields/DataFieldEmail';
+import DataFieldPassword from '../dataFields/DateFieldPassword';
 
 // 500 x 262
 const StyledLogin = styled.div`
@@ -70,10 +71,12 @@ const StyledLogin = styled.div`
 `;
 
 const Login = ({ auth, history, loginUser }) => {
-	const [login, setLogin] = useState({
-		email: '',
-		password: ''
-	});
+	const [email, setEmail] = useState('');
+	const [isEmailInvalid, setIsEmailInvalid] = useState(false);
+	const [password, setPassword] = useState('');
+	const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
+
+	const [isInvalid, setIsInvalid] = useState(false);
 
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -82,14 +85,18 @@ const Login = ({ auth, history, loginUser }) => {
 		if (auth.isAuthenticated) {
 			history.push(routeDefs.home);
 		}
-	}, [auth.isAuthenticated, history, login]);
+	}, [auth.isAuthenticated]);
+
+	useEffect(() => {
+		setIsInvalid(isEmailInvalid || isPasswordInvalid);
+	}, [isEmailInvalid, isPasswordInvalid]);
 
 	const onSubmit = e => {
 		setIsLoading(true);
 
 		const user = {
-			email: login.email,
-			password: login.password
+			email: email,
+			password: password
 		};
 
 		loginUser(user).finally(() => {
@@ -110,13 +117,13 @@ const Login = ({ auth, history, loginUser }) => {
 						</div>
 
 						<form noValidate onSubmit={onSubmit}>
-							<DataField statePropertyPath="email" formState={login} formSetState={setLogin} title="email" isText />
-							<DataField statePropertyPath="password" formState={login} formSetState={setLogin} title="Password" isPassword />
+							<DataFieldEmail state={email} setState={setEmail} isInvalid={isEmailInvalid} setIsInvalid={setIsEmailInvalid} title="Email" isRequired />
+							<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldNotTestPassword isRequired />
 						</form>
 						<div className="spacer" />
 
 						<div className="login-button">
-							<WAOButton title="Login" color="green" clickCallback={onSubmit} />
+							<WAOButton title="Login" color="green" clickCallback={onSubmit} isLoasing={isLoading} isDisabled={isLoading || isInvalid} />
 						</div>
 
 						<div className="login-to-signup">
