@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import StyledDataField from './StyledDataField';
 
-const DataFieldEmail = ({ title, state, setState, isRequired }) => {
+const DataFieldEmail = ({ title, state, setState, isInvalid, setIsInvalid, isRequired }) => {
 	const [errorMessage, setErrorMessage] = useState('');
 
 	const getIsInvalid = newValue => {
@@ -22,25 +22,20 @@ const DataFieldEmail = ({ title, state, setState, isRequired }) => {
 	};
 
 	useEffect(() => {
-		setState({
-			...state,
-			isInvalid: getIsInvalid(state.value)
-		});
+		setIsInvalid(getIsInvalid(state));
 	}, []);
 
 	const onChange = e => {
-		setState({
-			value: e.target.value,
-			isInvalid: getIsInvalid(e.target.value)
-		});
+		setState(e.target.value);
+		setIsInvalid(getIsInvalid(e.target.value));
 	};
 
 	return (
-		<StyledDataField isInvalid={state.isInvalid}>
-			<span className="datafield-title">{state.value && state.value.length > 0 ? title : '\u00A0'}</span>
-			<input onChange={onChange} value={state.value} type="email" placeholder={title} />
+		<StyledDataField isInvalid={isInvalid}>
+			<span className="datafield-title">{state && state.length > 0 ? title : '\u00A0'}</span>
+			<input onChange={onChange} value={state} type="email" placeholder={title} />
 			<div className="datafield-error">
-				{state.isInvalid && <i className="fas fa-exclamation"></i>}
+				{isInvalid && <i className="fas fa-exclamation"></i>}
 				<span>{errorMessage}</span>
 			</div>
 		</StyledDataField>

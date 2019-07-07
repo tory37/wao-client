@@ -9,11 +9,11 @@ import { routeDefs } from '../../routeDefs';
 
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
-import DataField from '../DataField';
 import WAOButton from '../WAOButton';
 import DataFieldText from '../dataFields/DataFieldText';
 import DataFieldEmail from '../dataFields/DataFieldEmail';
 import DataFieldPassword from '../dataFields/DateFieldPassword';
+import DataFieldConfirmPassword from '../dataFields/DataFieldConfirmPassword';
 
 // 500 x 262
 const StyledSignup = styled.div`
@@ -57,25 +57,14 @@ const Signup = ({ auth, history, registerUser }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isInvalid, setIsInvalid] = useState(true);
 
-	const [username, setUsername] = useState({
-		value: '',
-		isInvalid: false
-	});
-
-	const [email, setEmail] = useState({
-		value: '',
-		isInvalid: false
-	});
-
-	const [password, setPassword] = useState({
-		value: '',
-		isInvalid: false
-	});
-
-	const [confirmPassword, setConfirmPassword] = useState({
-		value: '',
-		isInvalid: ''
-	});
+	const [username, setUsername] = useState('');
+	const [isUsernameInvalid, setIsUsernameInvalid] = useState(false);
+	const [email, setEmail] = useState('');
+	const [isEmailInvalid, setIsEmailInvalid] = useState(false);
+	const [password, setPassword] = useState('');
+	const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] = useState(false);
 
 	useEffect(() => {
 		// If logged in user naviages here, redirect
@@ -85,8 +74,8 @@ const Signup = ({ auth, history, registerUser }) => {
 	}, [auth.isAuthenticated, history]);
 
 	useEffect(() => {
-		setIsInvalid(username.isInvalid || email.isInvalid || password.isInvalid || confirmPassword.isInvalid);
-	}, [username, email, password, confirmPassword]);
+		setIsInvalid(isUsernameInvalid || isEmailInvalid || isPasswordInvalid || isConfirmPasswordInvalid);
+	}, [isUsernameInvalid, isEmailInvalid, isPasswordInvalid, isConfirmPasswordInvalid]);
 
 	const onSubmit = e => {
 		setIsLoading(true);
@@ -111,9 +100,10 @@ const Signup = ({ auth, history, registerUser }) => {
 						<div className="signup-title">Signup</div>
 
 						<form noValidate onSubmit={onSubmit}>
-							<DataFieldText state={username} setState={setUsername} title="Username" isRequired />
-							<DataFieldEmail state={email} setState={setEmail} title="Email" isRequired />
-							<DataFieldPassword passwordState={password} passwordSetState={setPassword} confirmPasswordState={confirmPassword} confirmPasswordSetState={setConfirmPassword} />
+							<DataFieldText state={username} setState={setUsername} isInvalid={isUsernameInvalid} setIsInvalid={setIsUsernameInvalid} title="Username" isRequired />
+							<DataFieldEmail state={email} setState={setEmail} isInvalid={isEmailInvalid} setIsInvalid={setIsEmailInvalid} title="Email" isRequired />
+							<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldValidate />
+							<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
 						</form>
 						<div className="spacer" />
 

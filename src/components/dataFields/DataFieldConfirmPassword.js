@@ -3,12 +3,8 @@ import _ from 'lodash';
 
 import StyledDataField from './StyledDataField';
 
-const DataFieldPassword = ({ title, state, setState, isInvalid, setIsInvalid, shouldValidate }) => {
+const DataFieldConfirmPassword = ({ title, state, setState, isInvalid, setIsInvalid, password }) => {
 	const [errorMessage, setErrorMessage] = useState('');
-
-	const isPasswordSecure = pass => {
-		return /[a-z]/.test(pass) && /[A-Z]/.test(pass) && /[0-1]/.test(pass);
-	};
 
 	const passwordSecurityMessage = 'Must contain at least one uppercase, lowercase, and number';
 
@@ -18,8 +14,8 @@ const DataFieldPassword = ({ title, state, setState, isInvalid, setIsInvalid, sh
 			return true;
 		}
 
-		if (!isPasswordSecure(newValue)) {
-			setErrorMessage(passwordSecurityMessage);
+		if (password !== newValue) {
+			setErrorMessage('Passwords do not match');
 			return true;
 		}
 
@@ -28,23 +24,19 @@ const DataFieldPassword = ({ title, state, setState, isInvalid, setIsInvalid, sh
 	};
 
 	useEffect(() => {
-		if (shouldValidate) {
-			setIsInvalid(getIsInvalid(state));
-		}
-	}, []);
+		setIsInvalid(getIsInvalid(state));
+	}, [password]);
 
 	const onChange = e => {
 		setState(e.target.value);
-		if (shouldValidate) {
-			setIsInvalid(getIsInvalid(e.target.value));
-		}
+		setIsInvalid(getIsInvalid(e.target.value));
 	};
 
 	return (
 		<div>
 			<StyledDataField isInvalid={isInvalid}>
-				<span className="datafield-title">{state && state.length > 0 ? 'Password' : '\u00A0'}</span>
-				<input onChange={onChange} value={state} type="password" placeholder={'Password'} />
+				<span className="datafield-title">{state && state.length > 0 ? 'Confirm Password' : '\u00A0'}</span>
+				<input onChange={onChange} value={state} type="password" placeholder={'Confirm Password'} />
 				<div className="datafield-error">
 					{isInvalid && <i className="fas fa-exclamation"></i>}
 					<span>{errorMessage}</span>
@@ -54,4 +46,4 @@ const DataFieldPassword = ({ title, state, setState, isInvalid, setIsInvalid, sh
 	);
 };
 
-export default DataFieldPassword;
+export default DataFieldConfirmPassword;

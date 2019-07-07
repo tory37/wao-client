@@ -3,12 +3,15 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import moment from 'moment';
 import _ from 'lodash';
+import useDataFieldState from '../../utils/useDataFieldState';
 
 import SkewedBox from '../SkewedBox';
 import CenteredContent from '../CenteredContent';
 import DataField from '../DataField';
 import WAOButton from '../WAOButton';
 import { createEvent as createEventAction } from '../../actions/eventActions';
+import DataFieldText from '../dataFields/DataFieldText';
+import DataFieldNumber from '../dataFields/DataFieldNumber';
 
 // 500 x 262
 const StyledEventAdd = styled.div`
@@ -34,10 +37,6 @@ const StyledEventAdd = styled.div`
 			padding-left: 19px;
 			padding-right: 30px;
 			padding-bottom: 5px;
-
-			.spacer {
-				height: 10px;
-			}
 
 			.eventadd-content-split {
 				display: flex;
@@ -71,22 +70,29 @@ const StyledEventAdd = styled.div`
 `;
 
 const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
-	const createInitialState = () => {
-		return {
-			imageUrl: 'https://i.ytimg.com/vi/rehbyT4njbY/maxresdefault.jpg',
-			startTimestamp: 1561852800, //moment().unix()
-			endTimestamp: 1561906800, //moment().unix()
-			title: 'Test Event 2',
-			address: '318 Harrell Dr, Lafayette, LA 70503, USA',
-			lat: 30.180797,
-			lng: -92.06473890000001,
-			description: 'Test'
-		};
-	};
+	const [imageUrl, setImageUrl] = useDataFieldState('');
+	const [startTimestamp, setStartTimestamp] = useDataFieldState(moment().unix());
+	const [endTimestamp, setEndTimestamp] = useDataFieldState(moment().unix());
+	const [title, setTitle] = useDataFieldState('');
+	const [address, setAddress] = useDataFieldState('');
+	const [lat, setLat] = useDataFieldState('');
+	const [lng, setLng] = useDataFieldState('');
+	const [description, setDescription] = useDataFieldState('');
 
-	const [newEvent, setNewEvent] = useState(createInitialState());
 	const [isAdding, setIsAdding] = useState(false);
 	const [isSaving, setIsSaving] = useState(false);
+
+	const resetState = () => {
+		// Reset state
+		setImageUrl('');
+		setStartTimestamp(moment().unix());
+		setEndTimestamp(moment().unix());
+		setTitle('');
+		setAddress('');
+		setLat('');
+		setLng('');
+		setDescription('');
+	};
 
 	const onAddClick = e => {
 		onAddStart();
@@ -95,7 +101,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 
 	const onCancel = e => {
 		setIsAdding(false);
-		setNewEvent(createInitialState());
+		resetState();
 		onAddEnd();
 	};
 
@@ -103,23 +109,25 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 		setIsSaving(true);
 
 		const eventToAdd = {
-			imageUrl: newEvent.imageUrl,
-			startTimestamp: parseInt(newEvent.startTimestamp), //  Make timestamp from date and time
-			endTimestamp: parseInt(newEvent.endTimestamp), // same
-			title: newEvent.title,
-			address: newEvent.address,
-			lat: newEvent.lat,
-			lng: newEvent.lng,
-			description: newEvent.description
+			imageUrl: imageUrl.value,
+			startTimestamp: parseInt(startTimestamp.value), //  Make timestamp from date and time
+			endTimestamp: parseInt(endTimestamp.value), // same
+			title: title.value,
+			address: address.value,
+			lat: lat.value,
+			lng: lng.value,
+			description: description.value
 		};
 
 		console.log('New Event: ', eventToAdd);
 
-		createEvent(newEvent)
+		createEvent(eventToAdd)
 			.then(() => {
 				setIsAdding(false);
 				onAddEnd();
-				setNewEvent(createInitialState());
+
+				// Reset state
+				resetState();
 			})
 			.finally(() => {
 				setIsSaving(false);
@@ -135,13 +143,12 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 						<form id="event-add-form" noValidate onSubmit={onSave}>
 							<CenteredContent>
 								<div className="eventadd-content">
-									<DataField statePropertyPath="title" formState={newEvent} formSetState={setNewEvent} title="Title" isText />
-									<DataField statePropertyPath="imageUrl" formState={newEvent} formSetState={setNewEvent} title="Image URL" isText />
-									<DataField statePropertyPath="startTimestamp" formState={newEvent} formSetState={setNewEvent} title="Start Date" isNumber />
-									{/* <div className="spacer" /> */}
-									<DataField statePropertyPath="endTimestamp" formState={newEvent} formSetState={setNewEvent} title="End Date" isNumber />
-									<DataField statePropertyPath="address" formState={newEvent} formSetState={setNewEvent} title="Location" isLocation />
-									<DataField statePropertyPath="description" formState={newEvent} formSetState={setNewEvent} title="Description" isTextArea />
+									<DataFieldText state={imageUrl} setState={setImageUrl} title="Image Url" isRequired />
+									<DataFieldText state={title} setState={setTitle} title="Title" isRequired />
+									<DataFieldNumber state={startTimestamp} setState={setStartTimestamp} title="Start Timestamp" min={1000} max={5000} step={1} isRequired />
+									<DataFieldNumber state={endTimestamp} setState={setEndTimestamp} title="End Timestamp" min={1000} max={5000} step={1} isRequired />
+									{/* <DataField statePropertyPath="address" formState={newEvent} formSetState={setNewEvent} title="Location" isLocation /> */}
+									{/* <DataField statePropertyPath="description" formState={newEvent} formSetState={setNewEvent} title="Description" isTextArea /> */}
 
 									<div className="eventadd-buttons">
 										<div className="eventadd-button-wrapper">
