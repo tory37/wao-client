@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { routeDefs } from '../../routeDefs';
@@ -8,7 +8,8 @@ import { updatePasswordWithToken as updatePasswordWithTokenAction } from '../../
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
 import WAOButton from '../WAOButton';
-import DataField from '../DataField';
+import DataFieldPassword from '../dataFields/DateFieldPassword';
+import DataFieldConfirmPassword from '../dataFields/DataFieldConfirmPassword';
 
 const StyledPasswordChange = styled.div`
 	width: 100%;
@@ -39,17 +40,23 @@ const StyledPasswordChange = styled.div`
 const PasswordChange = ({ updatePasswordWithToken, history, match }) => {
 	const [isLoading, setIsLoading] = useState(false);
 
-	const [newPassword, setNewPassword] = useState({
-		password: '',
-		password2: ''
-	});
+	const [password, setPassword] = useState('');
+	const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] = useState(false);
+
+	const [isInvalid, setIsInvalid] = useState(false);
+
+	useEffect(() => {
+		setIsInvalid(isPasswordInvalid || isConfirmPasswordInvalid);
+	}, [isPasswordInvalid, isConfirmPasswordInvalid]);
 
 	const onSave = () => {
 		setIsLoading(true);
 
 		const { token } = match.params;
 
-		updatePasswordWithToken(newPassword.password, newPassword.password2, token)
+		updatePasswordWithToken(password, confirmPassword, token)
 			.then(() => {
 				history.push(routeDefs.login);
 			})
@@ -66,11 +73,11 @@ const PasswordChange = ({ updatePasswordWithToken, history, match }) => {
 
 					{!isLoading && (
 						<div className="passwordchange-form">
-							<DataField statePropertyPath="password" formState={newPassword} formSetState={setNewPassword} title="New Password" isPassword />
-							<DataField statePropertyPath="password2" formState={newPassword} formSetState={setNewPassword} title="Confirm New Password" isPassword />
+							<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldValidate />
+							<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
 
 							<div className="passwordchange-button">
-								<WAOButton title="Save" color="purple" clickCallback={onSave} isDisabled={isLoading} isLoading={isLoading} />
+								<WAOButton title="Save" color="purple" clickCallback={onSave} isDisabled={isLoading || isInvalid} isLoading={isLoading} />
 							</div>
 						</div>
 					)}
