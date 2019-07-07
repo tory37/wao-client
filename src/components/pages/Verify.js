@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { verifyUser as verifyUserAction, resendVerification as resendVerificationAction } from '../../actions/authActions';
+import {routeDefs} from '../../routeDefs';
 
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
@@ -84,7 +85,7 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 		const { token } = match.params;
 
 		verifyUser(token)
-			.then(() => history.push('/login'))
+			.then(() => history.push(routeDefs.login))
 			.catch(() => setIsError(true))
 			.finally(() => setIsLoading(false));
 	}, []);

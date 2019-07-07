@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import { logoutUser as logoutUserAction } from '../actions/authActions';
+import {routeDefs} from '../routeDefs';
 
 import SkewedBox from './SkewedBox';
 import CenteredContent from './CenteredContent';
@@ -81,7 +82,7 @@ const UserStatus = ({ isSelected, auth, logoutUser, history }) => {
 	}, [isOpen]);
 
 	const onProfileClick = e => {
-		history.push('/profile');
+		history.push(routeDefs.userProfile);
 		setIsOpen(false);
 	};
 
@@ -91,12 +92,12 @@ const UserStatus = ({ isSelected, auth, logoutUser, history }) => {
 	};
 
 	const onLoginClick = e => {
-		history.push('/login');
+		history.push(routeDefs.login);
 		setIsOpen(false);
 	};
 
 	const onSignupClick = e => {
-		history.push('/signup');
+		history.push(routeDefs.signup);
 		setIsOpen(false);
 	};
 
