@@ -1,6 +1,7 @@
 import setAuthToken from '../utils/auth';
 
 import api from '../utils/api/auth';
+import { routeDefs, isOnRoute } from '../routeDefs';
 
 import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types';
 import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification } from '../utils/notifications';
@@ -23,7 +24,7 @@ export const registerUser = (userData, history) => dispatch => {
 		.registerUser(userData)
 		.then(res => {
 			displaySuccessNotification(res.data, notificationId);
-			history.push('/login');
+			history.push(routeDefs.login);
 		}) // re-direct to login on siccessful register
 		.catch(err => {
 			displayErrorNotification(err, 'Registration error occured. Plz contact admins', notificationId);
@@ -80,19 +81,21 @@ export const logoutUser = () => dispatch => {
 };
 
 export const updateUserProfile = (userData, id) => dispatch => {
+	const notificationId = displayLoadingNotification('Updating profile...');
 	return api
 		.updateUserProfile(userData, id)
 		.then(res => {
 			dispatch(setCurrentUser(res.data));
-			displaySuccessNotification('Succesfully updated profile');
+			displaySuccessNotification('Succesfully updated profile', notificationId);
 		})
 		.catch(err => {
-			displayErrorNotification(err, 'Error updating profile');
+			displayErrorNotification(err, 'Error updating profile', notificationId);
 			throw err;
 		});
 };
 
 export const updatePassword = (password, password2, id) => dispatch => {
+	const notificationId = displayLoadingNotification('Updating password...');
 	return api
 		.updatePassword({ password, password2 }, id)
 		.then(res => {
@@ -100,34 +103,62 @@ export const updatePassword = (password, password2, id) => dispatch => {
 			localStorage.setItem('jwtToken', token);
 			// Set token to Auth header
 			setAuthToken(token);
-			displaySuccessNotification('Password updated.  You will need to relogin on other devices');
+			displaySuccessNotification('Password updated.  You will need to relogin on other devices', notificationId);
 		})
 		.catch(err => {
-			displayErrorNotification(err, 'Error updating password');
+			displayErrorNotification(err, 'Error updating password', notificationId);
+			throw err;
+		});
+};
+
+export const updatePasswordWithToken = (password, password2, token) => dispatch => {
+	const notificationId = displayLoadingNotification('Updating password...');
+	return api
+		.updatePasswordWithToken(password, password2, token)
+		.then(res => {
+			displaySuccessNotification('Password updated.  Please login.', notificationId);
+		})
+		.catch(err => {
+			displayErrorNotification(err, 'Error updating password', notificationId);
+			throw err;
+		});
+};
+
+export const resetPassword = email => dispatch => {
+	const notificationId = displayLoadingNotification('Resetting password...');
+	return api
+		.resetPassword(email)
+		.then(res => {
+			displaySuccessNotification(res.data, notificationId);
+		})
+		.catch(err => {
+			displayErrorNotification(err, 'There was an error sending a password reset', notificationId);
 			throw err;
 		});
 };
 
 export const verifyUser = verificationToken => dispatch => {
+	const notificationId = displayLoadingNotification('Verifying user...');
 	return api
 		.verifyUser(verificationToken)
 		.then(res => {
-			displaySuccessNotification('Email verified! Please login');
+			displaySuccessNotification('Email verified! Please login', notificationId);
 		})
 		.catch(err => {
-			displayErrorNotification(err, 'Error verifying email');
+			displayErrorNotification(err, 'Error verifying email', notificationId);
 			throw err;
 		});
 };
 
 export const resendVerification = email => dispatch => {
+	const notificationId = displayLoadingNotification('Resending verifiation email...');
 	return api
 		.resendVerification(email)
 		.then(res => {
-			displaySuccessNotification('Verification email sent! Please check your inbox (Check your spam)');
+			displaySuccessNotification('Verification email sent! Please check your inbox (Check your spam)', notificationId);
 		})
 		.catch(err => {
-			displayErrorNotification(err, 'Error sending verification email');
+			displayErrorNotification(err, 'Error sending verification email', notificationId);
 			throw err;
 		});
 };

@@ -21,6 +21,16 @@ const updatePassword = (passwordData, id) => {
 	return axios.post(`${process.env.REACT_APP_API_URL}/users/password?id=${id}`, passwordData);
 };
 
+const updatePasswordWithToken = (password, password2, token) => {
+	const url = `${process.env.REACT_APP_API_URL}/users/password/update`;
+	return axios.post(url, { password, password2, token });
+};
+
+const resetPassword = email => {
+	var url = `${process.env.REACT_APP_API_URL}/users/password/reset`;
+	return axios.post(url, { email });
+};
+
 const verifyUser = verificationToken => {
 	return axios.post(
 		`${process.env.REACT_APP_API_URL}/users/verify`,
@@ -41,6 +51,8 @@ const authApi = {
 	fetchUser,
 	updateUserProfile,
 	updatePassword,
+	updatePasswordWithToken,
+	resetPassword,
 	verifyUser,
 	resendVerification
 };

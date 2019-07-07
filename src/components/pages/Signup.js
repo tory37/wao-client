@@ -4,15 +4,18 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { registerUser } from '../actions/authActions';
+import { registerUser } from '../../actions/authActions';
+import {routeDefs} from '../../routeDefs';
 
-import SkewedBox from './SkewedBox';
-import CenteredContent from './CenteredContent';
-import DataField from './DataField';
-import WAOButton from './WAOButton';
+import PageWrapper from '../PageWrapper';
+import PageCard from '../PageCard';
+import DataField from '../DataField';
+import WAOButton from '../WAOButton';
 
 // 500 x 262
 const StyledSignup = styled.div`
+	width: 100%;
+
 	.signup-content {
 		display: flex;
 		flex-direction: column;
@@ -56,10 +59,12 @@ const Signup = ({ auth, history, registerUser }) => {
 		errors: {}
 	});
 
+	const [isLoading, setIsLoading] = useState(false);
+
 	useEffect(() => {
 		// If logged in user naviages here, redirect
 		if (auth.isAuthenticated) {
-			history.push('/');
+			history.push(routeDefs.home);
 		}
 	}, [auth.isAuthenticated, history, signup]);
 
@@ -71,6 +76,8 @@ const Signup = ({ auth, history, registerUser }) => {
 	};
 
 	const onSubmit = e => {
+		setIsLoading(true);
+
 		const newUser = {
 			username: signup.username,
 			email: signup.email,
@@ -78,37 +85,37 @@ const Signup = ({ auth, history, registerUser }) => {
 			password2: signup.password
 		};
 
-		registerUser(newUser, history);
+		registerUser(newUser, history).finally(() => {
+			setIsLoading(false);
+		});
 	};
 
 	return (
-		<StyledSignup>
-			<div className="page-content">
-				<SkewedBox clipPath="2% 3%, 100% 0, 100% 99%, 0 100%" color="darkgray" isSelected>
-					<CenteredContent>
-						<div className="signup-content">
-							<div className="signup-title">Signup</div>
+		<PageWrapper>
+			<StyledSignup>
+				<PageCard isLoading={isLoading} isSkewed>
+					<div className="signup-content">
+						<div className="signup-title">Signup</div>
 
-							<form noValidate onSubmit={onSubmit}>
-								<DataField statePropertyPath="username" formState={signup} formSetState={setSignup} title="Username" isText />
-								<DataField statePropertyPath="email" formState={signup} formSetState={setSignup} title="Email" isEmail />
-								<DataField statePropertyPath="password" formState={signup} formSetState={setSignup} title="Password" isPassword />
-								<DataField statePropertyPath="password2" formState={signup} formSetState={setSignup} title="Confirm Password" isPassword />
-							</form>
-							<div className="spacer" />
+						<form noValidate onSubmit={onSubmit}>
+							<DataField statePropertyPath="username" formState={signup} formSetState={setSignup} title="Username" isText />
+							<DataField statePropertyPath="email" formState={signup} formSetState={setSignup} title="Email" isEmail />
+							<DataField statePropertyPath="password" formState={signup} formSetState={setSignup} title="Password" isPassword />
+							<DataField statePropertyPath="password2" formState={signup} formSetState={setSignup} title="Confirm Password" isPassword />
+						</form>
+						<div className="spacer" />
 
-							<div className="signup-button">
-								<WAOButton title="Signup" color="blue" clickCallback={onSubmit} />
-							</div>
-
-							<div className="signup-to-login">
-								Already have an account? <Link to="/login">Login</Link>
-							</div>
+						<div className="signup-button">
+							<WAOButton title="Signup" color="blue" clickCallback={onSubmit} />
 						</div>
-					</CenteredContent>
-				</SkewedBox>
-			</div>
-		</StyledSignup>
+
+						<div className="signup-to-login">
+							Already have an account? <Link to="/login">Login</Link>
+						</div>
+					</div>
+				</PageCard>
+			</StyledSignup>
+		</PageWrapper>
 	);
 };
 

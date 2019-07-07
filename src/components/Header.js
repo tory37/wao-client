@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Link, withRouter } from 'react-router-dom';
+import { routeDefs, isOnRoute } from '../routeDefs';
 
 import HeaderButton from './HeaderButton';
 import UserStatus from './UserStatus';
@@ -73,21 +74,21 @@ const StyledHeader = styled.div`
 const Header = ({ location }) => {
 	return (
 		<StyledHeader>
-			<Link to="/">
+			<Link to={routeDefs.home}>
 				<div className="header-title">{'Weebs And Otakus'}</div>
 			</Link>
 			<div className="header-buttons">
-				<Link to="/">
-					<HeaderButton title="Home" clipPath="0 0, 99% 13%, 96% 100%, 7% 100%" isSelected={location.pathname === '/'} />
+				<Link to={routeDefs.home}>
+					<HeaderButton title="Home" clipPath="0 0, 99% 13%, 96% 100%, 7% 100%" isSelected={isOnRoute(location, routeDefs.home)} />
 				</Link>
-				<Link to="/events">
-					<HeaderButton title="Events" clipPath="5% 17%, 96% 5%, 94% 100%, 7% 100%" isSelected={location.pathname === '/events'} />
+				<Link to={routeDefs.events}>
+					<HeaderButton title="Events" clipPath="5% 17%, 96% 5%, 94% 100%, 7% 100%" isSelected={isOnRoute(location, routeDefs.events)} />
 				</Link>
-				<Link to="/photos">
-					<HeaderButton title="photos" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={location.pathname === '/photos'} />
+				<Link to={routeDefs.photos}>
+					<HeaderButton title="photos" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={isOnRoute(location, routeDefs.photos)} />
 				</Link>
 				<div className="user-menu-wrapper">
-					<UserStatus isSelected={location.pathname === '/profile'} />
+					<UserStatus isSelected={isOnRoute(location, routeDefs.userProfile)} />
 				</div>
 			</div>
 		</StyledHeader>
