@@ -5,12 +5,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { registerUser } from '../../actions/authActions';
-import {routeDefs} from '../../routeDefs';
+import { routeDefs } from '../../routeDefs';
 
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
-import DataField from '../DataField';
 import WAOButton from '../WAOButton';
+import DataFieldText from '../dataFields/DataFieldText';
+import DataFieldEmail from '../dataFields/DataFieldEmail';
+import DataFieldPassword from '../dataFields/DateFieldPassword';
+import DataFieldConfirmPassword from '../dataFields/DataFieldConfirmPassword';
 
 // 500 x 262
 const StyledSignup = styled.div`
@@ -51,38 +54,37 @@ const StyledSignup = styled.div`
 	}
 `;
 const Signup = ({ auth, history, registerUser }) => {
-	const [signup, setSignup] = useState({
-		username: '',
-		email: '',
-		password: '',
-		password2: '',
-		errors: {}
-	});
-
 	const [isLoading, setIsLoading] = useState(false);
+	const [isInvalid, setIsInvalid] = useState(true);
+
+	const [username, setUsername] = useState('');
+	const [isUsernameInvalid, setIsUsernameInvalid] = useState(false);
+	const [email, setEmail] = useState('');
+	const [isEmailInvalid, setIsEmailInvalid] = useState(false);
+	const [password, setPassword] = useState('');
+	const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] = useState(false);
 
 	useEffect(() => {
 		// If logged in user naviages here, redirect
 		if (auth.isAuthenticated) {
 			history.push(routeDefs.home);
 		}
-	}, [auth.isAuthenticated, history, signup]);
+	}, [auth.isAuthenticated, history]);
 
-	const onChange = e => {
-		// TODO: ASK ABOUT THIS
-		const moddedState = _.clone(signup);
-		moddedState[e.target.id] = e.target.value;
-		setSignup(moddedState);
-	};
+	useEffect(() => {
+		setIsInvalid(isUsernameInvalid || isEmailInvalid || isPasswordInvalid || isConfirmPasswordInvalid);
+	}, [isUsernameInvalid, isEmailInvalid, isPasswordInvalid, isConfirmPasswordInvalid]);
 
 	const onSubmit = e => {
 		setIsLoading(true);
 
 		const newUser = {
-			username: signup.username,
-			email: signup.email,
-			password: signup.password,
-			password2: signup.password
+			username: username.value,
+			email: email.value,
+			password: password.value,
+			password2: confirmPassword.value
 		};
 
 		registerUser(newUser, history).finally(() => {
@@ -98,15 +100,15 @@ const Signup = ({ auth, history, registerUser }) => {
 						<div className="signup-title">Signup</div>
 
 						<form noValidate onSubmit={onSubmit}>
-							<DataField statePropertyPath="username" formState={signup} formSetState={setSignup} title="Username" isText />
-							<DataField statePropertyPath="email" formState={signup} formSetState={setSignup} title="Email" isEmail />
-							<DataField statePropertyPath="password" formState={signup} formSetState={setSignup} title="Password" isPassword />
-							<DataField statePropertyPath="password2" formState={signup} formSetState={setSignup} title="Confirm Password" isPassword />
+							<DataFieldText state={username} setState={setUsername} isInvalid={isUsernameInvalid} setIsInvalid={setIsUsernameInvalid} title="Username" isRequired />
+							<DataFieldEmail state={email} setState={setEmail} isInvalid={isEmailInvalid} setIsInvalid={setIsEmailInvalid} title="Email" isRequired />
+							<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldValidate />
+							<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
 						</form>
 						<div className="spacer" />
 
 						<div className="signup-button">
-							<WAOButton title="Signup" color="blue" clickCallback={onSubmit} />
+							<WAOButton title="Signup" color="blue" clickCallback={onSubmit} isDisabled={isInvalid} />
 						</div>
 
 						<div className="signup-to-login">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import moment from 'moment';
@@ -6,9 +6,11 @@ import _ from 'lodash';
 
 import SkewedBox from '../SkewedBox';
 import CenteredContent from '../CenteredContent';
-import DataField from '../DataField';
 import WAOButton from '../WAOButton';
 import { createEvent as createEventAction } from '../../actions/eventActions';
+import DataFieldText from '../dataFields/DataFieldText';
+import DataFieldNumber from '../dataFields/DataFieldNumber';
+import DataFieldLocation from '../dataFields/DataFieldLocation';
 
 // 500 x 262
 const StyledEventAdd = styled.div`
@@ -34,10 +36,6 @@ const StyledEventAdd = styled.div`
 			padding-left: 19px;
 			padding-right: 30px;
 			padding-bottom: 5px;
-
-			.spacer {
-				height: 10px;
-			}
 
 			.eventadd-content-split {
 				display: flex;
@@ -71,22 +69,40 @@ const StyledEventAdd = styled.div`
 `;
 
 const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
-	const createInitialState = () => {
-		return {
-			imageUrl: 'https://i.ytimg.com/vi/rehbyT4njbY/maxresdefault.jpg',
-			startTimestamp: 1561852800, //moment().unix()
-			endTimestamp: 1561906800, //moment().unix()
-			title: 'Test Event 2',
-			address: '318 Harrell Dr, Lafayette, LA 70503, USA',
-			lat: 30.180797,
-			lng: -92.06473890000001,
-			description: 'Test'
-		};
-	};
+	const [imageUrl, setImageUrl] = useState('');
+	const [isImageUrlInvalid, setIsImageUrlInvalid] = useState(false);
+	const [startTimestamp, setStartTimestamp] = useState(moment().unix());
+	const [isStartTimestampInvalid, setIsStartTimestampInvalid] = useState(false);
+	const [endTimestamp, setEndTimestamp] = useState(moment().unix());
+	const [isEndTimestampInvalid, setIsEndTimestampInvalid] = useState(false);
+	const [title, setTitle] = useState('');
+	const [isTitleInvalid, setIsTitleInvalid] = useState(false);
+	const [address, setAddress] = useState('');
+	const [lat, setLat] = useState('');
+	const [lng, setLng] = useState('');
+	const [isAddressInvalid, setIsAddressInvalid] = useState(false);
+	const [description, setDescription] = useState('');
+	const [isDescriptionInvalid, setIsDescriptionInvalid] = useState(false);
 
-	const [newEvent, setNewEvent] = useState(createInitialState());
 	const [isAdding, setIsAdding] = useState(false);
 	const [isSaving, setIsSaving] = useState(false);
+	const [isInvalid, setIsInvalid] = useState(false);
+
+	const resetState = () => {
+		// Reset state
+		setImageUrl('');
+		setStartTimestamp(moment().unix());
+		setEndTimestamp(moment().unix());
+		setTitle('');
+		setAddress('');
+		setLat('');
+		setLng('');
+		setDescription('');
+	};
+
+	useEffect(() => {
+		setIsInvalid(isImageUrlInvalid || isStartTimestampInvalid || isEndTimestampInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid);
+	})
 
 	const onAddClick = e => {
 		onAddStart();
@@ -95,7 +111,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 
 	const onCancel = e => {
 		setIsAdding(false);
-		setNewEvent(createInitialState());
+		resetState();
 		onAddEnd();
 	};
 
@@ -103,23 +119,25 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 		setIsSaving(true);
 
 		const eventToAdd = {
-			imageUrl: newEvent.imageUrl,
-			startTimestamp: parseInt(newEvent.startTimestamp), //  Make timestamp from date and time
-			endTimestamp: parseInt(newEvent.endTimestamp), // same
-			title: newEvent.title,
-			address: newEvent.address,
-			lat: newEvent.lat,
-			lng: newEvent.lng,
-			description: newEvent.description
+			imageUrl: imageUrl,
+			startTimestamp: parseInt(startTimestamp), //  Make timestamp from date and time
+			endTimestamp: parseInt(endTimestamp), // same
+			title: title,
+			address: address,
+			lat: lat,
+			lng: lng,
+			description: description
 		};
 
 		console.log('New Event: ', eventToAdd);
 
-		createEvent(newEvent)
+		createEvent(eventToAdd)
 			.then(() => {
 				setIsAdding(false);
 				onAddEnd();
-				setNewEvent(createInitialState());
+
+				// Reset state
+				resetState();
 			})
 			.finally(() => {
 				setIsSaving(false);
@@ -135,19 +153,18 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 						<form id="event-add-form" noValidate onSubmit={onSave}>
 							<CenteredContent>
 								<div className="eventadd-content">
-									<DataField statePropertyPath="title" formState={newEvent} formSetState={setNewEvent} title="Title" isText />
-									<DataField statePropertyPath="imageUrl" formState={newEvent} formSetState={setNewEvent} title="Image URL" isText />
-									<DataField statePropertyPath="startTimestamp" formState={newEvent} formSetState={setNewEvent} title="Start Date" isNumber />
-									{/* <div className="spacer" /> */}
-									<DataField statePropertyPath="endTimestamp" formState={newEvent} formSetState={setNewEvent} title="End Date" isNumber />
-									<DataField statePropertyPath="address" formState={newEvent} formSetState={setNewEvent} title="Location" isLocation />
-									<DataField statePropertyPath="description" formState={newEvent} formSetState={setNewEvent} title="Description" isTextArea />
+									<DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" isRequired />
+									<DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />
+									<DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />
+									<DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />
+									<DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired/>
+									<DataFieldText state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />
 
 									<div className="eventadd-buttons">
 										<div className="eventadd-button-wrapper">
 											<WAOButton title="Quit" color="red" md clickCallback={onCancel} isLoading={isSaving} isDisabled={isSaving} />
 										</div>
-										<WAOButton title="Save" color="green" md clickCallback={onSave} isLoading={isSaving} isDisabled={isSaving} />
+										<WAOButton title="Save" color="green" md clickCallback={onSave} isLoading={isSaving} isDisabled={isSaving || isInvalid} />
 									</div>
 								</div>
 							</CenteredContent>

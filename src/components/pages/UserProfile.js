@@ -13,6 +13,10 @@ import DataField from '../DataField';
 import WAOButton from '../WAOButton';
 import Img from 'react-image';
 import ColorPicker from '../ColorPicker';
+import DataFieldText from '../dataFields/DataFieldText';
+import DataFieldEmail from '../dataFields/DataFieldEmail';
+import DataFieldPassword from '../dataFields/DateFieldPassword';
+import DataFieldConfirmPassword from '../dataFields/DataFieldConfirmPassword';
 
 const defaultProfileImage = 'https://upload.wikimedia.org/wikipedia/commons/2/25/Wikipe-tan_silhouette.png';
 
@@ -62,44 +66,48 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 	const colorsArray = ['black', 'red', 'blue', 'purple', 'brown', 'orange', 'green'];
 
 	const [isLoading, setIsLoading] = useState(false);
-
-	const [moddedUser, setModdedUser] = useState({
-		imageUrl: auth.user.imageUrl,
-		username: auth.user.username,
-		email: auth.user.email,
-		color: auth.user.color && auth.user.color.length > 0 ? auth.user.color : 'black'
-	});
-
-	const [newPassword, setNewPassword] = useState({
-		password: '',
-		password2: ''
-	});
-
 	const [isEditing, setIsEditing] = useState(false);
 	const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
 
+	const [imageUrl, setImageUrl] = useState(auth.user.imageUrl);
+	const [isImageUrlInvalid, setIsImageUrlInvalid] = useState(false);
+	const [username, setUsername] = useState(auth.user.username);
+	const [isUsernameInvalid, setIsUsernameInvalid] = useState(false);
+	const [email, setEmail] = useState(auth.user.email);
+	const [isEmailInvalid, setIsEmailInvalid] = useState(false);
+	const [color, setColor] = useState(auth.user.color && auth.user.color.length > 0 ? auth.user.color : 'black');
+
+	const [isProfileInvalid, setIsProfileInvalid] = useState(false);
+	const [isPasswordUpdateInvalid, setIsPasswordUpdateInvalid] = useState(false);
+
+	const [password, setPassword] = useState('');
+	const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] = useState(false);
+
+	useEffect(() => {
+		setIsProfileInvalid(isImageUrlInvalid || isUsernameInvalid || isEmailInvalid);
+	}, [isImageUrlInvalid, isUsernameInvalid, isEmailInvalid]);
+
+	useEffect(() => {
+		setIsPasswordUpdateInvalid(isPasswordInvalid || isConfirmPasswordInvalid);
+	}, [isPasswordInvalid, isConfirmPasswordInvalid]);
+
 	const onEdit = e => {
 		setIsEditing(true);
+
+		setImageUrl(auth.user.imageUrl);
+		setUsername(auth.user.username);
+		setEmail(auth.user.email);
+		setColor(auth.user.color && auth.user.color.length > 0 ? auth.user.color : 'black');
 	};
 
 	const onCancel = e => {
 		if (isEditing) {
-			setModdedUser({
-				imageUrl: auth.user.imageUrl,
-				username: auth.user.username,
-				email: auth.user.email,
-				color: auth.user.color
-			});
-
 			setIsEditing(false);
 		}
 
 		if (isUpdatingPassword) {
-			setNewPassword({
-				password: '',
-				password2: ''
-			});
-
 			setIsUpdatingPassword(false);
 		}
 	};
@@ -108,10 +116,10 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 		setIsLoading(true);
 		if (isEditing) {
 			const updatedUser = {
-				imageUrl: moddedUser.imageUrl,
-				username: moddedUser.username,
-				email: moddedUser.email,
-				color: moddedUser.color
+				imageUrl: imageUrl,
+				username: username,
+				email: email,
+				color: color
 			};
 
 			updateUserProfile(updatedUser, auth.user._id)
@@ -124,7 +132,7 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 		}
 
 		if (isUpdatingPassword) {
-			updatePassword(newPassword.password, newPassword.password2, auth.user._id)
+			updatePassword(password, confirmPassword, auth.user._id)
 				.then(() => {
 					setIsUpdatingPassword(false);
 				})
@@ -135,14 +143,14 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 	};
 
 	const onSelectColor = color => {
-		setModdedUser({
-			...moddedUser,
-			color: color
-		});
+		setColor(color);
 	};
 
 	const onUpdatePasswordClick = e => {
 		setIsUpdatingPassword(true);
+
+		setPassword('');
+		setConfirmPassword('');
 	};
 
 	return (
@@ -158,25 +166,25 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 							</div>
 						)}
 
-						{isEditing && <DataField statePropertyPath="imageUrl" formState={moddedUser} formSetState={setModdedUser} title="Image URL" isText />}
+						{isEditing && <DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" />}
 
 						{!isEditing && <div className="userprofile-username">{auth.user.username}</div>}
 						{!isEditing && <div className="spacer" />}
 
-						{isEditing && <DataField statePropertyPath="username" formState={moddedUser} formSetState={setModdedUser} title="Username" isText />}
+						{isEditing && <DataFieldText state={username} setState={setUsername} isInvalid={isUsernameInvalid} setIsInvalid={setIsUsernameInvalid} title="Username" isRequired />}
 
 						{!isEditing && <div className="userprofile-email">{auth.user.email}</div>}
 
-						{isEditing && <DataField statePropertyPath="email" formState={moddedUser} formSetState={setModdedUser} title="Email" isText />}
+						{isEditing && <DataFieldEmail state={email} setState={setEmail} isInvalid={isEmailInvalid} setIsInvalid={setIsEmailInvalid} title="Email" isRequired />}
 
 						<div className="spacer" />
 
-						<ColorPicker colorsArray={colorsArray} onSelectColor={onSelectColor} selectedColor={moddedUser.color} isEditing={isEditing} />
+						<ColorPicker colorsArray={colorsArray} onSelectColor={onSelectColor} selectedColor={color} isEditing={isEditing} />
 
 						{isUpdatingPassword && (
 							<div>
-								<DataField statePropertyPath="password" formState={newPassword} formSetState={setNewPassword} title="New Password" isPassword />
-								<DataField statePropertyPath="password2" formState={newPassword} formSetState={setNewPassword} title="Confirm New Password" isPassword />
+								<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldValidate />
+								<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
 							</div>
 						)}
 
@@ -197,7 +205,7 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 									<WAOButton title="Quit" color="red" clickCallback={onCancel} md />
 								</div>
 								<div>
-									<WAOButton title="Save" color="green" clickCallback={onSave} md />
+									<WAOButton title="Save" color="green" clickCallback={onSave} isLoading={isLoading} isDisabled={isLoading || (isEditing && isProfileInvalid) || (isUpdatingPassword && isPasswordUpdateInvalid)} md />
 								</div>
 							</div>
 						)}
