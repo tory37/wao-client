@@ -24,7 +24,7 @@ class Autocomplete extends React.Component {
 	}
 
 	render() {
-		return <input ref={this.autocompleteInput} onChange={this.props.handleChange} id="autocomplete" placeholder="Enter your address" type="text" />;
+		return <input ref={this.autocompleteInput} onChange={this.props.handleChange} value={this.props.address} id="autocomplete" placeholder="Address" type="text" />;
 	}
 }
 

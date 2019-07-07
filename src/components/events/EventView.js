@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import _ from 'lodash';
@@ -12,7 +12,9 @@ import SkewedBox from '../SkewedBox';
 import CenteredContent from '../CenteredContent';
 import DataField from '../DataField';
 import WAOButton from '../WAOButton';
-// import { createEvent as createEventAction } from '../../actions/eventActions';
+import DataFieldText from '../dataFields/DataFieldText';
+import DataFieldNumber from '../dataFields/DataFieldNumber';
+import DataFieldGoogleAddress from '../dataFields/DataFieldGoogleAddress';
 
 // 500 x 262
 const StyledEventView = styled.div`
@@ -166,19 +168,46 @@ const StyledEventView = styled.div`
 `;
 
 const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
-	const [moddedEvent, setModdedEvent] = useState(_.clone(event));
 	const [isEditing, setIsEditing] = useState(false);
 	const [isSaving, setIsSaving] = useState(false);
 	const [isDescExpanded, setIsDescExpanded] = useState(false);
+	
+	const [imageUrl, setImageUrl] = useState(event.imageUrl);
+	const [isImageUrlInvalid, setIsImageUrlInvalid] = useState(false);
+	const [startTimestamp, setStartTimestamp] = useState(event.startTimestamp);
+	const [isStartTimestampInvalid, setIsStartTimestampInvalid] = useState(false);
+	const [endTimestamp, setEndTimestamp] = useState(event.endTimestamp);
+	const [isEndTimestampInvalid, setIsEndTimestampInvalid] = useState(false);
+	const [title, setTitle] = useState(event.title);
+	const [isTitleInvalid, setIsTitleInvalid] = useState(false);
+	const [address, setAddress] = useState(event.address);
+	const [isAddressInvalid, setIsAddressInvalid] = useState(false);
+	const [lat, setLat] = useState(event.lat);
+	const [lng, setLng] = useState(event.lng);
+	const [description, setDescription] = useState(event.description);
+	const [isDescriptionInvalid, setIsDescriptionInvalid] = useState(event.imageUrl);
+
+	const [isInvalid, setIsInvalid] = useState(false);
+
+	useEffect(() => {
+		setIsInvalid(isImageUrlInvalid || isStartTimestampInvalid || isEndTimestampInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid);
+	}, [isImageUrlInvalid, isStartTimestampInvalid, isEndTimestampInvalid, isTitleInvalid, isAddressInvalid, isDescriptionInvalid] )
 
 	const onEdit = e => {
 		onEditStart();
+		setImageUrl(event.imageUrl);
+		setStartTimestamp(event.startTimestamp);
+		setEndTimestamp(event.endTimestamp);
+		setTitle(event.title);
+		setAddress(event.address);
+		setLat(event.lat);
+		setLng(event.lng);
+		setDescription(event.description);
 		setIsEditing(true);
 	};
 
 	const onCancel = e => {
 		onEditEnd();
-		setModdedEvent(_.clone(event));
 		setIsEditing(false);
 	};
 
@@ -187,19 +216,18 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 		setIsEditing(true);
 
 		const formattedModdedEvent = {
-			imageUrl: moddedEvent.imageUrl,
-			startTimestamp: parseInt(moddedEvent.startTimestamp), //  Make timestamp from date and time
-			endTimestamp: parseInt(moddedEvent.endTimestamp), // same
-			title: moddedEvent.title,
-			address: moddedEvent.address,
-			lat: moddedEvent.lat,
-			lng: moddedEvent.lng,
-			description: moddedEvent.description
+			imageUrl: imageUrl,
+			startTimestamp: parseInt(startTimestamp), //  Make timestamp from date and time
+			endTimestamp: parseInt(endTimestamp), // same
+			title: title,
+			address: address,
+			lat: lat,
+			lng: lng,
+			description: description
 		};
 
-		updateEvent(event._id, moddedEvent)
+		updateEvent(event._id, formattedModdedEvent)
 			.then(() => {
-				setModdedEvent(_.clone(event));
 				setIsEditing(false);
 				onEditEnd();
 			})
@@ -213,12 +241,14 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 		let startMoment = moment.unix(event.startTimestamp);
 		let endMoment = moment.unix(event.endTimestamp);
 
-		let display = startMoment.format('dddd, MMMM D, YYYY [at] h:mm A') + ' - ';
+		let differentYears = startMoment.year() !== endMoment.year();
+
+		let display = startMoment.format('dddd, MMMM D, ' + (differentYears ? 'YYYY' : '') + ' [at] h:mm A') + ' - ';
 
 		if (startMoment.isSame(endMoment, 'day')) {
 			display += endMoment.format('h:mm A');
 		} else {
-			display += endMoment.format('dddd, MMMM D [at] h:mm A');
+			display += endMoment.format('dddd, MMMM D YYYY [at] h:mm A');
 		}
 
 		return display;
@@ -239,11 +269,11 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 					)}
 
 					<div className="eventview-content">
-						{isEditing && <DataField statePropertyPath="imageUrl" formState={moddedEvent} formSetState={setModdedEvent} title="Image URL" isText />}
+						{isEditing && <DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" isRequired />}
 
 						{!isEditing && <div className="eventview-title">{event.title}</div>}
 
-						{isEditing && <DataField statePropertyPath="title" formState={moddedEvent} formSetState={setModdedEvent} title="Title" isText />}
+						{isEditing && <DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />}
 
 						{!isEditing && (
 							<div className="eventview-date eventview-entry">
@@ -252,8 +282,8 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 							</div>
 						)}
 
-						{isEditing && <DataField statePropertyPath="startTimestamp" formState={moddedEvent} formSetState={setModdedEvent} title="Start Timestamp" isNumber />}
-						{isEditing && <DataField statePropertyPath="endTimestamp" formState={moddedEvent} formSetState={setModdedEvent} title="End Timestamp" isNumber />}
+						{isEditing && <DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />}
+						{isEditing && <DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />}
 
 						{!isEditing && (
 							<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} target="_blank" className="eventview-location eventview-entry">
@@ -263,7 +293,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 							</a>
 						)}
 
-						{isEditing && <DataField statePropertyPath="address" formState={moddedEvent} formSetState={setModdedEvent} title="Location" isLocation />}
+						{isEditing && <DataFieldGoogleAddress address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired/>}
 
 						{!isEditing && (
 							<div className="eventview-description">
@@ -276,7 +306,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 							</div>
 						)}
 
-						{isEditing && <DataField statePropertyPath="description" formState={moddedEvent} formSetState={setModdedEvent} title="Description" isTextArea />}
+						{isEditing && 									<DataFieldText state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />}
 
 						{!isEditing && canEdit && (
 							<div className="eventview-buttons">
@@ -287,10 +317,10 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 						{isEditing && (
 							<div className="eventview-buttons">
 								<div className="eventview-button-wrapper">
-									<WAOButton title="Quit" color="red" clickCallback={onCancel} md />
+									<WAOButton title="Quit" color="red" clickCallback={onCancel} />
 								</div>
 								<div>
-									<WAOButton title="Save" color="green" clickCallback={onSave} md />
+									<WAOButton title="Save" color="green" clickCallback={onSave} isLoading={isSaving} isDisabled={isSaving || isInvalid} />
 								</div>
 							</div>
 						)}

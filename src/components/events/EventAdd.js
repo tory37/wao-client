@@ -121,14 +121,14 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 		setIsSaving(true);
 
 		const eventToAdd = {
-			imageUrl: imageUrl.value,
-			startTimestamp: parseInt(startTimestamp.value), //  Make timestamp from date and time
-			endTimestamp: parseInt(endTimestamp.value), // same
-			title: title.value,
-			address: address.value,
-			lat: lat.value,
-			lng: lng.value,
-			description: description.value
+			imageUrl: imageUrl,
+			startTimestamp: parseInt(startTimestamp), //  Make timestamp from date and time
+			endTimestamp: parseInt(endTimestamp), // same
+			title: title,
+			address: address,
+			lat: lat,
+			lng: lng,
+			description: description
 		};
 
 		console.log('New Event: ', eventToAdd);
@@ -157,17 +157,16 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 								<div className="eventadd-content">
 									<DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" isRequired />
 									<DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />
-									<DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={1000} max={5000} step={1} isRequired />
-									<DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={1000} max={5000} step={1} isRequired />
+									<DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />
+									<DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />
 									<DataFieldGoogleAddress address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired/>
-									{/* <DataField statePropertyPath="address" formState={newEvent} formSetState={setNewEvent} title="Location" isLocation /> */}
-									{/* <DataField statePropertyPath="description" formState={newEvent} formSetState={setNewEvent} title="Description" isTextArea /> */}
+									<DataFieldText state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />
 
 									<div className="eventadd-buttons">
 										<div className="eventadd-button-wrapper">
 											<WAOButton title="Quit" color="red" md clickCallback={onCancel} isLoading={isSaving} isDisabled={isSaving} />
 										</div>
-										<WAOButton title="Save" color="green" md clickCallback={onSave} isLoading={isSaving} isDisabled={isSaving} />
+										<WAOButton title="Save" color="green" md clickCallback={onSave} isLoading={isSaving} isDisabled={isSaving || isInvalid} />
 									</div>
 								</div>
 							</CenteredContent>

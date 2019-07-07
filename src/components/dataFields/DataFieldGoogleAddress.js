@@ -42,7 +42,7 @@ const DataFieldGoogleAddress = ({ title, address, setAddress, setLat, setLng, is
 	return (
 		<StyledDataField isInvalid={isInvalid}>
 			<span className="datafield-title">{address && address.length > 0 ? title : '\u00A0'}</span>
-			<GoogleAutocomplete onPlaceChanged={onPlaceSelected} handleChange={onChange} />
+			<GoogleAutocomplete onPlaceChanged={onPlaceSelected} handleChange={onChange} address={address} />
 			<div className="datafield-error">
 				{isInvalid && <i className="fas fa-exclamation"></i>}
 				<span>{errorMessage}</span>
