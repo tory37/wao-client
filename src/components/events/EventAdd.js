@@ -3,16 +3,14 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import moment from 'moment';
 import _ from 'lodash';
-import useDataFieldState from '../../utils/useDataFieldState';
 
 import SkewedBox from '../SkewedBox';
 import CenteredContent from '../CenteredContent';
-import DataField from '../DataField';
 import WAOButton from '../WAOButton';
 import { createEvent as createEventAction } from '../../actions/eventActions';
 import DataFieldText from '../dataFields/DataFieldText';
 import DataFieldNumber from '../dataFields/DataFieldNumber';
-import DataFieldGoogleAddress from '../dataFields/DataFieldGoogleAddress';
+import DataFieldLocation from '../dataFields/DataFieldLocation';
 
 // 500 x 262
 const StyledEventAdd = styled.div`
@@ -159,7 +157,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 									<DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />
 									<DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />
 									<DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />
-									<DataFieldGoogleAddress address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired/>
+									<DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired/>
 									<DataFieldText state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />
 
 									<div className="eventadd-buttons">

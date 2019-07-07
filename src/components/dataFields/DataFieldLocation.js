@@ -4,7 +4,7 @@ import GoogleAutocomplete from '../GoogleAutocomplete';
 
 import StyledDataField from './StyledDataField';
 
-const DataFieldGoogleAddress = ({ title, address, setAddress, setLat, setLng, isInvalid, setIsInvalid, isRequired }) => {
+const DataFieldLocation = ({ title, address, setAddress, setLat, setLng, isInvalid, setIsInvalid, isRequired }) => {
 	const [errorMessage, setErrorMessage] = useState('');
 
 	const getIsInvalid = newValue => {
@@ -51,4 +51,4 @@ const DataFieldGoogleAddress = ({ title, address, setAddress, setLat, setLng, is
 	);
 };
 
-export default DataFieldGoogleAddress;
+export default DataFieldLocation;

@@ -14,7 +14,7 @@ import DataField from '../DataField';
 import WAOButton from '../WAOButton';
 import DataFieldText from '../dataFields/DataFieldText';
 import DataFieldNumber from '../dataFields/DataFieldNumber';
-import DataFieldGoogleAddress from '../dataFields/DataFieldGoogleAddress';
+import DataFieldLocation from '../dataFields/DataFieldLocation';
 
 // 500 x 262
 const StyledEventView = styled.div`
@@ -293,7 +293,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 							</a>
 						)}
 
-						{isEditing && <DataFieldGoogleAddress address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired/>}
+						{isEditing && <DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired/>}
 
 						{!isEditing && (
 							<div className="eventview-description">
