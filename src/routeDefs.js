@@ -4,12 +4,12 @@ export const routeDefs = {
 	login: '/login',
 	signup: '/signup',
 	verifyUser: '/verify/:token',
-	requestPasswordReset: '/password/request',
-	resetPassword: '/password/reset',
-    userProfile: '/profile',
-    photos: '/photos'
+	passwordReset: '/password-reset',
+	passwordChange: '/password-change/:token',
+	userProfile: '/profile',
+	photos: '/photos'
 };
 
 export const isOnRoute = (location, route) => {
-    return location.pathname === route;
-}
+	return location.pathname === route;
+};

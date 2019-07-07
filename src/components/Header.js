@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Link, withRouter } from 'react-router-dom';
-import {routeDefs, isOnRoute} from '../routeDefs';
+import { routeDefs, isOnRoute } from '../routeDefs';
 
 import HeaderButton from './HeaderButton';
 import UserStatus from './UserStatus';
@@ -74,7 +74,7 @@ const StyledHeader = styled.div`
 const Header = ({ location }) => {
 	return (
 		<StyledHeader>
-			<Link to="/">
+			<Link to={routeDefs.home}>
 				<div className="header-title">{'Weebs And Otakus'}</div>
 			</Link>
 			<div className="header-buttons">

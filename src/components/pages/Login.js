@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loginUser } from '../../actions/authActions';
-import {routeDefs} from '../../routeDefs';
+import { routeDefs } from '../../routeDefs';
 
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
@@ -105,7 +105,7 @@ const Login = ({ auth, history, loginUser }) => {
 						<div className="login-header-row">
 							<div className="login-title">Login</div>
 							<div className="login-forgot-password">
-								<Link to="/password-request">Forgot Password?</Link>
+								<Link to={routeDefs.passwordReset}>Forgot Password?</Link>
 							</div>
 						</div>
 
@@ -120,7 +120,7 @@ const Login = ({ auth, history, loginUser }) => {
 						</div>
 
 						<div className="login-to-signup">
-							Don't have an account? <Link to="/signup">Signup</Link>
+							Don't have an account? <Link to={routeDefs.signup}>Signup</Link>
 						</div>
 					</div>
 				</PageCard>

@@ -1,7 +1,7 @@
 import setAuthToken from '../utils/auth';
 
 import api from '../utils/api/auth';
-import {routeDefs, isOnRoute} from '../routeDefs';
+import { routeDefs, isOnRoute } from '../routeDefs';
 
 import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types';
 import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification } from '../utils/notifications';
@@ -104,6 +104,19 @@ export const updatePassword = (password, password2, id) => dispatch => {
 			// Set token to Auth header
 			setAuthToken(token);
 			displaySuccessNotification('Password updated.  You will need to relogin on other devices', notificationId);
+		})
+		.catch(err => {
+			displayErrorNotification(err, 'Error updating password', notificationId);
+			throw err;
+		});
+};
+
+export const updatePasswordWithToken = (password, password2, token) => dispatch => {
+	const notificationId = displayLoadingNotification('Updating password...');
+	return api
+		.updatePasswordWithToken(password, password2, token)
+		.then(res => {
+			displaySuccessNotification('Password updated.  Please login.', notificationId);
 		})
 		.catch(err => {
 			displayErrorNotification(err, 'Error updating password', notificationId);

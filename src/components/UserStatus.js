@@ -6,7 +6,6 @@ import { logoutUser as logoutUserAction } from '../actions/authActions';
 import {routeDefs} from '../routeDefs';
 
 import SkewedBox from './SkewedBox';
-import CenteredContent from './CenteredContent';
 import WAOButton from './WAOButton';
 import Img from 'react-image';
 
