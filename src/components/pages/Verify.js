@@ -9,6 +9,7 @@ import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
 import DataField from '../DataField';
 import WAOButton from '../WAOButton';
+import DataFieldEmail from '../dataFields/DataFieldEmail';
 
 const StyledVerify = styled.div`
 	width: 100%;
@@ -75,9 +76,10 @@ const StyledVerify = styled.div`
 const Verify = ({ match, history, verifyUser, resendVerification }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(true);
-	const [email, setEmail] = useState({
-		email: ''
-	});
+
+	const [email, setEmail] = useState('');
+	const [isInvalid, setIsInvalid] = useState(false);
+
 	const [isResendFinished, setIsResendFinished] = useState(false);
 	const [isResendError, setIsResendError] = useState(false);
 
@@ -123,10 +125,10 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 								{(!isResendFinished || isResendError) && (
 									<div>
 										<div className="verify-error-resend-title">Your verification token may have expired. Please enter the email you signed up with to send a new verification email.</div>
-										<DataField statePropertyPath="email" formState={email} formSetState={setEmail} title="Email" isEmail />
+										<DataFieldEmail state={email} setState={setEmail} isInvalid={isInvalid} setIsInvalid={setIsInvalid} title="Email" isRequired />
 
 										<div className="verify-error-resend-button">
-											<WAOButton title="Resend" color="purple" clickCallback={onResendClick} />
+											<WAOButton title="Resend" color="purple" clickCallback={onResendClick} isLoading={isLoading} isDisabled={isLoading || isInvalid} />
 										</div>
 
 										<div className="verify-signup">
