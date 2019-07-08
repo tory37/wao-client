@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import moment from 'moment';
-import _ from 'lodash';
 
-import SkewedBox from '../SkewedBox';
-import CenteredContent from '../CenteredContent';
+import PageCard from '../PageCard';
 import WAOButton from '../WAOButton';
 import { createEvent as createEventAction } from '../../actions/eventActions';
+import WAOForm from '../WAOForm';
 import DataFieldText from '../dataFields/DataFieldText';
+import DataFieldTextArea from '../dataFields/DataFieldTextArea';
 import DataFieldNumber from '../dataFields/DataFieldNumber';
 import DataFieldLocation from '../dataFields/DataFieldLocation';
 
@@ -85,7 +85,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 	const [isDescriptionInvalid, setIsDescriptionInvalid] = useState(false);
 
 	const [isAdding, setIsAdding] = useState(false);
-	const [isSaving, setIsSaving] = useState(false);
+	const [isLoading, setisLoading] = useState(false);
 	const [isInvalid, setIsInvalid] = useState(false);
 
 	const resetState = () => {
@@ -102,7 +102,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 
 	useEffect(() => {
 		setIsInvalid(isImageUrlInvalid || isStartTimestampInvalid || isEndTimestampInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid);
-	})
+	});
 
 	const onAddClick = e => {
 		onAddStart();
@@ -116,32 +116,34 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 	};
 
 	const onSave = e => {
-		setIsSaving(true);
+		if (isAdding && !isLoading && !isInvalid) {
+			setisLoading(true);
 
-		const eventToAdd = {
-			imageUrl: imageUrl,
-			startTimestamp: parseInt(startTimestamp), //  Make timestamp from date and time
-			endTimestamp: parseInt(endTimestamp), // same
-			title: title,
-			address: address,
-			lat: lat,
-			lng: lng,
-			description: description
-		};
+			const eventToAdd = {
+				imageUrl: imageUrl,
+				startTimestamp: parseInt(startTimestamp), //  Make timestamp from date and time
+				endTimestamp: parseInt(endTimestamp), // same
+				title: title,
+				address: address,
+				lat: lat,
+				lng: lng,
+				description: description
+			};
 
-		console.log('New Event: ', eventToAdd);
+			console.log('New Event: ', eventToAdd);
 
-		createEvent(eventToAdd)
-			.then(() => {
-				setIsAdding(false);
-				onAddEnd();
+			createEvent(eventToAdd)
+				.then(() => {
+					setIsAdding(false);
+					onAddEnd();
 
-				// Reset state
-				resetState();
-			})
-			.finally(() => {
-				setIsSaving(false);
-			});
+					// Reset state
+					resetState();
+				})
+				.finally(() => {
+					setisLoading(false);
+				});
+		}
 	};
 
 	return (
@@ -149,27 +151,25 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 			{!isAdding && <WAOButton title="Add New" color="purple" xl3 clickCallback={onAddClick} isDisabled={!canAdd} />}
 			{isAdding && (
 				<div className="eventadd-view">
-					<SkewedBox clipPath="3% 0, 100% 0, 96% 100%, 0% 100%" color="darkgray" isSelected>
-						<form id="event-add-form" noValidate onSubmit={onSave}>
-							<CenteredContent>
-								<div className="eventadd-content">
-									<DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" isRequired />
-									<DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />
-									<DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />
-									<DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />
-									<DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired/>
-									<DataFieldText state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />
+					<PageCard>
+						<WAOForm onSubmit={onSave} canSubmitVarsArray={[isAdding, isLoading, isInvalid]}>
+							<div className="eventadd-content">
+								<DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" isRequired />
+								<DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />
+								<DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />
+								<DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />
+								<DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired />
+								<DataFieldTextArea state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />
 
-									<div className="eventadd-buttons">
-										<div className="eventadd-button-wrapper">
-											<WAOButton title="Quit" color="red" md clickCallback={onCancel} isLoading={isSaving} isDisabled={isSaving} />
-										</div>
-										<WAOButton title="Save" color="green" md clickCallback={onSave} isLoading={isSaving} isDisabled={isSaving || isInvalid} />
+								<div className="eventadd-buttons">
+									<div className="eventadd-button-wrapper">
+										<WAOButton title="Quit" color="red" md clickCallback={onCancel} isLoading={isLoading} isDisabled={isLoading} />
 									</div>
+									<WAOButton title="Save" color="green" md clickCallback={onSave} isLoading={isLoading} isDisabled={isLoading || isInvalid} />
 								</div>
-							</CenteredContent>
-						</form>
-					</SkewedBox>
+							</div>
+						</WAOForm>
+					</PageCard>
 				</div>
 			)}
 		</StyledEventAdd>

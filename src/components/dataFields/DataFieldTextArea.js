@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import StyledDataField from './StyledDataField';
 
-const DataFieldText = ({ title, state, setState, isInvalid, setIsInvalid, isRequired }) => {
+const DataFieldTextArea = ({ title, state, setState, isInvalid, setIsInvalid, isRequired }) => {
 	const [errorMessage, setErrorMessage] = useState('');
 
 	const getIsInvalid = newValue => {
@@ -27,7 +27,7 @@ const DataFieldText = ({ title, state, setState, isInvalid, setIsInvalid, isRequ
 	return (
 		<StyledDataField isInvalid={isInvalid}>
 			<span className="datafield-title">{state && state.length > 0 ? title : '\u00A0'}</span>
-			<input onChange={onChange} value={state} type="text" placeholder={title} />
+			<textarea onChange={onChange} value={state} placeholder={title} />
 			<div className="datafield-error">
 				{isInvalid && <i className="fas fa-exclamation"></i>}
 				<span>{errorMessage}</span>
@@ -36,4 +36,4 @@ const DataFieldText = ({ title, state, setState, isInvalid, setIsInvalid, isRequ
 	);
 };
 
-export default DataFieldText;
+export default DataFieldTextArea;

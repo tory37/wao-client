@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import { updatePassword as updatePasswordAction, updateUserProfile as updateUserProfileAction } from '../../actions/authActions';
 

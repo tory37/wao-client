@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
-import _ from 'lodash';
 import moment from 'moment';
 import { updateEvent as updateEventAction } from '../../actions/eventActions';
-import StyledShadowedBox from '../../styles/StyledShadowedBox';
 
 import PageCard from '../PageCard';
 import Img from 'react-image';
 import WAOButton from '../WAOButton';
+import WAOForm from '../WAOForm';
 import DataFieldText from '../dataFields/DataFieldText';
+import DataFieldTextArea from '../dataFields/DataFieldTextArea';
 import DataFieldNumber from '../dataFields/DataFieldNumber';
 import DataFieldLocation from '../dataFields/DataFieldLocation';
 
@@ -165,9 +165,9 @@ const StyledEventView = styled.div`
 
 const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 	const [isEditing, setIsEditing] = useState(false);
-	const [isSaving, setIsSaving] = useState(false);
+	const [isLoading, setisLoading] = useState(false);
 	const [isDescExpanded, setIsDescExpanded] = useState(false);
-	
+
 	const [imageUrl, setImageUrl] = useState(event.imageUrl);
 	const [isImageUrlInvalid, setIsImageUrlInvalid] = useState(false);
 	const [startTimestamp, setStartTimestamp] = useState(event.startTimestamp);
@@ -187,10 +187,11 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 
 	useEffect(() => {
 		setIsInvalid(isImageUrlInvalid || isStartTimestampInvalid || isEndTimestampInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid);
-	}, [isImageUrlInvalid, isStartTimestampInvalid, isEndTimestampInvalid, isTitleInvalid, isAddressInvalid, isDescriptionInvalid] )
+	}, [isImageUrlInvalid, isStartTimestampInvalid, isEndTimestampInvalid, isTitleInvalid, isAddressInvalid, isDescriptionInvalid]);
 
 	const onEdit = e => {
 		onEditStart();
+
 		setImageUrl(event.imageUrl);
 		setStartTimestamp(event.startTimestamp);
 		setEndTimestamp(event.endTimestamp);
@@ -199,6 +200,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 		setLat(event.lat);
 		setLng(event.lng);
 		setDescription(event.description);
+
 		setIsEditing(true);
 	};
 
@@ -207,33 +209,37 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 		setIsEditing(false);
 	};
 
+	useEffect(() => {
+		console.log(description);
+	}, [description]);
+
 	const onSave = e => {
-		setIsSaving(true);
-		setIsEditing(true);
+		if (isEditing && !isLoading && !isInvalid) {
+			setisLoading(true);
 
-		const formattedModdedEvent = {
-			imageUrl: imageUrl,
-			startTimestamp: parseInt(startTimestamp), //  Make timestamp from date and time
-			endTimestamp: parseInt(endTimestamp), // same
-			title: title,
-			address: address,
-			lat: lat,
-			lng: lng,
-			description: description
-		};
+			const formattedModdedEvent = {
+				imageUrl: imageUrl,
+				startTimestamp: parseInt(startTimestamp), //  Make timestamp from date and time
+				endTimestamp: parseInt(endTimestamp), // same
+				title: title,
+				address: address,
+				lat: lat,
+				lng: lng,
+				description: description
+			};
 
-		updateEvent(event._id, formattedModdedEvent)
-			.then(() => {
-				setIsEditing(false);
-				onEditEnd();
-			})
-			.finally(() => {
-				setIsSaving(false);
-			});
+			updateEvent(event._id, formattedModdedEvent)
+				.then(() => {
+					setIsEditing(false);
+					onEditEnd();
+				})
+				.finally(() => {
+					setisLoading(false);
+				});
+		}
 	};
 
 	const getDateDisplay = () => {
-		let nowMoment = moment();
 		let startMoment = moment.unix(event.startTimestamp);
 		let endMoment = moment.unix(event.endTimestamp);
 
@@ -256,72 +262,74 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 
 	return (
 		<StyledEventView>
-			<PageCard isLoading={isSaving}>
-				<div className="eventview-wrapper">
-					{!isEditing && (
-						<div className="eventview-image-wrapper">
-							<Img src={event.imageUrl} />
+			<PageCard isLoading={isLoading}>
+				<WAOForm onSubmit={onSave} canSubmitVarsArray={[isEditing, isLoading, isInvalid]}>
+					<div className="eventview-wrapper">
+						{!isEditing && (
+							<div className="eventview-image-wrapper">
+								<Img src={event.imageUrl} />
+							</div>
+						)}
+
+						<div className="eventview-content">
+							{isEditing && <DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" isRequired />}
+
+							{!isEditing && <div className="eventview-title">{event.title}</div>}
+
+							{isEditing && <DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />}
+
+							{!isEditing && (
+								<div className="eventview-date eventview-entry">
+									<i className="far fa-clock"></i>
+									<span>{getDateDisplay()}</span>
+								</div>
+							)}
+
+							{isEditing && <DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />}
+							{isEditing && <DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />}
+
+							{!isEditing && (
+								<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} target="_blank" rel="noopener noreferrer" className="eventview-location eventview-entry">
+									<i className="fas fa-street-view"></i>
+									<div className="eventview-location-address">{event.address}</div>
+									<span>Show Map</span>
+								</a>
+							)}
+
+							{isEditing && <DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired />}
+
+							{!isEditing && (
+								<div className="eventview-description">
+									<div className="header-row" onClick={toggleDescExpanded}>
+										<div>Description</div>
+										{isDescExpanded ? <span>Collapse</span> : <span>Expand</span>}
+									</div>
+
+									<div className={'content ' + (isDescExpanded ? 'collapsed' : 'expanded')}>{event.description}</div>
+								</div>
+							)}
+
+							{isEditing && <DataFieldTextArea state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />}
+
+							{!isEditing && canEdit && (
+								<div className="eventview-buttons">
+									<WAOButton title="Edit" color="orange" clickCallback={onEdit} md isDisabled={!canEdit} />
+								</div>
+							)}
+
+							{isEditing && (
+								<div className="eventview-buttons">
+									<div className="eventview-button-wrapper">
+										<WAOButton title="Quit" color="red" clickCallback={onCancel} />
+									</div>
+									<div>
+										<WAOButton title="Save" color="green" clickCallback={onSave} isLoading={isLoading} isDisabled={isLoading || isInvalid} />
+									</div>
+								</div>
+							)}
 						</div>
-					)}
-
-					<div className="eventview-content">
-						{isEditing && <DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" isRequired />}
-
-						{!isEditing && <div className="eventview-title">{event.title}</div>}
-
-						{isEditing && <DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />}
-
-						{!isEditing && (
-							<div className="eventview-date eventview-entry">
-								<i className="far fa-clock"></i>
-								<span>{getDateDisplay()}</span>
-							</div>
-						)}
-
-						{isEditing && <DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />}
-						{isEditing && <DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />}
-
-						{!isEditing && (
-							<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} target="_blank" className="eventview-location eventview-entry">
-								<i className="fas fa-street-view"></i>
-								<div className="eventview-location-address">{event.address}</div>
-								<span>Show Map</span>
-							</a>
-						)}
-
-						{isEditing && <DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired/>}
-
-						{!isEditing && (
-							<div className="eventview-description">
-								<div className="header-row" onClick={toggleDescExpanded}>
-									<div>Description</div>
-									{isDescExpanded ? <span>Collapse</span> : <span>Expand</span>}
-								</div>
-
-								<div className={'content ' + (isDescExpanded ? 'collapsed' : 'expanded')}>{event.description}</div>
-							</div>
-						)}
-
-						{isEditing && 									<DataFieldText state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />}
-
-						{!isEditing && canEdit && (
-							<div className="eventview-buttons">
-								<WAOButton title="Edit" color="orange" clickCallback={onEdit} md isDisabled={!canEdit} />
-							</div>
-						)}
-
-						{isEditing && (
-							<div className="eventview-buttons">
-								<div className="eventview-button-wrapper">
-									<WAOButton title="Quit" color="red" clickCallback={onCancel} />
-								</div>
-								<div>
-									<WAOButton title="Save" color="green" clickCallback={onSave} isLoading={isSaving} isDisabled={isSaving || isInvalid} />
-								</div>
-							</div>
-						)}
 					</div>
-				</div>
+				</WAOForm>
 			</PageCard>
 		</StyledEventView>
 	);

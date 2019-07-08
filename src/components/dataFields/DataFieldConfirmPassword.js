@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import _ from 'lodash';
 
 import StyledDataField from './StyledDataField';
 
 const DataFieldConfirmPassword = ({ title, state, setState, isInvalid, setIsInvalid, password }) => {
 	const [errorMessage, setErrorMessage] = useState('');
-
-	const passwordSecurityMessage = 'Must contain at least one uppercase, lowercase, and number';
 
 	const getIsInvalid = newValue => {
 		if (newValue.length === 0) {

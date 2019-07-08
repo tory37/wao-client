@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import _ from 'lodash';
 import GoogleAutocomplete from '../GoogleAutocomplete';
 
 import StyledDataField from './StyledDataField';
@@ -19,24 +18,24 @@ const DataFieldLocation = ({ title, address, setAddress, setLat, setLng, isInval
 
 	useEffect(() => {
 		setIsInvalid(getIsInvalid(address));
-    }, [address]);
-    
-    const onPlaceSelected = place => {
-        if (place &&  place.geometry && place.geometry.location) {
-		setAddress(place.formatted_address);
-		setLat(place.geometry.location.lat());
-        setLng(place.geometry.location.lng());
-        } else {
-            setAddress('');
-            setLat();
-            setLng();
-        }
+	}, [address]);
+
+	const onPlaceSelected = place => {
+		if (place && place.geometry && place.geometry.location) {
+			setAddress(place.formatted_address);
+			setLat(place.geometry.location.lat());
+			setLng(place.geometry.location.lng());
+		} else {
+			setAddress('');
+			setLat();
+			setLng();
+		}
 	};
 
 	const onChange = e => {
-        setAddress(e.target.value);
-        setLat();
-        setLng();
+		setAddress(e.target.value);
+		setLat();
+		setLng();
 	};
 
 	return (

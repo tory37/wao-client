@@ -1,9 +1,9 @@
 import setAuthToken from '../utils/auth';
 
 import api from '../utils/api/auth';
-import { routeDefs, isOnRoute } from '../routeDefs';
+import { routeDefs } from '../routeDefs';
 
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types';
+import { SET_CURRENT_USER, USER_LOADING } from './types';
 import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification } from '../utils/notifications';
 
 // Set logged in user

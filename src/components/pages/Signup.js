@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';

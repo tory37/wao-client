@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import Header from './Header';
-import UserStatus from './UserStatus';
 
 const StyledLayout = styled.div`
 	width: 100%;

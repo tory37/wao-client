@@ -43,6 +43,11 @@ const StyledApp = styled.div`
 	justify-content: center;
 	overflow-y: hidden;
 
+	background-image: url('https://i.pinimg.com/originals/a7/74/b2/a774b2081535c3cf730ed5154e2da85c.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+
 	.app-content {
 		width: calc(100% - 60px);
 		height: calc(100% - 20px);

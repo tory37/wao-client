@@ -91,6 +91,7 @@ const Events = ({ events, auth, isLoadingEvents }) => {
 								</div>
 							);
 						}
+						return;
 					})}
 
 				{(!events || events.length === 0) && (
