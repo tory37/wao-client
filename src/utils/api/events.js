@@ -1,11 +1,18 @@
 import axios from 'axios';
 
+const fetchAllEvents = () => {
+	const url = `${process.env.REACT_APP_API_URL}/events`;
+	return axios.get(url);
+}
+
 const fetchFutureEvents = () => {
-	return axios.get(`${process.env.REACT_APP_API_URL}/events`);
+	const url = `${process.env.REACT_APP_API_URL}/events/future`;
+	return axios.get(url);
 };
 
 const fetchPastEvents = () => {
-	return axios.get(`${process.env.REACT_APP_API_URL}/events?getPast=true`);
+	const url = `${process.env.REACT_APP_API_URL}/events/past`;
+	return axios.get(url);
 };
 
 const createEvent = eventData => {
@@ -19,6 +26,7 @@ const updateEvent = (id, eventData) => {
 const deleteEvent = eventId => {};
 
 const events = {
+	fetchAllEvents,
 	fetchFutureEvents,
 	fetchPastEvents,
 	createEvent,

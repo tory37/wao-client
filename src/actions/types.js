@@ -2,6 +2,9 @@ export const GET_ERRORS = 'GET_ERRORS';
 export const USER_LOADING = 'USER_LOADING';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
+export const START_LOADING_EVENTS = 'STARt_LOADING_EVENTS';
+export const STOP_LOADING_EVENTS = 'STOP_LOADING_EVENTS';
+
 export const ADD_NEW_EVENTS = 'ADD_NEW_EVENTS';
 export const UPDATE_EVENT = 'UPDATE_EVENT';
 export const SET_EVENTS = 'SET_EVENTS';

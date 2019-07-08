@@ -1,6 +1,6 @@
 import api from '../utils/api/events';
 
-import { ADD_NEW_EVENTS, UPDATE_EVENT, SET_EVENTS, SET_HAS_FETCHED_PAST } from './types';
+import { ADD_NEW_EVENTS, UPDATE_EVENT, SET_EVENTS, SET_HAS_FETCHED_PAST, START_LOADING_EVENTS, STOP_LOADING_EVENTS } from './types';
 import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification } from '../utils/notifications';
 
 export const addNewEvents = event => ({
@@ -16,6 +16,16 @@ export const updateExistingEvent = (id, updatedEvent) => ({
 	}
 });
 
+export const onStartLoadingEvents = () => ({
+	type: START_LOADING_EVENTS,
+	payload: {}
+});
+
+export const onStopLoadingEvents = () => ({
+	type: STOP_LOADING_EVENTS,
+	payload: {}
+});
+
 export const setEvents = events => ({
 	type: SET_EVENTS,
 	payload: events
@@ -26,11 +36,28 @@ export const setHasFetchedPast = hasFetchedPast => ({
 	payload: hasFetchedPast
 });
 
+export const fetchAllEvents = () => dispatch => {
+	dispatch(onStartLoadingEvents());
+	return api
+		.fetchAllEvents()
+		.then(res => {
+			dispatch(setEvents(res.data));
+			dispatch(onStopLoadingEvents());
+			return res.data;
+		})
+		.catch(err => {
+			displayErrorNotification(err, 'Error fetching events');
+			throw err;
+		});
+};
+
 export const fetchFutureEvents = () => dispatch => {
+	dispatch(onStartLoadingEvents());
 	return api
 		.fetchFutureEvents()
 		.then(res => {
 			dispatch(setEvents(res.data));
+			dispatch(onStopLoadingEvents());
 			return res.data;
 		})
 		.catch(err => {

@@ -4,11 +4,13 @@ import errorReducer from './errorReducer';
 import eventsReducer from './eventsReducer';
 import hasFetchedPast from './hasFetchedPastReducer';
 import isLoadingReducer from './isLoadingReducer';
+import loadingEventsReducer from './loadingEventsReducer';
 
 export default combineReducers({
 	auth: authReducer,
 	errors: errorReducer,
 	events: eventsReducer,
 	isLoading: isLoadingReducer,
-	hasFetchedPast: hasFetchedPast
+	hasFetchedPast: hasFetchedPast,
+	isLoadingEvents:  loadingEventsReducer
 });

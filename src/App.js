@@ -7,7 +7,7 @@ import theme from './styles/theme';
 import store from './store';
 import setAuthToken from './utils/auth';
 import { fetchUser, logoutUser } from './actions/authActions';
-import { fetchFutureEvents } from './actions/eventActions';
+import { fetchAllEvents } from './actions/eventActions';
 import styled from '@emotion/styled';
 
 import './App.css';
@@ -33,7 +33,7 @@ if (localStorage.jwtToken) {
 	}
 }
 
-store.dispatch(fetchFutureEvents());
+store.dispatch(fetchAllEvents());
 
 const StyledApp = styled.div`
 	width: 100vw;
