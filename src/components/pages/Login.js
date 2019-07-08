@@ -21,10 +21,6 @@ const StyledLogin = styled.div`
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		padding-left: 19px;
-		padding-right: 30px;
-		padding-bottom: 5px;
-		padding-top: 20px;
 
 		.login-header-row {
 			display: flex;
@@ -127,7 +123,7 @@ const Login = ({ auth, history, loginUser }) => {
 						</div>
 
 						<div className="login-to-signup">
-							Don't have an account? <Link to={routeDefs.signup}>Signup</Link>
+							Need an account? <Link to={routeDefs.signup}>Signup</Link>
 						</div>
 					</div>
 				</PageCard>

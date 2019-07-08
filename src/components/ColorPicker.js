@@ -36,9 +36,11 @@ const StyledColorPickerCheckbox = styled.div`
 	cursor: pointer;
 `;
 
-const ColorPickerCheckbox = ({ color, onCheckboxClick, isSelected }) => {
+const ColorPickerCheckbox = ({ color, onCheckboxClick, isSelected, isEditing }) => {
 	const onClick = () => {
-		onCheckboxClick(color);
+		if (isEditing) {
+			onCheckboxClick(color);
+		}
 	};
 
 	return (
@@ -55,7 +57,7 @@ const ColorPicker = ({ colorsArray, selectedColor, onSelectColor, isEditing }) =
 				<div className="color-picker-display">
 					<div className="color-picker-title">Favorite Color:</div>
 					<div className="color-picker-checkbox">
-						<ColorPickerCheckbox color={selectedColor} />
+						<ColorPickerCheckbox color={selectedColor} isEditing={isEditing}/>
 					</div>
 				</div>
 			)}
@@ -64,7 +66,7 @@ const ColorPicker = ({ colorsArray, selectedColor, onSelectColor, isEditing }) =
 				colorsArray.map(color => (
 					<div className="color-picker-entry" key={color}>
 						<div className="color-picker-checkbox">
-							<ColorPickerCheckbox color={color} onCheckboxClick={onSelectColor} isSelected={color.toString() === selectedColor.toString()} />
+							<ColorPickerCheckbox color={color} onCheckboxClick={onSelectColor} isSelected={color.toString() === selectedColor.toString()} isEditing={isEditing} />
 						</div>
 					</div>
 				))}

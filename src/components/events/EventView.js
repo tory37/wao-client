@@ -8,9 +8,6 @@ import StyledShadowedBox from '../../styles/StyledShadowedBox';
 
 import PageCard from '../PageCard';
 import Img from 'react-image';
-import SkewedBox from '../SkewedBox';
-import CenteredContent from '../CenteredContent';
-import DataField from '../DataField';
 import WAOButton from '../WAOButton';
 import DataFieldText from '../dataFields/DataFieldText';
 import DataFieldNumber from '../dataFields/DataFieldNumber';
@@ -72,12 +69,12 @@ const StyledEventView = styled.div`
 
 				margin-bottom: 5px;
 				font-size: 12px;
-				padding-left: 10px;
-				padding-right: 10px;
+				padding-left: 20px;
+				padding-right: 20px;
 				padding-bottom: 10px;
 				padding-top: 10px;
-				width: calc(100% + 20px);
-				margin-left: -10px;
+				width: 100%;
+				margin-left: -20px;
 				cursor: pointer;
 
 				.eventview-location-address {
@@ -89,7 +86,6 @@ const StyledEventView = styled.div`
 				span {
 					margin-left: auto;
 					color: white;
-					padding-right: 20px;
 				}
 
 				&:hover {
@@ -112,12 +108,12 @@ const StyledEventView = styled.div`
 
 					margin-bottom: 5px;
 					font-size: 12px;
-					padding-left: 10px;
-					padding-right: 10px;
+					padding-left: 20px;
+					padding-right: 20px;
 					padding-bottom: 10px;
 					padding-top: 10px;
-					width: calc(100% + 20px);
-					margin-left: -10px;
+					width: calc(100% + 40px);
+					margin-left: -20px;
 					cursor: pointer;
 
 					&:hover {

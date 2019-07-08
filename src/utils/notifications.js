@@ -20,7 +20,8 @@ const displayLoadingNotification = content => {
 		type: toast.TYPE.INFO,
 		autoClose: false,
 		closeButton: false,
-		closeOnClick: false
+		closeOnClick: false,
+		pauseOnFocus: true
 	});
 	return toastId;
 };
@@ -32,7 +33,8 @@ const displaySuccessNotification = (content, toastId) => {
 			type: toast.TYPE.SUCCESS,
 			autoClose: null,
 			closeOnClick: null,
-			closeButton: null
+			closeButton: null,
+			pauseOnFocusLoss: false
 		});
 	} else {
 		toast.success(content);
@@ -46,7 +48,8 @@ const displayErrorNotification = (err, defaultMessage, toastId) => {
 			type: toast.TYPE.ERROR,
 			autoClose: null,
 			closeOnClick: null,
-			closeButton: null
+			closeButton: null,
+			pauseOnFocusLoss: false
 		});
 	} else {
 		toast.error(getContentFromRequestError(err, defaultMessage));
@@ -60,7 +63,8 @@ const displayWarningNotification = (content, toastId) => {
 			type: toast.TYPE.WARNING,
 			autoClose: null,
 			closeOnClick: null,
-			closeButton: null
+			closeButton: null,
+			pauseOnFocusLoss: false
 		});
 	} else {
 		toast.warning(content);

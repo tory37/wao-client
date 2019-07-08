@@ -7,7 +7,6 @@ import { routeDefs } from '../../routeDefs';
 
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
-import DataField from '../DataField';
 import WAOButton from '../WAOButton';
 import DataFieldEmail from '../dataFields/DataFieldEmail';
 
@@ -64,6 +63,7 @@ const StyledVerify = styled.div`
 			margin-left: auto;
 			font-size: 14px;
 			margin-top: 10px;
+			text-align: right;
 
 			a {
 				color: white;
@@ -93,10 +93,10 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 	}, []);
 
 	const onResendClick = () => {
-		if (email.email.length > 0) {
+		if (email.length > 0) {
 			setIsLoading(true);
 
-			resendVerification(email.email)
+			resendVerification(email)
 				.catch(() => {
 					setIsResendError(true);
 				})
@@ -132,7 +132,7 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 										</div>
 
 										<div className="verify-signup">
-											Don't have an account? <Link to="/signup">Signup</Link>
+											Need an account? <Link to="/signup">Signup</Link>
 										</div>
 									</div>
 								)}
@@ -140,7 +140,7 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 								{isResendFinished && !isResendError && (
 									<div className="verify-error-resend-success">
 										<div className="verify-error-resend-success-title">Success!</div>
-										<div className="verify-error-resend-success-reminder">A verification email has been sent to {email.email}. Please check your inbox (and spam).</div>
+										<div className="verify-error-resend-success-reminder">A verification email has been sent to {email}. Please check your inbox (and spam).</div>
 									</div>
 								)}
 							</div>

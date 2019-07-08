@@ -23,10 +23,6 @@ const StyledSignup = styled.div`
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		padding-left: 19px;
-		padding-right: 30px;
-		padding-bottom: 5px;
-		padding-top: 20px;
 
 		.signup-title {
 			font-family: NinjaNaruto;
@@ -81,10 +77,10 @@ const Signup = ({ auth, history, registerUser }) => {
 		setIsLoading(true);
 
 		const newUser = {
-			username: username.value,
-			email: email.value,
-			password: password.value,
-			password2: confirmPassword.value
+			username: username,
+			email: email,
+			password: password,
+			password2: confirmPassword
 		};
 
 		registerUser(newUser, history).finally(() => {
@@ -112,7 +108,7 @@ const Signup = ({ auth, history, registerUser }) => {
 						</div>
 
 						<div className="signup-to-login">
-							Already have an account? <Link to="/login">Login</Link>
+							Have an account? <Link to="/login">Login</Link>
 						</div>
 					</div>
 				</PageCard>

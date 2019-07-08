@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import _ from 'lodash';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { updatePassword as updatePasswordAction, updateUserProfile as updateUserProfileAction } from '../../actions/authActions';
 
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
 import SkewedBox from '../SkewedBox';
-import DataField from '../DataField';
 import WAOButton from '../WAOButton';
 import Img from 'react-image';
 import ColorPicker from '../ColorPicker';
@@ -27,10 +24,6 @@ const StyledUserProfile = styled.div`
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		padding-left: 19px;
-		padding-right: 30px;
-		padding-bottom: 5px;
-		padding-top: 20px;
 
 		.userprofile-image {
 			width: 120px;
@@ -53,7 +46,7 @@ const StyledUserProfile = styled.div`
 			justify-content: flex-end;
 			align-items: center;
 			margin-top: 10px;
-			margin-left: auto;
+			width: 100%;
 
 			.userprofile-button-wrapper {
 				margin-right: 5px;

@@ -8,7 +8,6 @@ import { resetPassword as resetPasswordAction } from '../../actions/authActions'
 
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
-import DataField from '../DataField';
 import WAOButton from '../WAOButton';
 import DataFieldEmail from '../dataFields/DataFieldEmail';
 
@@ -46,7 +45,7 @@ const PasswordReset = ({ resetPassword, auth }) => {
 	const onResetPasswordClick = () => {
 		setIsLoading(true);
 
-		resetPassword(email.email)
+		resetPassword(email)
 			.then(() => {
 				setIsFinishedSending(true);
 			})

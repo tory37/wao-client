@@ -75,7 +75,7 @@ function App() {
 				<StyledApp>
 					<div className="app-content">
 						<div className="app-content-inner">
-							<ToastContainer />
+							<ToastContainer autoClose={2000} />
 							<Routes />
 						</div>
 					</div>
