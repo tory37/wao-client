@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import _ from 'lodash';
+import {fetchAllEvents as fetchAllEventsAction} from '../../actions/eventActions';
 
 import PageWrapper from '../PageWrapper';
 import EventAdd from '../events/EventAdd';
@@ -19,8 +21,16 @@ const StyledEvents = styled.div`
 	align-items: center;
 
 	.events-no-upcoming {
-		width: 200px;
-		height: 50px;
+		width: 285px;
+		height: 60px;
+
+		.events-no-upcoming-refresh {
+			display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+		}
 	}
 
 	.events-event-wrapper {
@@ -38,10 +48,25 @@ const StyledEvents = styled.div`
 	}
 `;
 
-const Events = ({ events, auth, isLoadingEvents }) => {
+const Events = ({ events, auth, isLoadingEvents, fetchAllEvents }) => {
 	const [isEditing, setIsEdit] = useState(false);
 	const [isAdding, setIsAdd] = useState(false);
 	const [shouldShowPast, setShouldShowPast] = useState(false);
+	const [futureEvents, setFutureEvents] = useState([]);
+	const [pastEvents, setPastEvents] = useState([]);
+
+	useEffect(() => {
+		let now = moment().unix();
+
+		setFutureEvents(_.filter(events, (event) => {
+			return event.endTimestamp >= now;
+		}));
+
+		setPastEvents(_.filter(events, (event) => {
+			return event.endTimestamp < now;
+		}));
+
+	}, [events])
 
 	const onAddStart = () => {
 		setIsAdd(true);
@@ -76,33 +101,45 @@ const Events = ({ events, auth, isLoadingEvents }) => {
 					</div>
 				)}
 
-				{events &&
-					events.length > 0 &&
-					events.map((event, i) => {
-						if (shouldShowPast || event.endTimestamp > moment().unix()) {
-							return (
-								<div className="events-event-wrapper" key={event._id}>
-									<EventView event={event} canEdit={!isEditing && auth.isAuthenticated && auth.user.roles.includes(`ADMIN`)} onEditStart={onEditStart} onEditEnd={onEditEnd} />
-									{i < events.length - 1 && (
-										<div className="divider">
-											<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
-										</div>
-									)}
-								</div>
-							);
-						}
-						return;
-					})}
+				{futureEvents &&
+					futureEvents.length > 0 &&
+					futureEvents.map((event, i) => {
+						return (
+							<div className="events-event-wrapper" key={event._id}>
+								<EventView event={event} canEdit={!isEditing && auth.isAuthenticated && auth.user.roles.includes(`ADMIN`)} onEditStart={onEditStart} onEditEnd={onEditEnd} />
+								{i < events.length - 1 && (
+									<div className="divider">
+										<SkewedBox clipPath="76% 0, 100% 0, 26% 100%, 0% 100%" color="black" isSelected />
+									</div>
+								)}
+							</div>
+						);
+					})
+				}
+
+				{shouldShowPast && pastEvents &&
+					pastEvents.length > 0 &&
+					pastEvents.map((event, i) => {
+						return (
+							<div className="events-event-wrapper" key={event._id}>
+								<EventView event={event} canEdit={!isEditing && auth.isAuthenticated && auth.user.roles.includes(`ADMIN`)} onEditStart={onEditStart} onEditEnd={onEditEnd} />
+							</div>
+						);
+					})
+				}
 
 				{(!events || events.length === 0) && (
 					<div className="events-no-upcoming">
 						<SkewedBox clipPath="0% 0, 97% 0, 100% 100%, 3% 100%" color="plum" isSelected={true}>
-							<CenteredContent>{isLoadingEvents ? 'Loading Future Events' : 'No Upcoming Events'}</CenteredContent>
+							<CenteredContent>
+								{isLoadingEvents && <span>Loading Future Events</span>}
+								{!isLoadingEvents && <div className="events-no-upcoming-refresh">No Events to Show <WAOButton title="Refresh" color="Purple" clickCallback={fetchAllEvents} md /></div>}
+							</CenteredContent>
 						</SkewedBox>
 					</div>
 				)}
 
-				{!shouldShowPast && (
+				{!shouldShowPast && pastEvents.length !== 0 && (
 					<div className="events-show-past-button">
 						<WAOButton title="Show Past" color="blue" xl3 clickCallback={onShowPastEvents} isLoading={isLoadingEvents} isDisabled={isLoadingEvents} />
 					</div>
@@ -120,5 +157,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{}
+	{fetchAllEvents: fetchAllEventsAction}
 )(Events);

@@ -42,12 +42,14 @@ export const fetchAllEvents = () => dispatch => {
 		.fetchAllEvents()
 		.then(res => {
 			dispatch(setEvents(res.data));
-			dispatch(onStopLoadingEvents());
 			return res.data;
 		})
 		.catch(err => {
 			displayErrorNotification(err, 'Error fetching events');
 			throw err;
+		})
+		.finally(() => {
+			dispatch(onStopLoadingEvents());
 		});
 };
 
