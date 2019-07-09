@@ -6,6 +6,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { registerUser } from '../../actions/authActions';
 import { routeDefs } from '../../routeDefs';
 
+import WAOForm from '../WAOForm';
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
 import WAOButton from '../WAOButton';
@@ -27,6 +28,7 @@ const StyledSignup = styled.div`
 			font-family: NinjaNaruto;
 			margin-right: auto;
 			font-size: 24px;
+			margin-bottom: 5px;
 		}
 
 		.spacer {
@@ -40,6 +42,7 @@ const StyledSignup = styled.div`
 		.signup-to-login {
 			margin-left: auto;
 			font-size: 14px;
+			margin-top: 10px;
 
 			a {
 				color: white;
@@ -66,7 +69,7 @@ const Signup = ({ auth, history, registerUser }) => {
 		if (auth.isAuthenticated) {
 			history.push(routeDefs.home);
 		}
-	}, [auth.isAuthenticated, history]);
+	}, [auth.isAuthenticated]);
 
 	useEffect(() => {
 		setIsInvalid(isUsernameInvalid || isEmailInvalid || isPasswordInvalid || isConfirmPasswordInvalid);
@@ -82,7 +85,7 @@ const Signup = ({ auth, history, registerUser }) => {
 			password2: confirmPassword
 		};
 
-		registerUser(newUser, history).finally(() => {
+		registerUser(newUser, history).catch(() => {
 			setIsLoading(false);
 		});
 	};
@@ -91,25 +94,26 @@ const Signup = ({ auth, history, registerUser }) => {
 		<PageWrapper>
 			<StyledSignup>
 				<PageCard isLoading={isLoading} isSkewed>
-					<div className="signup-content">
-						<div className="signup-title">Signup</div>
+					<WAOForm onSubmit={onSubmit} canSubmit={!isLoading && !isInvalid}>
+						<div className="signup-content">
+							<div className="signup-title">Signup</div>
 
-						<form noValidate onSubmit={onSubmit}>
 							<DataFieldText state={username} setState={setUsername} isInvalid={isUsernameInvalid} setIsInvalid={setIsUsernameInvalid} title="Username" isRequired />
 							<DataFieldEmail state={email} setState={setEmail} isInvalid={isEmailInvalid} setIsInvalid={setIsEmailInvalid} title="Email" isRequired />
 							<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldValidate />
 							<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
-						</form>
-						<div className="spacer" />
 
-						<div className="signup-button">
-							<WAOButton title="Signup" color="blue" clickCallback={onSubmit} isDisabled={isInvalid} />
-						</div>
+							<div className="spacer" />
 
-						<div className="signup-to-login">
-							Have an account? <Link to="/login">Login</Link>
+							<div className="signup-button">
+								<WAOButton title="Signup" color="blue" clickCallback={onSubmit} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+							</div>
+
+							<div className="signup-to-login">
+								Have an account? <Link to="/login">Login</Link>
+							</div>
 						</div>
-					</div>
+					</WAOForm>
 				</PageCard>
 			</StyledSignup>
 		</PageWrapper>
@@ -121,8 +125,7 @@ Signup.propTypes = {
 };
 
 const mapStateToProps = state => ({
-	auth: state.auth,
-	errors: state.errors
+	auth: state.auth
 });
 
 export default connect(

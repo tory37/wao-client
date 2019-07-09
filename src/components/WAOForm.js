@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, children } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 
 const StyledWAOForm = styled.div`
@@ -10,26 +10,19 @@ const StyledWAOForm = styled.div`
 //  -- Active means that onSubmit will respond to the enter key
 //  ---- Suggestion: wrap your onSubmit function in an if that checks if you can sabmit,
 //  ---- then pass those variables in an array to canSubmitVarsArray
-const WAOForm = ({ onSubmit, children, canSubmitVarsArray }) => {
-	const targetKey = 'Enter';
-
-	// If pressed key is our target key then set to true
-	const downHandler = ({ key }) => {
-		if (key === targetKey) {
+const WAOForm = ({ onSubmit, children, canSubmit }) => {
+	const onFormSubmit = e => {
+		e.preventDefault();
+		if (canSubmit) {
 			onSubmit();
 		}
 	};
 
-	// Add event listeners
-	useEffect(() => {
-		window.addEventListener('keydown', downHandler);
-
-		return () => {
-			window.removeEventListener('keydown', downHandler);
-		};
-	}, canSubmitVarsArray);
-
-	return <StyledWAOForm>{children}</StyledWAOForm>;
+	return (
+		<StyledWAOForm>
+			<form onSubmit={onFormSubmit}>{children}</form>
+		</StyledWAOForm>
+	);
 };
 
 export default WAOForm;

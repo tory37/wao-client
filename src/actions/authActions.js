@@ -78,6 +78,7 @@ export const logoutUser = () => dispatch => {
 	setAuthToken(false);
 	// Set current user to empty object {} which will set isAuthenticated to false
 	dispatch(setCurrentUser({}));
+	displaySuccessNotification('Successfully logged out.');
 };
 
 export const updateUserProfile = (userData, id) => dispatch => {

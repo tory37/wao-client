@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { verifyUser as verifyUserAction, resendVerification as resendVerificationAction } from '../../actions/authActions';
 import { routeDefs } from '../../routeDefs';
 
+import WAOForm from '../WAOForm';
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
 import WAOButton from '../WAOButton';
@@ -75,8 +76,7 @@ const StyledVerify = styled.div`
 
 const Verify = ({ match, history, verifyUser, resendVerification }) => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [isError, setIsError] = useState(true);
-
+	const [isError, setIsError] = useState(false);
 	const [email, setEmail] = useState('');
 	const [isInvalid, setIsInvalid] = useState(false);
 
@@ -84,6 +84,7 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 	const [isResendError, setIsResendError] = useState(false);
 
 	useEffect(() => {
+		setIsLoading(true);
 		const { token } = match.params;
 
 		verifyUser(token)
@@ -111,6 +112,7 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 		<PageWrapper>
 			<StyledVerify>
 				<PageCard isLoading={isLoading} isSkewed>
+					<WAOForm onSubmit={onResendClick} canSubmit={!isLoading && isError && !isResendFinished && isResendError && !isInvalid}>
 					<div className="verify-content">
 						{isLoading && (
 							<div className="verify-loading">
@@ -128,7 +130,7 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 										<DataFieldEmail state={email} setState={setEmail} isInvalid={isInvalid} setIsInvalid={setIsInvalid} title="Email" isRequired />
 
 										<div className="verify-error-resend-button">
-											<WAOButton title="Resend" color="purple" clickCallback={onResendClick} isLoading={isLoading} isDisabled={isLoading || isInvalid} />
+											<WAOButton title="Resend" color="purple" clickCallback={onResendClick} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
 										</div>
 
 										<div className="verify-signup">
@@ -146,6 +148,7 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 							</div>
 						)}
 					</div>
+					</WAOForm>
 				</PageCard>
 			</StyledVerify>
 		</PageWrapper>

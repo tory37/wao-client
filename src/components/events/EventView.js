@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import moment from 'moment';
 import { updateEvent as updateEventAction } from '../../actions/eventActions';
+// import useOnSubmit from '../../hooks/useOnSubmit';
 
 import PageCard from '../PageCard';
 import Img from 'react-image';
@@ -106,7 +107,6 @@ const StyledEventView = styled.div`
 					justify-content: space-between;
 					align-items: center;
 
-					margin-bottom: 5px;
 					font-size: 12px;
 					padding-left: 20px;
 					padding-right: 20px;
@@ -139,6 +139,9 @@ const StyledEventView = styled.div`
 
 					overflow-y: scroll;
 					padding: 5px;
+
+					margin-bottom: 10px;
+					border-bottom: dotted 1px;
 
 					&.expanded {
 						max-height: 100px;
@@ -189,9 +192,8 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 		setIsInvalid(isImageUrlInvalid || isStartTimestampInvalid || isEndTimestampInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid);
 	}, [isImageUrlInvalid, isStartTimestampInvalid, isEndTimestampInvalid, isTitleInvalid, isAddressInvalid, isDescriptionInvalid]);
 
-	const onEdit = e => {
+	const onEdit = () => {
 		onEditStart();
-
 		setImageUrl(event.imageUrl);
 		setStartTimestamp(event.startTimestamp);
 		setEndTimestamp(event.endTimestamp);
@@ -204,16 +206,12 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 		setIsEditing(true);
 	};
 
-	const onCancel = e => {
+	const onCancel = () => {
 		onEditEnd();
 		setIsEditing(false);
 	};
 
-	useEffect(() => {
-		console.log(description);
-	}, [description]);
-
-	const onSave = e => {
+	const onSave = () => {
 		if (isEditing && !isLoading && !isInvalid) {
 			setisLoading(true);
 
@@ -260,10 +258,12 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 		setIsDescExpanded(!isDescExpanded);
 	};
 
+	// useOnSubmit(isEditing && !isLoading && !isInvalid, onSave, imageUrl, startTimestamp, endTimestamp, title, address, lat, lng, description);
+
 	return (
 		<StyledEventView>
 			<PageCard isLoading={isLoading}>
-				<WAOForm onSubmit={onSave} canSubmitVarsArray={[isEditing, isLoading, isInvalid]}>
+				<WAOForm onSubmit={onSave}>
 					<div className="eventview-wrapper">
 						{!isEditing && (
 							<div className="eventview-image-wrapper">
@@ -279,26 +279,6 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 							{isEditing && <DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />}
 
 							{!isEditing && (
-								<div className="eventview-date eventview-entry">
-									<i className="far fa-clock"></i>
-									<span>{getDateDisplay()}</span>
-								</div>
-							)}
-
-							{isEditing && <DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />}
-							{isEditing && <DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />}
-
-							{!isEditing && (
-								<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} target="_blank" rel="noopener noreferrer" className="eventview-location eventview-entry">
-									<i className="fas fa-street-view"></i>
-									<div className="eventview-location-address">{event.address}</div>
-									<span>Show Map</span>
-								</a>
-							)}
-
-							{isEditing && <DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired />}
-
-							{!isEditing && (
 								<div className="eventview-description">
 									<div className="header-row" onClick={toggleDescExpanded}>
 										<div>Description</div>
@@ -310,6 +290,27 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 							)}
 
 							{isEditing && <DataFieldTextArea state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />}
+
+							{!isEditing && (
+								<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} target="_blank" rel="noopener noreferrer" className="eventview-location eventview-entry">
+									<i className="fas fa-street-view"></i>
+									<div className="eventview-location-address">{event.address}</div>
+									<span>Show Map</span>
+								</a>
+							)}
+
+							{isEditing && <DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired />}
+
+
+							{!isEditing && (
+								<div className="eventview-date eventview-entry">
+									<i className="far fa-clock"></i>
+									<span>{getDateDisplay()}</span>
+								</div>
+							)}
+
+							{isEditing && <DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />}
+							{isEditing && <DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />}
 
 							{!isEditing && canEdit && (
 								<div className="eventview-buttons">
@@ -323,7 +324,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 										<WAOButton title="Quit" color="red" clickCallback={onCancel} />
 									</div>
 									<div>
-										<WAOButton title="Save" color="green" clickCallback={onSave} isLoading={isLoading} isDisabled={isLoading || isInvalid} />
+										<WAOButton title="Save" color="green" clickCallback={onSave} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
 									</div>
 								</div>
 							)}

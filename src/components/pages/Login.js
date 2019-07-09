@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { loginUser } from '../../actions/authActions';
 import { routeDefs } from '../../routeDefs';
 
+import WAOForm from '../WAOForm';
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
 import WAOButton from '../WAOButton';
@@ -26,6 +27,7 @@ const StyledLogin = styled.div`
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: flex-end;
+			margin-bottom: 10px;
 
 			.login-title {
 				font-family: NinjaNaruto;
@@ -55,6 +57,7 @@ const StyledLogin = styled.div`
 
 		.login-to-signup {
 			margin-left: auto;
+			margin-top: 5px;
 			font-size: 14px;
 
 			a {
@@ -66,14 +69,13 @@ const StyledLogin = styled.div`
 `;
 
 const Login = ({ auth, history, loginUser }) => {
+	const [isInvalid, setIsInvalid] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+
 	const [email, setEmail] = useState('');
 	const [isEmailInvalid, setIsEmailInvalid] = useState(false);
 	const [password, setPassword] = useState('');
 	const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
-
-	const [isInvalid, setIsInvalid] = useState(false);
-
-	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		// If logged in user naviages here, redirect
@@ -94,7 +96,7 @@ const Login = ({ auth, history, loginUser }) => {
 			password: password
 		};
 
-		loginUser(user).finally(() => {
+		loginUser(user).catch(() => {
 			setIsLoading(false);
 		}); // since we handle the redirect within our component, we don't need to pass in props.history as a paramter
 	};
@@ -103,28 +105,29 @@ const Login = ({ auth, history, loginUser }) => {
 		<PageWrapper>
 			<StyledLogin>
 				<PageCard isLoading={isLoading} isSkewed>
-					<div className="login-content">
-						<div className="login-header-row">
-							<div className="login-title">Login</div>
-							<div className="login-forgot-password">
-								<Link to={routeDefs.passwordReset}>Forgot Password?</Link>
+					<WAOForm onSubmit={onSubmit} canSubmit={!isLoading && !isInvalid}>
+						<div className="login-content">
+							<div className="login-header-row">
+								<div className="login-title">Login</div>
+								<div className="login-forgot-password">
+									<Link to={routeDefs.passwordReset}>Forgot Password?</Link>
+								</div>
 							</div>
-						</div>
 
-						<form noValidate onSubmit={onSubmit}>
 							<DataFieldEmail state={email} setState={setEmail} isInvalid={isEmailInvalid} setIsInvalid={setIsEmailInvalid} title="Email" isRequired />
 							<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldNotTestPassword isRequired />
-						</form>
-						<div className="spacer" />
 
-						<div className="login-button">
-							<WAOButton title="Login" color="green" clickCallback={onSubmit} isLoasing={isLoading} isDisabled={isLoading || isInvalid} />
-						</div>
+							<div className="spacer" />
 
-						<div className="login-to-signup">
-							Need an account? <Link to={routeDefs.signup}>Signup</Link>
+							<div className="login-button">
+								<WAOButton title="Login" color="green" clickCallback={onSubmit} isLoasing={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+							</div>
+
+							<div className="login-to-signup">
+								Need an account? <Link to={routeDefs.signup}>Signup</Link>
+							</div>
 						</div>
-					</div>
+					</WAOForm>
 				</PageCard>
 			</StyledLogin>
 		</PageWrapper>
@@ -133,13 +136,11 @@ const Login = ({ auth, history, loginUser }) => {
 
 Login.propTypes = {
 	loginUser: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired,
-	errors: PropTypes.object.isRequired
+	auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-	auth: state.auth,
-	errors: state.errors
+	auth: state.auth
 });
 
 export default connect(

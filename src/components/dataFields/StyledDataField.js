@@ -31,9 +31,7 @@ const StyledDataField = styled.div`
 		resize: none;
 		border: solid 5px black;
 
-		&.invalid {
-			outline: red auto 5px;
-		}
+		outline: ${props => (props.isInvalid ? 'red solid 1px' : 'none')};
 	}
 
 	.datafield-error {
