@@ -156,6 +156,7 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 };
 
 const mapStateToProps = state => {};
+
 export default connect(
 	mapStateToProps,
 	{

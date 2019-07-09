@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux';
-import authReducer from './authReducer';
-import eventsReducer from './eventsReducer';
-import hasFetchedPast from './hasFetchedPastReducer';
-import isLoadingReducer from './isLoadingReducer';
-import loadingEventsReducer from './loadingEventsReducer';
+import auth from './auth';
+import events from './events';
+import isLoadingEvents from './isLoadingEvents';
+import isLoadingAuth from './isLoadingAuth';
 
 export default combineReducers({
-	auth: authReducer,
-	events: eventsReducer,
-	isLoading: isLoadingReducer,
-	hasFetchedPast: hasFetchedPast,
-	isLoadingEvents: loadingEventsReducer
+	auth: auth,
+	events: events,
+	isLoadingEvents: isLoadingEvents,
+	isLoadingAuth: isLoadingAuth
 });

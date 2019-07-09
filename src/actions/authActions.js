@@ -3,7 +3,7 @@ import setAuthToken from '../utils/auth';
 import api from '../utils/api/auth';
 import { routeDefs } from '../routeDefs';
 
-import { SET_CURRENT_USER, USER_LOADING } from './types';
+import { SET_CURRENT_USER, START_LOADING_AUTH, STOP_LOADING_AUTH } from './types';
 import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification } from '../utils/notifications';
 
 // Set logged in user
@@ -12,9 +12,15 @@ export const setCurrentUser = user => ({
 	payload: user
 });
 
-// User loading
-export const settUserLoading = () => ({
-	type: USER_LOADING
+// Auth loading
+export const startLoadingAuth = () => ({
+	type: START_LOADING_AUTH,
+	payload: {}
+});
+
+export const stopLoadingAuth = () => ({
+	type: STOP_LOADING_AUTH,
+	payload: {}
 });
 
 // Register User
@@ -58,6 +64,7 @@ export const loginUser = userData => (dispatch, history) => {
 };
 
 export const fetchUser = () => (dispatch, history) => {
+	dispatch(startLoadingAuth());
 	return api
 		.fetchUser()
 		.then(res => {
@@ -67,6 +74,9 @@ export const fetchUser = () => (dispatch, history) => {
 		.catch(err => {
 			displayErrorNotification(err, 'Error refreshing user information. Plz contact admins');
 			throw err;
+		})
+		.finally(() => {
+			dispatch(stopLoadingAuth());
 		});
 };
 
