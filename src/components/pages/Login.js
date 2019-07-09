@@ -39,11 +39,6 @@ const StyledLogin = styled.div`
 			.login-forgot-password {
 				text-align: right;
 				font-size: 12px;
-
-				a {
-					color: white;
-					cursor: pointer;
-				}
 			}
 		}
 

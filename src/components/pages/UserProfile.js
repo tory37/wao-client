@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import { updatePassword as updatePasswordAction, updateUserProfile as updateUserProfileAction } from '../../actions/authActions';
 
+import WAOForm from '../WAOForm';
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
 import SkewedBox from '../SkewedBox';
@@ -149,59 +150,61 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 		<PageWrapper>
 			<StyledUserProfile>
 				<PageCard isLoading={isLoading} isSkewed>
-					<div className="userprofile-content">
-						{!isEditing && (
-							<div className="userprofile-image">
-								<SkewedBox>
-									<Img src={auth.isAuthenticated && auth.user.imageUrl && auth.user.imageUrl.length > 0 ? auth.user.imageUrl : defaultProfileImage} />
-								</SkewedBox>
-							</div>
-						)}
-
-						{isEditing && <DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" />}
-
-						{!isEditing && <div className="userprofile-username">{auth.user.username}</div>}
-						{!isEditing && <div className="spacer" />}
-
-						{isEditing && <DataFieldText state={username} setState={setUsername} isInvalid={isUsernameInvalid} setIsInvalid={setIsUsernameInvalid} title="Username" isRequired />}
-
-						{!isEditing && <div className="userprofile-email">{auth.user.email}</div>}
-
-						{isEditing && <DataFieldEmail state={email} setState={setEmail} isInvalid={isEmailInvalid} setIsInvalid={setIsEmailInvalid} title="Email" isRequired />}
-
-						<div className="spacer" />
-
-						<ColorPicker colorsArray={colorsArray} onSelectColor={onSelectColor} selectedColor={color} isEditing={isEditing} />
-
-						{isUpdatingPassword && (
-							<div>
-								<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldValidate />
-								<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
-							</div>
-						)}
-
-						{!isEditing && !isUpdatingPassword && (
-							<div className="userprofile-buttons">
-								<div className="userprofile-button-wrapper">
-									<WAOButton title="Change Pass" color="purple" clickCallback={onUpdatePasswordClick} xl5 />
+					<WAOForm onSubmit={onSave} canSubmit={!isLoading && ((isEditing && !isProfileInvalid) || (isUpdatingPassword && !isPasswordUpdateInvalid))}>
+						<div className="userprofile-content">
+							{!isEditing && (
+								<div className="userprofile-image">
+									<SkewedBox>
+										<Img src={auth.isAuthenticated && auth.user.imageUrl && auth.user.imageUrl.length > 0 ? auth.user.imageUrl : defaultProfileImage} />
+									</SkewedBox>
 								</div>
+							)}
+
+							{isEditing && <DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" />}
+
+							{!isEditing && <div className="userprofile-username">{auth.user.username}</div>}
+							{!isEditing && <div className="spacer" />}
+
+							{isEditing && <DataFieldText state={username} setState={setUsername} isInvalid={isUsernameInvalid} setIsInvalid={setIsUsernameInvalid} title="Username" isRequired />}
+
+							{!isEditing && <div className="userprofile-email">{auth.user.email}</div>}
+
+							{isEditing && <DataFieldEmail state={email} setState={setEmail} isInvalid={isEmailInvalid} setIsInvalid={setIsEmailInvalid} title="Email" isRequired />}
+
+							<div className="spacer" />
+
+							<ColorPicker colorsArray={colorsArray} onSelectColor={onSelectColor} selectedColor={color} isEditing={isEditing} />
+
+							{isUpdatingPassword && (
 								<div>
-									<WAOButton title="Edit" color="orange" clickCallback={onEdit} md />
+									<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldValidate />
+									<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
 								</div>
-							</div>
-						)}
+							)}
 
-						{(isEditing || isUpdatingPassword) && (
-							<div className="userprofile-buttons">
-								<div className="userprofile-button-wrapper">
-									<WAOButton title="Quit" color="red" clickCallback={onCancel} md />
+							{!isEditing && !isUpdatingPassword && (
+								<div className="userprofile-buttons">
+									<div className="userprofile-button-wrapper">
+										<WAOButton title="Change Pass" color="purple" clickCallback={onUpdatePasswordClick} xl5 />
+									</div>
+									<div>
+										<WAOButton title="Edit" color="orange" clickCallback={onEdit} md />
+									</div>
 								</div>
-								<div>
-									<WAOButton title="Save" color="green" clickCallback={onSave} isLoading={isLoading} isDisabled={isLoading || (isEditing && isProfileInvalid) || (isUpdatingPassword && isPasswordUpdateInvalid)} md />
+							)}
+
+							{(isEditing || isUpdatingPassword) && (
+								<div className="userprofile-buttons">
+									<div className="userprofile-button-wrapper">
+										<WAOButton title="Quit" color="red" clickCallback={onCancel} md />
+									</div>
+									<div>
+										<WAOButton title="Save" color="green" clickCallback={onSave} isLoading={isLoading} isDisabled={isLoading || (isEditing && isProfileInvalid) || (isUpdatingPassword && isPasswordUpdateInvalid)} isSubmit md />
+									</div>
 								</div>
-							</div>
-						)}
-					</div>
+							)}
+						</div>
+					</WAOForm>
 				</PageCard>
 			</StyledUserProfile>
 		</PageWrapper>

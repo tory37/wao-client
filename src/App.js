@@ -48,6 +48,14 @@ const StyledApp = styled.div`
 	background-attachment: fixed;
 	background-position: center;
 
+	a {
+		color: white;
+
+		&:visited {
+			color: darkgreen(gold, 0.3);
+		}
+	}
+
 	.app-content {
 		width: calc(100% - 60px);
 		height: calc(100% - 20px);

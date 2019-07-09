@@ -5,6 +5,7 @@ import { routeDefs } from '../../routeDefs';
 
 import { updatePasswordWithToken as updatePasswordWithTokenAction } from '../../actions/authActions';
 
+import WAOForm from '../WAOForm';
 import PageWrapper from '../PageWrapper';
 import PageCard from '../PageCard';
 import WAOButton from '../WAOButton';
@@ -69,6 +70,7 @@ const PasswordChange = ({ updatePasswordWithToken, history, match }) => {
 		<PageWrapper>
 			<StyledPasswordChange>
 				<PageCard>
+					<WAOForm onSubmit={onSave} canSubmit={!isLoading && !isInvalid} >
 					<div className="passwordchange-title">Change Password</div>
 
 					{!isLoading && (
@@ -77,10 +79,11 @@ const PasswordChange = ({ updatePasswordWithToken, history, match }) => {
 							<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
 
 							<div className="passwordchange-button">
-								<WAOButton title="Save" color="purple" clickCallback={onSave} isDisabled={isLoading || isInvalid} isLoading={isLoading} />
+								<WAOButton title="Save" color="purple" clickCallback={onSave} isDisabled={isLoading || isInvalid} isLoading={isLoading} isSubmit />
 							</div>
 						</div>
 					)}
+					</WAOForm>
 				</PageCard>
 			</StyledPasswordChange>
 		</PageWrapper>
