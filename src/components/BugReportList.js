@@ -27,6 +27,26 @@ const StyledBugReportList = styled.div`
 		padding-bottom: 5px;
 	}
 
+	.bugreportlist-icons {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+		margin-top: 10px;
+
+		.descriptions {
+			width: 60%;
+		}
+
+		.users {
+			width: 10%;
+		}
+
+		.actions {
+			width: 30%;
+		}
+	}
+
 	.bugreportlist-no-bugs {
 		margin-top: 10px;
 		font-size: 18px;
@@ -59,39 +79,39 @@ const BugReportList = ({ bugReports, fetchAllBugReports }) => {
 	}, [bugReports]);
 
 	const setReports = () => {
-		setOpenBugs(
-			_.filter(bugReports, report => {
-				return report.status === openTab;
-			})
-		);
+		const open = _.filter(bugReports, report => {
+			return report.status === openTab;
+		});
 
-		setFixedBugs(
-			_.filter(bugReports, report => {
-				return report.status === fixedTab;
-			})
-		);
+		setOpenBugs(open);
 
-		setWontFixBugs(
-			_.filter(bugReports, report => {
-				return report.status === wontFixTab;
-			})
-		);
+		const fixed = _.filter(bugReports, report => {
+			return report.status === fixedTab;
+		});
+
+		setFixedBugs(fixed);
+
+		const rejected = _.filter(bugReports, report => {
+			return report.status === wontFixTab;
+		});
+
+		setWontFixBugs(rejected);
 
 		switch (selectedTab) {
 			case openTab:
-				setSelectedBugs(openBugs);
+				setSelectedBugs(open);
 				break;
 			case fixedTab:
-				setSelectedBugs(fixedBugs);
+				setSelectedBugs(fixed);
 				break;
 			case wontFixTab:
-				setSelectedBugs(wontFixBugs);
+				setSelectedBugs(rejected);
 				break;
 			default:
-				setSelectedBugs(openBugs);
+				setSelectedBugs(open);
 				break;
 		}
-	}
+	};
 
 	const onSelectTab = tab => {
 		setSelectedTab(tab);
@@ -121,6 +141,22 @@ const BugReportList = ({ bugReports, fetchAllBugReports }) => {
 					<WAOButton title={'Fixed'} color="green" sm clickCallback={() => onSelectTab(fixedTab)} isSelected={selectedTab === fixedTab} />
 					<WAOButton title={"Won't Fix"} color="red" xl clickCallback={() => onSelectTab(wontFixTab)} isSelected={selectedTab === wontFixTab} />
 				</div>
+
+				{selectedBugs.length > 0 && (
+					<div className="bugreportlist-icons">
+						<div className="descriptions">
+							<i className="fas fa-book" />
+						</div>
+
+						<div className="users">
+							<i className="fas fa-users " />
+						</div>
+
+						<div className="actions">
+							<i className="fas fa-arrow-circle-right" />
+						</div>
+					</div>
+				)}
 
 				{selectedBugs.length > 0 && selectedBugs.map(bugReport => <BugReport bugReport={bugReport} key={bugReport._id + bugReport.status} />)}
 				{selectedBugs.length === 0 && <div className="bugreportlist-no-bugs">There are no {selectedTab == openTab ? 'open' : selectedTab === fixedTab ? 'fixed' : 'rejected'} bugs</div>}
