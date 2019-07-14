@@ -12,4 +12,8 @@ export const UPDATE_EVENT = 'UPDATE_EVENT';
 export const SET_EVENTS = 'SET_EVENTS';
 export const SET_HAS_FETCHED_PAST = 'SET_HAS_FETCHED_PAST"';
 
+export const SET_BUG_REPORTS = 'SET_BUG_REPORTS';
+export const ADD_BUG_REPORT = 'ADD_BUG_REPORT';
+export const UPDATE_BUG_REPORT = 'UPDATE_BUG_REPORT';
+
 export const SET_IS_LOADING = 'SET_IS_LOADING';

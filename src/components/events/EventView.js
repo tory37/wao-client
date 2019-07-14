@@ -314,7 +314,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 
 							{!isEditing && canEdit && (
 								<div className="eventview-buttons">
-									<WAOButton title="Edit" color="orange" clickCallback={onEdit} md isDisabled={!canEdit} />
+									<WAOButton title="Edit" color="orange" useUserColor clickCallback={onEdit} md isDisabled={!canEdit} />
 								</div>
 							)}
 

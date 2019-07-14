@@ -7,7 +7,8 @@ export const routeDefs = {
 	passwordReset: '/password-reset',
 	passwordChange: '/password-change/:token',
 	userProfile: '/profile',
-	photos: '/photos'
+	photos: '/photos',
+	adminDash: '/admin/dashboard'
 };
 
 export const isOnRoute = (location, route) => {

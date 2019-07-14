@@ -12,6 +12,7 @@ import UserProfile from './components/pages/UserProfile';
 import Verify from './components/pages/Verify';
 import PasswordReset from './components/pages/PasswordReset';
 import PasswordChange from './components/pages/PasswordChange';
+import AdminDash from './components/pages/AdminDash';
 import NotFound from './components/pages/NotFound';
 import PrivateRoute from './components/PrivateRoute';
 
@@ -27,6 +28,7 @@ const Routes = () => (
 				<Route exact path={routeDefs.passwordReset} component={PasswordReset} />
 				<Route exact path={routeDefs.passwordChange} component={PasswordChange} />
 				<PrivateRoute exact path={routeDefs.userProfile} component={UserProfile} />
+				<PrivateRoute exact path={routeDefs.adminDash} component={AdminDash} />
 				<Route component={NotFound} />
 			</Switch>
 		</Layout>
