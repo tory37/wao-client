@@ -56,7 +56,7 @@ const StyledUserProfile = styled.div`
 `;
 
 const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
-	const colorsArray = ['black', 'red', 'blue', 'purple', 'brown', 'orange', 'green'];
+	const colorsArray = ['#282929', 'red', 'blue', 'purple', 'brown', 'orange', 'green'];
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
@@ -185,10 +185,10 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 							{!isEditing && !isUpdatingPassword && (
 								<div className="userprofile-buttons">
 									<div className="userprofile-button-wrapper">
-										<WAOButton title="Change Pass" color="purple" clickCallback={onUpdatePasswordClick} xl5 />
+										<WAOButton title="Change Pass" color="purple" useUserColor clickCallback={onUpdatePasswordClick} xl5 />
 									</div>
 									<div>
-										<WAOButton title="Edit" color="orange" clickCallback={onEdit} md />
+										<WAOButton title="Edit" color="orange" useUserColor clickCallback={onEdit} md />
 									</div>
 								</div>
 							)}

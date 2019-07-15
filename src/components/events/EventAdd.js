@@ -148,7 +148,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 
 	return (
 		<StyledEventAdd>
-			{!isAdding && <WAOButton title="Add New" color="purple" xl3 clickCallback={onAddClick} isDisabled={!canAdd} />}
+			{!isAdding && <WAOButton title="Add New" color="purple" useUserColor xl3 clickCallback={onAddClick} isDisabled={!canAdd} />}
 			{isAdding && (
 				<div className="eventadd-view">
 					<PageCard>
@@ -160,7 +160,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 								<DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired />
 								<DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />
 								<DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />
-								
+
 								<div className="eventadd-buttons">
 									<div className="eventadd-button-wrapper">
 										<WAOButton title="Quit" color="red" md clickCallback={onCancel} isLoading={isLoading} isDisabled={isLoading} />

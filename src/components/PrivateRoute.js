@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 
 import PageWrapper from './PageWrapper';
 import PageCard from './PageCard';
-import LoadingOverlay from './LoadingOverlay';
 
 const StyledPrivateRoute = styled.div`
 	height: 300px;

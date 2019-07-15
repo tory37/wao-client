@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { connect } from 'react-redux';
 
 import SkewedBox from './SkewedBox';
 import CenteredContent from './CenteredContent';
@@ -25,10 +26,10 @@ const StyledHeaderButton = styled.div`
 	color: white;
 `;
 
-const HeaderButton = ({ title, clipPath, isSelected }) => {
+const HeaderButton = ({ auth, title, clipPath, isSelected }) => {
 	return (
 		<StyledHeaderButton clipPath={clipPath}>
-			<SkewedBox clipPath={clipPath} color={isSelected ? 'purple' : '#4d4d4d'} isSelected={isSelected} shouldGrowOnHover useScale={true}>
+			<SkewedBox clipPath={clipPath} color={isSelected ? (auth.isAuthenticated && auth.user.color ? auth.user.color : 'purple') : 'gray'} isSelected={isSelected} shouldGrowOnHover useScale={true}>
 				<CenteredContent>
 					<span>{title}</span>
 				</CenteredContent>
@@ -37,4 +38,8 @@ const HeaderButton = ({ title, clipPath, isSelected }) => {
 	);
 };
 
-export default HeaderButton;
+const mapStateToProps = state => ({
+	auth: state.auth
+});
+
+export default connect(mapStateToProps)(HeaderButton);

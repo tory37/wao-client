@@ -26,7 +26,7 @@ const StyledDataField = styled.div`
 
 	textarea {
 		padding: 5px;
-		height: 200px;
+		height: 100px;
 		width: calc(100% - 20px);
 		resize: none;
 		border: solid 5px black;
