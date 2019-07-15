@@ -7,7 +7,7 @@ bugs.fetchAllBugReports = () => {
 	return axios.get(url);
 };
 
-bugs.createBugReport = bugData => {
+bugs.addBugReport = bugData => {
 	return axios.put(`${process.env.REACT_APP_API_URL}/bugs`, bugData);
 };
 

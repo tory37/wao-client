@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import Header from './Header';
+import BugReportModal from './BugReportModal';
 
 const StyledLayout = styled.div`
 	width: 100%;
@@ -19,6 +20,16 @@ const StyledLayout = styled.div`
 
 		@media only screen and (min-width: 810px) {
 			margin-bottom: 40px;
+		}
+	}
+
+	.layout-bugreportmodal-wrapper {
+		position: absolute;
+		bottom: 70px;
+		z-index: 100;
+
+		@media only screen and (min-width: 945px) {
+			bottom: 50px;
 		}
 	}
 
@@ -47,6 +58,9 @@ const Layout = ({ children }) => (
 	<StyledLayout>
 		<div className="layout-header-wrapper">
 			<Header />
+		</div>
+		<div className="layout-bugreportmodal-wrapper">
+			<BugReportModal />
 		</div>
 		<main>
 			<div className="layout-content">{children}</div>

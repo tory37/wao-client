@@ -6,7 +6,7 @@ const initialState = [];
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case ADD_BUG_REPORT:
-			return [...state, ...action.payload];
+			return [...state, action.payload];
 		case SET_BUG_REPORTS:
 			return action.payload;
 		case UPDATE_BUG_REPORT:

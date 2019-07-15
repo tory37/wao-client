@@ -38,10 +38,10 @@ export const fetchAllBugReports = () => dispatch => {
 export const addNewBugReport = bugReport => dispatch => {
 	const notificationId = displayLoadingNotification('Saving bug report...');
 	return bugs
-		.addBugReport()
+		.addBugReport(bugReport)
 		.then(res => {
 			displaySuccessNotification(res.data, notificationId);
-			dispatch(addBugReport(bugReport));
+			//dispatch(addBugReport(bugReport));
 		}) // re-direct to login on siccessful register
 		.catch(err => {
 			displayErrorNotification(err, 'Failed to save bug reports', notificationId);

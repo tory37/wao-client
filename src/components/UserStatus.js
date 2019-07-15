@@ -133,7 +133,7 @@ const UserStatus = ({ isSelected, auth, logoutUser, history }) => {
 
 				{isOpen && (
 					<div className="userstatus-buttondropdown" ref={buttonDropdown}>
-						<SkewedBox color="darkgray" clipPath="0 6%, 100% 0, 100% 96%, 0% 100%">
+						<SkewedBox color="gray" clipPath="0 6%, 100% 0, 100% 96%, 0% 100%">
 							{auth.isAuthenticated && (
 								<div className="userstatus-buttondropdown-inner">
 									<div className="userstatus-buttondropdown-entry">{auth.user.username}</div>
