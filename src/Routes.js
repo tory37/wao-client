@@ -22,7 +22,7 @@ const Routes = () => (
 			<Switch>
 				<Route exact path={routeDefs.home} component={Home} />
 				<Route exact path={routeDefs.events} component={Events} />
-				<Route exact path={routeDefs.login} component={Login} />
+				<Route exact path={routeDefs.login + '/:goback?'} component={Login} />
 				<Route exact path={routeDefs.signup} component={Signup} />
 				<Route exact path={routeDefs.verifyUser} component={Verify} />
 				<Route exact path={routeDefs.passwordReset} component={PasswordReset} />

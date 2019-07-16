@@ -6,15 +6,13 @@ import { ToastContainer } from 'react-toastify';
 import theme from './styles/theme';
 import store from './store';
 import setAuthToken from './utils/auth';
-import { fetchUser, logoutUser, startLoadingAuth } from './actions/authActions';
+import { fetchUser, logoutUser, stopLoadingAuth } from './actions/authActions';
 import { fetchAllEvents } from './actions/eventActions';
 import styled from '@emotion/styled';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import Routes from './Routes';
-
-store.dispatch(fetchAllEvents());
 
 const StyledApp = styled.div`
 	width: 100vw;
@@ -64,11 +62,13 @@ const StyledApp = styled.div`
 
 function App() {
 	useEffect(() => {
-		// Check for token to keep user loggied in
-		if (localStorage.jwtToken) {
-			store.dispatch(startLoadingAuth());
+		store.dispatch(fetchAllEvents());
+
+		// isLoadingAuth state is true by default, must stop it at all branches
+		// Check for token to keep user logged in
+		if (localStorage['weebsandotakus-jwtToken']) {
 			// Set auth token header auth
-			const token = localStorage.jwtToken;
+			const token = localStorage['weebsandotakus-jwtToken'];
 			setAuthToken(token);
 			// Decode token and get user info and exp
 			const decoded = jwtDecode(token);
@@ -78,10 +78,13 @@ function App() {
 			if (decoded.exp < currentTime) {
 				// Logout user
 				store.dispatch(logoutUser());
+				store.dispatch(stopLoadingAuth());
 			} else {
-				// Set user and isAuthenticated
+				// Set user and isAuthenticated, this dispatches stopLoadingAuth
 				store.dispatch(fetchUser());
 			}
+		} else {
+			store.dispatch(stopLoadingAuth());
 		}
 	}, []);
 
