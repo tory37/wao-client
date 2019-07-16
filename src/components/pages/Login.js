@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { loginUser } from '../../actions/authActions';
+import queryString from 'query-string';
 import { routePaths } from '../../routeDefs';
 
 import WAOForm from '../WAOForm';
@@ -63,7 +64,7 @@ const StyledLogin = styled.div`
 	}
 `;
 
-const Login = ({ auth, history, loginUser }) => {
+const Login = ({ auth, history, loginUser, location }) => {
 	const [isInvalid, setIsInvalid] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -75,7 +76,12 @@ const Login = ({ auth, history, loginUser }) => {
 	useEffect(() => {
 		// If logged in user naviages here, redirect
 		if (auth.isAuthenticated) {
-			history.push(routePaths.home);
+			let queries = queryString.parse(location.search);
+			if (queries && queries.goback) {
+				history.push(queries.goback);
+			} else {
+				history.push(routePaths.home);
+			}
 		}
 	}, [auth.isAuthenticated]);
 
@@ -144,4 +150,4 @@ const mapStateToProps = state => ({
 export default connect(
 	mapStateToProps,
 	{ loginUser }
-)(Login);
+)(withRouter(Login));

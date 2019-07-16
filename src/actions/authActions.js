@@ -49,7 +49,7 @@ export const loginUser = userData => (dispatch, history) => {
 
 			// Set token to localStorage
 			const { token, user } = res.data;
-			localStorage.setItem('jwtToken', token);
+			localStorage.setItem('weebsandotakus-jwtToken', token);
 			// Set token to Auth header
 			setAuthToken(token);
 			// Decode token to get user data
@@ -83,11 +83,12 @@ export const fetchUser = () => (dispatch, history) => {
 // Log user out
 export const logoutUser = wasExpired => dispatch => {
 	// Remove token from local storage
-	localStorage.removeItem('jwtToken');
+	localStorage.removeItem('weebsandotakus-jwtToken');
 	// Remove auth header for future requests
 	setAuthToken(false);
 	// Set current user to empty object {} which will set isAuthenticated to false
 	dispatch(setCurrentUser({}));
+
 	if (wasExpired) {
 		displayWarningNotification('Logged out due to expired token. Please login');
 	} else {
@@ -115,7 +116,7 @@ export const updatePassword = (password, password2, id) => dispatch => {
 		.updatePassword({ password, password2 }, id)
 		.then(res => {
 			const { token } = res.data;
-			localStorage.setItem('jwtToken', token);
+			localStorage.setItem('weebsandotakus-jwtToken', token);
 			// Set token to Auth header
 			setAuthToken(token);
 			displaySuccessNotification('Password updated.  You will need to relogin on other devices', notificationId);
@@ -157,7 +158,7 @@ export const verifyUser = verificationToken => dispatch => {
 	return api
 		.verifyUser(verificationToken)
 		.then(res => {
-			displaySuccessNotification('Email verified! Please login', notificationId);
+			displaySuccessNotification(res.data, notificationId);
 		})
 		.catch(err => {
 			displayErrorNotification(err, 'Error verifying email', notificationId);
