@@ -134,7 +134,7 @@ const Events = ({ events, auth, isLoadingEvents, fetchAllEvents }) => {
 					<div className="events-no-upcoming">
 						<SkewedBox clipPath="0% 0, 97% 0, 100% 100%, 3% 100%" color="plum" isSelected={true}>
 							<CenteredContent>
-								{isLoadingEvents && <span>Loading Future Events</span>}
+								{isLoadingEvents && <span>Loading Events</span>}
 								{!isLoadingEvents && (
 									<div className="events-no-upcoming-refresh">
 										No Events to Show <WAOButton title="Refresh" userUserColor color="purple" useUserColor clickCallback={fetchAllEvents} md />
