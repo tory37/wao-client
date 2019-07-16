@@ -158,7 +158,7 @@ export const verifyUser = verificationToken => dispatch => {
 	return api
 		.verifyUser(verificationToken)
 		.then(res => {
-			displaySuccessNotification('Email verified! Please login', notificationId);
+			displaySuccessNotification(res.data, notificationId);
 		})
 		.catch(err => {
 			displayErrorNotification(err, 'Error verifying email', notificationId);
