@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import { connect } from 'react-redux';
 
 import Header from './Header';
 import BugReportModal from './BugReportModal';
@@ -54,22 +55,28 @@ const StyledLayout = styled.div`
 	}
 `;
 
-const Layout = ({ children }) => (
+const Layout = ({ children, auth }) => (
 	<StyledLayout>
 		<div className="layout-header-wrapper">
 			<Header />
 		</div>
-		<div className="layout-bugreportmodal-wrapper">
-			<BugReportModal />
-		</div>
+		{auth.isAuthenticated && (
+			<div className="layout-bugreportmodal-wrapper">
+				<BugReportModal />
+			</div>
+		)}
 		<main>
 			<div className="layout-content">{children}</div>
 		</main>
 	</StyledLayout>
 );
 
+const mapStateToProps = state => ({
+	auth: state.auth
+});
+
 Layout.propTypes = {
 	children: PropTypes.node.isRequired
 };
 
-export default Layout;
+export default connect(mapStateToProps)(Layout);
