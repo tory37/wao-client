@@ -1,7 +1,6 @@
 import setAuthToken from '../utils/auth';
 
 import bugs from '../utils/api/bugs';
-import { routeDefs } from '../routeDefs';
 
 import { SET_BUG_REPORTS, ADD_BUG_REPORT, UPDATE_BUG_REPORT } from './types';
 import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification } from '../utils/notifications';

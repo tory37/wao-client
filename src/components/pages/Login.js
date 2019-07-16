@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loginUser } from '../../actions/authActions';
-import { routeDefs } from '../../routeDefs';
+import { routePaths } from '../../routeDefs';
 
 import WAOForm from '../WAOForm';
 import PageWrapper from '../PageWrapper';
@@ -75,7 +75,7 @@ const Login = ({ auth, history, loginUser }) => {
 	useEffect(() => {
 		// If logged in user naviages here, redirect
 		if (auth.isAuthenticated) {
-			history.push(routeDefs.home);
+			history.push(routePaths.home);
 		}
 	}, [auth.isAuthenticated]);
 
@@ -105,7 +105,7 @@ const Login = ({ auth, history, loginUser }) => {
 							<div className="login-header-row">
 								<div className="login-title">Login</div>
 								<div className="login-forgot-password">
-									<Link to={routeDefs.passwordReset}>Forgot Password?</Link>
+									<Link to={routePaths.passwordReset}>Forgot Password?</Link>
 								</div>
 							</div>
 
@@ -119,7 +119,10 @@ const Login = ({ auth, history, loginUser }) => {
 							</div>
 
 							<div className="login-to-signup">
-								Need an account? <Link to={routeDefs.signup}>Signup</Link>
+								Need an account? <Link to={routePaths.signup}>Signup</Link>
+							</div>
+							<div className="login-to-signup">
+								Not verified? <Link to={routePaths.verifyUser}>Resend Verification</Link>
 							</div>
 						</div>
 					</WAOForm>

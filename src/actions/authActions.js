@@ -1,7 +1,7 @@
 import setAuthToken from '../utils/auth';
 
 import api from '../utils/api/auth';
-import { routeDefs } from '../routeDefs';
+import { routePaths } from '../routeDefs';
 
 import { SET_CURRENT_USER, START_LOADING_AUTH, STOP_LOADING_AUTH } from './types';
 import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification, displayWarningNotification } from '../utils/notifications';
@@ -30,7 +30,7 @@ export const registerUser = (userData, history) => dispatch => {
 		.registerUser(userData)
 		.then(res => {
 			displaySuccessNotification(res.data, notificationId);
-			history.push(routeDefs.login);
+			history.push(routePaths.login);
 		}) // re-direct to login on siccessful register
 		.catch(err => {
 			displayErrorNotification(err, 'Registration error occured. Plz contact admins', notificationId);
