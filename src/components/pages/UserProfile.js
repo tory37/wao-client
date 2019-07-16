@@ -14,6 +14,7 @@ import DataFieldText from '../dataFields/DataFieldText';
 import DataFieldEmail from '../dataFields/DataFieldEmail';
 import DataFieldPassword from '../dataFields/DateFieldPassword';
 import DataFieldConfirmPassword from '../dataFields/DataFieldConfirmPassword';
+import DataFieldCheckbox from '../dataFields/DataFieldCheckbox';
 
 const defaultProfileImage = 'https://upload.wikimedia.org/wikipedia/commons/2/25/Wikipe-tan_silhouette.png';
 
@@ -40,6 +41,29 @@ const StyledUserProfile = styled.div`
 			height: 10px;
 		}
 
+		.userprofile-subscriptions-title {
+			font-size: 14px;
+			margin-top: 10px;
+			margin-bottom: 5px;
+		}
+
+		.userprofile-subscriptions {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			align-items: center;
+			flex-wrap: wrap;
+
+			.userprofile-subscriptions-entry {
+				width: 100%;
+				margin-bottom: 5px;
+
+				@media only screen and (min-width: 500px) {
+					width: 50%;
+				}
+			}
+		}
+
 		.userprofile-buttons {
 			display: flex;
 			flex-direction: row;
@@ -57,18 +81,24 @@ const StyledUserProfile = styled.div`
 
 const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 	const colorsArray = ['#282929', 'red', 'blue', 'purple', 'brown', 'orange', 'green'];
+	const SUBSCRIPTIONS = {
+		EVENTS: 'EVENTS'
+	};
+
+	const { user } = auth;
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
 
-	const [imageUrl, setImageUrl] = useState(auth.user.imageUrl);
+	const [imageUrl, setImageUrl] = useState(user.imageUrl);
 	const [isImageUrlInvalid, setIsImageUrlInvalid] = useState(false);
-	const [username, setUsername] = useState(auth.user.username);
+	const [username, setUsername] = useState(user.username);
 	const [isUsernameInvalid, setIsUsernameInvalid] = useState(false);
-	const [email, setEmail] = useState(auth.user.email);
+	const [email, setEmail] = useState(user.email);
 	const [isEmailInvalid, setIsEmailInvalid] = useState(false);
-	const [color, setColor] = useState(auth.user.color && auth.user.color.length > 0 ? auth.user.color : 'black');
+	const [color, setColor] = useState(user.color && user.color.length > 0 ? user.color : 'black');
+	const [isSubscribedEvents, setIsSubscribedEvents] = useState(user.subscriptions ? user.subscriptions.includes(SUBSCRIPTIONS.EVENTS) : false);
 
 	const [isProfileInvalid, setIsProfileInvalid] = useState(false);
 	const [isPasswordUpdateInvalid, setIsPasswordUpdateInvalid] = useState(false);
@@ -89,10 +119,10 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 	const onEdit = e => {
 		setIsEditing(true);
 
-		setImageUrl(auth.user.imageUrl);
-		setUsername(auth.user.username);
-		setEmail(auth.user.email);
-		setColor(auth.user.color && auth.user.color.length > 0 ? auth.user.color : 'black');
+		setImageUrl(user.imageUrl);
+		setUsername(user.username);
+		setEmail(user.email);
+		setColor(user.color && user.color.length > 0 ? user.color : 'black');
 	};
 
 	const onCancel = e => {
@@ -112,10 +142,15 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 				imageUrl: imageUrl,
 				username: username,
 				email: email,
-				color: color
+				color: color,
+				subscriptions: []
 			};
 
-			updateUserProfile(updatedUser, auth.user._id)
+			if (isSubscribedEvents) {
+				updatedUser.subscriptions.push(SUBSCRIPTIONS.EVENTS);
+			}
+
+			updateUserProfile(updatedUser, user._id)
 				.then(() => {
 					setIsEditing(false);
 				})
@@ -125,7 +160,7 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 		}
 
 		if (isUpdatingPassword) {
-			updatePassword(password, confirmPassword, auth.user._id)
+			updatePassword(password, confirmPassword, user._id)
 				.then(() => {
 					setIsUpdatingPassword(false);
 				})
@@ -155,25 +190,32 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 							{!isEditing && (
 								<div className="userprofile-image">
 									<SkewedBox>
-										<Img src={auth.isAuthenticated && auth.user.imageUrl && auth.user.imageUrl.length > 0 ? auth.user.imageUrl : defaultProfileImage} />
+										<Img src={auth.isAuthenticated && user.imageUrl && user.imageUrl.length > 0 ? user.imageUrl : defaultProfileImage} />
 									</SkewedBox>
 								</div>
 							)}
 
 							{isEditing && <DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" />}
 
-							{!isEditing && <div className="userprofile-username">{auth.user.username}</div>}
+							{!isEditing && <div className="userprofile-username">{user.username}</div>}
 							{!isEditing && <div className="spacer" />}
 
 							{isEditing && <DataFieldText state={username} setState={setUsername} isInvalid={isUsernameInvalid} setIsInvalid={setIsUsernameInvalid} title="Username" isRequired />}
 
-							{!isEditing && <div className="userprofile-email">{auth.user.email}</div>}
+							{!isEditing && <div className="userprofile-email">{user.email}</div>}
 
 							{isEditing && <DataFieldEmail state={email} setState={setEmail} isInvalid={isEmailInvalid} setIsInvalid={setIsEmailInvalid} title="Email" isRequired />}
 
 							<div className="spacer" />
 
 							<ColorPicker colorsArray={colorsArray} onSelectColor={onSelectColor} selectedColor={color} isEditing={isEditing} />
+
+							<div className="userprofile-subscriptions-title">Subscriptions</div>
+							<div className="userprofile-subscriptions">
+								<div className="userprofile-subscriptions-entry">
+									<DataFieldCheckbox color={user.color} state={isSubscribedEvents} setState={setIsSubscribedEvents} isEditing={isEditing} title="New Event Notifications" />
+								</div>
+							</div>
 
 							{isUpdatingPassword && (
 								<div>
