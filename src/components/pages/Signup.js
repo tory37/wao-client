@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { registerUser } from '../../actions/authActions';
-import { routeDefs } from '../../routeDefs';
+import { routePaths } from '../../routeDefs';
 
 import WAOForm from '../WAOForm';
 import PageWrapper from '../PageWrapper';
@@ -67,7 +67,7 @@ const Signup = ({ auth, history, registerUser }) => {
 	useEffect(() => {
 		// If logged in user naviages here, redirect
 		if (auth.isAuthenticated) {
-			history.push(routeDefs.home);
+			history.push(routePaths.home);
 		}
 	}, [auth.isAuthenticated]);
 

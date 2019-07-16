@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { routeDefs } from '../../routeDefs';
+import { routePaths } from '../../routeDefs';
 
 import { resetPassword as resetPasswordAction } from '../../actions/authActions';
 
@@ -74,7 +74,7 @@ const PasswordReset = ({ resetPassword, auth }) => {
 
 						{auth.isAuthenticated && (
 							<div className="passwordreset-finished">
-								You are already logged in. If you need to change your password, do so from your <Link to={routeDefs.userProfile}>profile</Link>
+								You are already logged in. If you need to change your password, do so from your <Link to={routePaths.userProfile}>profile</Link>
 							</div>
 						)}
 					</WAOForm>

@@ -1,10 +1,10 @@
 import setAuthToken from '../utils/auth';
 
 import api from '../utils/api/auth';
-import { routeDefs } from '../routeDefs';
+import { routePaths } from '../routeDefs';
 
 import { SET_CURRENT_USER, START_LOADING_AUTH, STOP_LOADING_AUTH } from './types';
-import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification } from '../utils/notifications';
+import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification, displayWarningNotification } from '../utils/notifications';
 
 // Set logged in user
 export const setCurrentUser = user => ({
@@ -30,7 +30,7 @@ export const registerUser = (userData, history) => dispatch => {
 		.registerUser(userData)
 		.then(res => {
 			displaySuccessNotification(res.data, notificationId);
-			history.push(routeDefs.login);
+			history.push(routePaths.login);
 		}) // re-direct to login on siccessful register
 		.catch(err => {
 			displayErrorNotification(err, 'Registration error occured. Plz contact admins', notificationId);
@@ -81,15 +81,19 @@ export const fetchUser = () => (dispatch, history) => {
 };
 
 // Log user out
-export const logoutUser = () => dispatch => {
-	const notificationId = displayLoadingNotification('Logging out...');
+export const logoutUser = wasExpired => dispatch => {
 	// Remove token from local storage
 	localStorage.removeItem('weebsandotakus-jwtToken');
 	// Remove auth header for future requests
 	setAuthToken(false);
 	// Set current user to empty object {} which will set isAuthenticated to false
 	dispatch(setCurrentUser({}));
-	displaySuccessNotification('Successfully logged out.', notificationId);
+
+	if (wasExpired) {
+		displayWarningNotification('Logged out due to expired token. Please login');
+	} else {
+		displaySuccessNotification('Successfully logged out.');
+	}
 };
 
 export const updateUserProfile = (userData, id) => dispatch => {

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { verifyUser as verifyUserAction, resendVerification as resendVerificationAction } from '../../actions/authActions';
-import { routeDefs } from '../../routeDefs';
+import { routePaths } from '../../routeDefs';
 
 import WAOForm from '../WAOForm';
 import PageWrapper from '../PageWrapper';
@@ -76,6 +76,7 @@ const StyledVerify = styled.div`
 
 const Verify = ({ match, history, verifyUser, resendVerification }) => {
 	const [isLoading, setIsLoading] = useState(false);
+	const [hasToken, setHasToken] = useState(false);
 	const [isError, setIsError] = useState(false);
 	const [email, setEmail] = useState('');
 	const [isInvalid, setIsInvalid] = useState(false);
@@ -87,10 +88,15 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 		setIsLoading(true);
 		const { token } = match.params;
 
-		verifyUser(token)
-			.then(() => history.push(routeDefs.login))
-			.catch(() => setIsError(true))
-			.finally(() => setIsLoading(false));
+		if (token) {
+			setHasToken(true);
+			verifyUser(token)
+				.then(() => history.push(routePaths.login))
+				.catch(() => setIsError(true))
+				.finally(() => setIsLoading(false));
+		} else {
+			setIsLoading(false);
+		}
 	}, []);
 
 	const onResendClick = () => {
@@ -113,20 +119,38 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 			<StyledVerify>
 				<PageCard isLoading={isLoading} isSkewed>
 					<WAOForm onSubmit={onResendClick} canSubmit={!isLoading && isError && !isResendFinished && isResendError && !isInvalid}>
-					<div className="verify-content">
-						{isLoading && (
-							<div className="verify-loading">
-								Loading <i className="fas fa-spinner fa-spin"></i>
-							</div>
-						)}
+						<div className="verify-content">
+							{isLoading && (
+								<div className="verify-loading">
+									Loading <i className="fas fa-spinner fa-spin"></i>
+								</div>
+							)}
+							{!isLoading && isError && (
+								<div className="verify-error">
+									{(!isResendFinished || (isResendFinished && isResendError)) && <div className="verify-error-title"> There was an error verifying your email.</div>}
 
-						{!isLoading && isError && (
-							<div className="verify-error">
-								{(!isResendFinished || (isResendFinished && isResendError)) && <div className="verify-error-title"> There was an error verifying your email.</div>}
+									{(!isResendFinished || isResendError) && (
+										<div>
+											<div className="verify-error-resend-title">Your verification token may have expired. Please enter the email you signed up with. A new verification email will be sent to you.</div>
+											<DataFieldEmail state={email} setState={setEmail} isInvalid={isInvalid} setIsInvalid={setIsInvalid} title="Email" isRequired />
 
-								{(!isResendFinished || isResendError) && (
+											<div className="verify-error-resend-button">
+												<WAOButton title="Resend" color="purple" clickCallback={onResendClick} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+											</div>
+
+											<div className="verify-signup">
+												Need an account? <Link to="/signup">Signup</Link>
+											</div>
+										</div>
+									)}
+								</div>
+							)}
+							{!isLoading && !hasToken && (!isResendFinished || isResendError) && (
+								<div className="verify-error">
+									<div className="verify-error-title"> Resend Verification</div>
+
 									<div>
-										<div className="verify-error-resend-title">Your verification token may have expired. Please enter the email you signed up with to send a new verification email.</div>
+										<div className="verify-error-resend-title">Please enter the email you signed up with. A new verification email will be sent to you.</div>
 										<DataFieldEmail state={email} setState={setEmail} isInvalid={isInvalid} setIsInvalid={setIsInvalid} title="Email" isRequired />
 
 										<div className="verify-error-resend-button">
@@ -137,17 +161,16 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 											Need an account? <Link to="/signup">Signup</Link>
 										</div>
 									</div>
-								)}
+								</div>
+							)}
 
-								{isResendFinished && !isResendError && (
-									<div className="verify-error-resend-success">
-										<div className="verify-error-resend-success-title">Success!</div>
-										<div className="verify-error-resend-success-reminder">A verification email has been sent to {email}. Please check your inbox (and spam).</div>
-									</div>
-								)}
-							</div>
-						)}
-					</div>
+							{isResendFinished && !isResendError && (
+								<div className="verify-error-resend-success">
+									<div className="verify-error-resend-success-title">Success!</div>
+									<div className="verify-error-resend-success-reminder">A verification email has been sent to {email}. Please check your inbox (and spam).</div>
+								</div>
+							)}
+						</div>
 					</WAOForm>
 				</PageCard>
 			</StyledVerify>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
-import { routeDefs } from '../../routeDefs';
+import { routePaths } from '../../routeDefs';
 
 import { updatePasswordWithToken as updatePasswordWithTokenAction } from '../../actions/authActions';
 
@@ -59,7 +59,7 @@ const PasswordChange = ({ updatePasswordWithToken, history, match }) => {
 
 		updatePasswordWithToken(password, confirmPassword, token)
 			.then(() => {
-				history.push(routeDefs.login);
+				history.push(routePaths.login);
 			})
 			.finally(() => {
 				setIsLoading(false);
@@ -70,19 +70,19 @@ const PasswordChange = ({ updatePasswordWithToken, history, match }) => {
 		<PageWrapper>
 			<StyledPasswordChange>
 				<PageCard>
-					<WAOForm onSubmit={onSave} canSubmit={!isLoading && !isInvalid} >
-					<div className="passwordchange-title">Change Password</div>
+					<WAOForm onSubmit={onSave} canSubmit={!isLoading && !isInvalid}>
+						<div className="passwordchange-title">Change Password</div>
 
-					{!isLoading && (
-						<div className="passwordchange-form">
-							<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldValidate />
-							<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
+						{!isLoading && (
+							<div className="passwordchange-form">
+								<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldValidate />
+								<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
 
-							<div className="passwordchange-button">
-								<WAOButton title="Save" color="purple" clickCallback={onSave} isDisabled={isLoading || isInvalid} isLoading={isLoading} isSubmit />
+								<div className="passwordchange-button">
+									<WAOButton title="Save" color="purple" clickCallback={onSave} isDisabled={isLoading || isInvalid} isLoading={isLoading} isSubmit />
+								</div>
 							</div>
-						</div>
-					)}
+						)}
 					</WAOForm>
 				</PageCard>
 			</StyledPasswordChange>
