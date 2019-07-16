@@ -77,7 +77,7 @@ function App() {
 			const currentTime = Date.now() / 1000; // to get in milliseconds
 			if (decoded.exp < currentTime) {
 				// Logout user
-				store.dispatch(logoutUser());
+				store.dispatch(logoutUser(true));
 			} else {
 				// Set user and isAuthenticated
 				store.dispatch(fetchUser());

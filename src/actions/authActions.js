@@ -4,7 +4,7 @@ import api from '../utils/api/auth';
 import { routeDefs } from '../routeDefs';
 
 import { SET_CURRENT_USER, START_LOADING_AUTH, STOP_LOADING_AUTH } from './types';
-import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification } from '../utils/notifications';
+import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification, displayWarningNotification } from '../utils/notifications';
 
 // Set logged in user
 export const setCurrentUser = user => ({
@@ -81,14 +81,18 @@ export const fetchUser = () => (dispatch, history) => {
 };
 
 // Log user out
-export const logoutUser = () => dispatch => {
+export const logoutUser = wasExpired => dispatch => {
 	// Remove token from local storage
 	localStorage.removeItem('jwtToken');
 	// Remove auth header for future requests
 	setAuthToken(false);
 	// Set current user to empty object {} which will set isAuthenticated to false
 	dispatch(setCurrentUser({}));
-	displaySuccessNotification('Successfully logged out.');
+	if (wasExpired) {
+		displayWarningNotification('Logged out due to expired token. Please login');
+	} else {
+		displaySuccessNotification('Successfully logged out.');
+	}
 };
 
 export const updateUserProfile = (userData, id) => dispatch => {

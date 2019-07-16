@@ -22,15 +22,15 @@ export const updateBugReport = updatedBugReport => ({
 });
 
 export const fetchAllBugReports = () => dispatch => {
-	const notificationId = displayLoadingNotification('Fetching bug reports...');
+	//const notificationId = displayLoadingNotification('Fetching bug reports...');
 	return bugs
 		.fetchAllBugReports()
 		.then(res => {
-			displaySuccessNotification('Successfully got reports', notificationId);
+			//displaySuccessNotification('Successfully got reports', notificationId);
 			dispatch(setBugReports(res.data));
 		}) // re-direct to login on siccessful register
 		.catch(err => {
-			displayErrorNotification(err, 'Failed to fetch bug reports', notificationId);
+			displayErrorNotification(err, 'Failed to fetch bug reports');
 			throw err;
 		});
 };

@@ -25,13 +25,9 @@ const StyledLayout = styled.div`
 	}
 
 	.layout-bugreportmodal-wrapper {
-		position: absolute;
-		bottom: 70px;
+		position: fixed;
+		bottom: 50px;
 		z-index: 100;
-
-		@media only screen and (min-width: 945px) {
-			bottom: 50px;
-		}
 	}
 
 	main {
