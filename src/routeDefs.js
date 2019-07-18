@@ -8,7 +8,7 @@ export const routeDefs = {
 	passwordChange: '/password-change/:token',
 	userProfile: '/profile',
 	photos: '/photos',
-	adminDash: '/dashboard'
+	adminDash: '/admin/dashboard'
 };
 
 export const routePaths = {
