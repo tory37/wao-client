@@ -28,6 +28,22 @@ const StyledButton = styled.div`
 		padding: 0;
 		color: white;
 		cursor: ${props => (props.isDisabled ? 'not-allowed' : 'pointer')};
+
+		.waobutton-inner {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+
+			span {
+				margin-left: 3px;
+			}
+
+			i {
+				font-size: 14px;
+			}
+		}
 	}
 
 	.waobutton-title {
@@ -48,13 +64,15 @@ const WAOButton = ({ auth, title, color, clickCallback, isDisabled, isLoading, i
 			<button className="waobutton-click-wrapper" onClick={onClick} type={isSubmit ? 'submit' : 'button'}>
 				<SkewedBox clipPath="3% 0, 100% 0, 96% 100%, 0% 100%" shouldGrowOnHover fromCenter useScale color={useUserColor && auth.user.color ? auth.user.color : color} isDisabled={isDisabled}>
 					<CenteredContent>
-						{title && <span className="waobutton-title">{title}</span>}
-						{iconClass && <i className={iconClass}></i>}
-						{isLoading && (
-							<div className="waobutton-loading">
-								<Loading />
-							</div>
-						)}
+						<div className="waobutton-inner">
+							{iconClass && <i className={iconClass}></i>}
+							{title && <span className="waobutton-title">{title}</span>}
+							{isLoading && (
+								<div className="waobutton-loading">
+									<Loading />
+								</div>
+							)}
+						</div>
 					</CenteredContent>
 				</SkewedBox>
 			</button>

@@ -227,10 +227,10 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 							{!isEditing && !isUpdatingPassword && (
 								<div className="userprofile-buttons">
 									<div className="userprofile-button-wrapper">
-										<WAOButton title="Change Pass" color="purple" useUserColor clickCallback={onUpdatePasswordClick} xl5 />
+										<WAOButton title="Change Pass" color="purple" useUserColor clickCallback={onUpdatePasswordClick} iconClass="fas fa-key" xl6 />
 									</div>
 									<div>
-										<WAOButton title="Edit" color="orange" useUserColor clickCallback={onEdit} md />
+										<WAOButton title="Edit" color="orange" useUserColor clickCallback={onEdit} iconClass="fas fa-edit" />
 									</div>
 								</div>
 							)}
@@ -238,10 +238,10 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 							{(isEditing || isUpdatingPassword) && (
 								<div className="userprofile-buttons">
 									<div className="userprofile-button-wrapper">
-										<WAOButton title="Quit" color="red" clickCallback={onCancel} md />
+										<WAOButton title="Quit" color="red" clickCallback={onCancel} isLoading={isLoading} isDisabled={isLoading} lg iconClass="far fa-stop-circle" />
 									</div>
 									<div>
-										<WAOButton title="Save" color="green" clickCallback={onSave} isLoading={isLoading} isDisabled={isLoading || (isEditing && isProfileInvalid) || (isUpdatingPassword && isPasswordUpdateInvalid)} isSubmit md />
+										<WAOButton title="Save" color="green" clickCallback={onSave} iconClass="far fa-play-circle" lg isLoading={isLoading} isDisabled={isLoading || (isEditing && isProfileInvalid) || (isUpdatingPassword && isPasswordUpdateInvalid)} isSubmit md />
 									</div>
 								</div>
 							)}

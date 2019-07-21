@@ -314,17 +314,17 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 
 							{!isEditing && canEdit && (
 								<div className="eventview-buttons">
-									<WAOButton title="Edit" color="orange" useUserColor clickCallback={onEdit} md isDisabled={!canEdit} />
+									<WAOButton title="Edit" color="orange" useUserColor clickCallback={onEdit} md isDisabled={!canEdit} iconClass="fas fa-edit" />
 								</div>
 							)}
 
 							{isEditing && (
 								<div className="eventview-buttons">
 									<div className="eventview-button-wrapper">
-										<WAOButton title="Quit" color="red" clickCallback={onCancel} />
+										<WAOButton title="Quit" color="red" iconClass="far fa-stop-circle" lg clickCallback={onCancel} />
 									</div>
 									<div>
-										<WAOButton title="Save" color="green" clickCallback={onSave} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+										<WAOButton title="Save" color="green" clickCallback={onSave} iconClass="far fa-play-circle" isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
 									</div>
 								</div>
 							)}

@@ -148,7 +148,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 
 	return (
 		<StyledEventAdd>
-			{!isAdding && <WAOButton title="Add New" color="purple" useUserColor xl3 clickCallback={onAddClick} isDisabled={!canAdd} />}
+			{!isAdding && <WAOButton title="Add New" color="purple" iconClass="far fa-plus-square" useUserColor xl3 clickCallback={onAddClick} isDisabled={!canAdd} />}
 			{isAdding && (
 				<div className="eventadd-view">
 					<PageCard>
@@ -163,9 +163,9 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 
 								<div className="eventadd-buttons">
 									<div className="eventadd-button-wrapper">
-										<WAOButton title="Quit" color="red" md clickCallback={onCancel} isLoading={isLoading} isDisabled={isLoading} />
+										<WAOButton title="Quit" color="red" lg clickCallback={onCancel} iconClass="far fa-stop-circle" isLoading={isLoading} isDisabled={isLoading} />
 									</div>
-									<WAOButton title="Save" color="green" md clickCallback={onSave} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+									<WAOButton title="Save" color="green" lg clickCallback={onSave} iconClass="far fa-play-circle" isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
 								</div>
 							</div>
 						</WAOForm>

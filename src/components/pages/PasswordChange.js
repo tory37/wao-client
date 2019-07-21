@@ -79,7 +79,7 @@ const PasswordChange = ({ updatePasswordWithToken, history, match }) => {
 								<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
 
 								<div className="passwordchange-button">
-									<WAOButton title="Save" color="purple" clickCallback={onSave} isDisabled={isLoading || isInvalid} isLoading={isLoading} isSubmit />
+									<WAOButton title="Save" color="purple" clickCallback={onSave} lg iconClass="far fa-play-circle" isDisabled={isLoading || isInvalid} isLoading={isLoading} isSubmit />
 								</div>
 							</div>
 						)}
