@@ -19,18 +19,19 @@ const StyledLayout = styled.div`
 	position: relative;
 
 	.layout-header-wrapper {
+		height: 100px;
 
-		/* @media only screen and (min-width: 410px) {
-			margin-bottom: 15px;
+		@media only screen and (min-width: 410px) {
+			height: 105px;
 		}
 
 		@media only screen and (min-width: 500px) {
-			margin-bottom: 40px;
+			height: 126px;
 		}
 
-		@media only screen and (min-width: 945px) {
-			margin-bottom: 0;
-		} */
+		@media only screen and (min-width: 885px) {
+			height: 65px;
+		}
 	}
 
 	.layout-bugreportmodal-wrapper {
@@ -40,19 +41,26 @@ const StyledLayout = styled.div`
 	}
 
 	.layout-body-wrapper {
-		height: calc(100% - 65px);
 		width: 100%;
 		overflow-y: scroll;
 		padding-top: 10px;
 
-		@media only screen and (min-width: 810px) {
-			height: calc(100% - 90px);
+		height: calc(100vh - 100px);
+
+		@media only screen and (min-width: 410px) {
+			height: calc(100vh - 105px);
+		}
+
+		@media only screen and (min-width: 500px) {
+			height: calc(100vh - 126px);
+		}
+
+		@media only screen and (min-width: 885px) {
+			height: calc(100vh - 65px);
 		}
 
 		main {
-			.layout-content {
-				min-height: calc(100vh - 140px);
-			}
+			min-height: calc(100% - 5px - ${props => props.theme.footer.height + ' - ' + props.theme.footer.marginTop});
 		}
 
 
@@ -61,8 +69,7 @@ const StyledLayout = styled.div`
 			font-size: 10px;
 			
 			border-top: solid 5px black;
-			margin: 0 50px 0 50px;
-			width: calc(100% - 100px);
+			width: 100%;
 			height: ${props => props.theme.footer.height};
 			margin-top: ${props => props.theme.footer.marginTop};
 
@@ -95,7 +102,7 @@ const Layout = ({ children, auth }) => (
 		)}
 		<div className="layout-body-wrapper">
 			<main>
-				<div className="layout-content">{children}</div>
+				{children}
 			</main>
 			<footer>
 				<a href="mailto:support@weebsandotakus.com">Support</a>

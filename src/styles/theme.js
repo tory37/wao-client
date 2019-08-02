@@ -9,7 +9,7 @@ const theme = {
 	textColor: 'black',
 	lightTextColor: 'gray',
 	footer: {
-		height: '20px',
+		height: '25px',
 		marginTop: '5px'
 	}
 };
