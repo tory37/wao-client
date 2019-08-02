@@ -7,7 +7,11 @@ const theme = {
 		}
 	},
 	textColor: 'black',
-	lightTextColor: 'gray'
+	lightTextColor: 'gray',
+	footer: {
+		height: '20px',
+		marginTop: '5px'
+	}
 };
 
 export default theme;

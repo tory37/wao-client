@@ -6,22 +6,31 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import BugReportModal from './BugReportModal';
 
+const headerMarings = {
+	width_0: '10px',
+	width_410: '15px',
+	width_500: '40px',
+	width_945: '0'
+}
+
 const StyledLayout = styled.div`
 	width: 100%;
 	height: 100%;
 	position: relative;
 
 	.layout-header-wrapper {
-		height: 60px;
-		margin-bottom: 30px;
 
-		@media only screen and (min-width: 410px) {
-			margin-bottom: 50px;
+		/* @media only screen and (min-width: 410px) {
+			margin-bottom: 15px;
 		}
 
-		@media only screen and (min-width: 810px) {
+		@media only screen and (min-width: 500px) {
 			margin-bottom: 40px;
 		}
+
+		@media only screen and (min-width: 945px) {
+			margin-bottom: 0;
+		} */
 	}
 
 	.layout-bugreportmodal-wrapper {
@@ -30,24 +39,47 @@ const StyledLayout = styled.div`
 		z-index: 100;
 	}
 
-	main {
-		height: calc(100% - 165px);
+	.layout-body-wrapper {
+		height: calc(100% - 65px);
 		width: 100%;
 		overflow-y: scroll;
 		padding-top: 10px;
 
 		@media only screen and (min-width: 810px) {
-			height: calc(100% - 120px);
+			height: calc(100% - 90px);
 		}
 
-		.layout-content {
-			padding-bottom: 20px;
+		main {
+			.layout-content {
+				min-height: calc(100vh - 140px);
+			}
 		}
-	}
 
-	footer {
-		position: absolute;
-		bottom: 0;
+
+		footer {
+			text-align: center;
+			font-size: 10px;
+			
+			border-top: solid 5px black;
+			margin: 0 50px 0 50px;
+			width: calc(100% - 100px);
+			height: ${props => props.theme.footer.height};
+			margin-top: ${props => props.theme.footer.marginTop};
+
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			align-items: center;
+
+			a {
+				color: gold;
+				text-decoration: none;
+
+				&:hover {
+					font-size: 14px;
+				}
+			}
+		}
 	}
 `;
 
@@ -61,9 +93,14 @@ const Layout = ({ children, auth }) => (
 				<BugReportModal />
 			</div>
 		)}
-		<main>
-			<div className="layout-content">{children}</div>
-		</main>
+		<div className="layout-body-wrapper">
+			<main>
+				<div className="layout-content">{children}</div>
+			</main>
+			<footer>
+				<a href="mailto:support@weebsandotakus.com">Support</a>
+			</footer>
+		</div>
 	</StyledLayout>
 );
 
