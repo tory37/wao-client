@@ -39,7 +39,7 @@ const StyledApp = styled.div`
 		width: calc(100% - 60px);
 		height: 100%;
 		max-width: 1020px;
-		background-color: #282828;
+		background-color: rgba(40, 40, 40, .95);
 		padding: 0 30px 0 30px;
 
 		display: flex;
