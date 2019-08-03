@@ -37,10 +37,10 @@ const StyledApp = styled.div`
 
 	.app-content {
 		width: calc(100% - 60px);
-		height: calc(100% - 20px);
+		height: 100%;
 		max-width: 1020px;
-		background-color: #282828;
-		padding: 20px 30px 0 30px;
+		background-color: rgba(40, 40, 40, .95);
+		padding: 0 30px 0 30px;
 
 		display: flex;
 		flex-direction: row;

@@ -92,9 +92,9 @@ const BugReportModal = ({ addNewBugReport }) => {
 						<DataFieldTextArea state={description} setState={setDescription} isInvalid={isInvalid} setIsInvalid={setIsInvalid} title="Description" isRequired />
 						<div className="eventadd-buttons">
 							<div className="eventadd-button-wrapper">
-								<WAOButton title="Quit" color="red" md clickCallback={onCancel} isLoading={isLoading} isDisabled={isLoading} />
+								<WAOButton title="Quit" color="red" lg clickCallback={onCancel} iconClass="far fa-stop-circle" isLoading={isLoading} isDisabled={isLoading} />
 							</div>
-							<WAOButton title="Save" color="green" md clickCallback={onSave} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+							<WAOButton title="Save" color="green" lg clickCallback={onSave} iconClass="far fa-play-circle" isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
 						</div>
 					</PageCard>
 				</div>

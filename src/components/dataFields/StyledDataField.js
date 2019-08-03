@@ -11,6 +11,37 @@ const StyledDataField = styled.div`
 		color: white;
 	}
 
+	/* React Datepicker */
+	.react-datepicker__input-container {
+		width: 100%;
+	}
+	
+	.react-datepicker__current-month {
+		font-size: 12px;
+	}
+
+	.react-datepicker-time__header {
+		font-size: 12px;
+	}
+
+	.react-datepicker__portal {
+		width: 100%;
+		height: 100%;
+	}
+
+	.react-datepicker__portal .react-datepicker__day-name, .react-datepicker__portal .react-datepicker__day, .react-datepicker__portal .react-datepicker__time-name {
+		width: 20px;
+		line-height: 20px;
+	}
+
+	.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
+		height: 20px;
+    	padding: 5px 5px;
+	}
+
+	/* End React Datepicker */
+
+
 	input {
 		border: solid 5px black;
 		padding-left: 5px;
