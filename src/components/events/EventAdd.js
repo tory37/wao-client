@@ -9,7 +9,7 @@ import { createEvent as createEventAction } from '../../actions/eventActions';
 import WAOForm from '../WAOForm';
 import DataFieldText from '../dataFields/DataFieldText';
 import DataFieldTextArea from '../dataFields/DataFieldTextArea';
-import DataFieldNumber from '../dataFields/DataFieldNumber';
+import DataFieldDatepicker from '../dataFields/DataFieldDatepicker';
 import DataFieldLocation from '../dataFields/DataFieldLocation';
 
 // 500 x 262
@@ -71,10 +71,10 @@ const StyledEventAdd = styled.div`
 const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 	const [imageUrl, setImageUrl] = useState('');
 	const [isImageUrlInvalid, setIsImageUrlInvalid] = useState(false);
-	const [startTimestamp, setStartTimestamp] = useState(moment().unix());
-	const [isStartTimestampInvalid, setIsStartTimestampInvalid] = useState(false);
-	const [endTimestamp, setEndTimestamp] = useState(moment().unix());
-	const [isEndTimestampInvalid, setIsEndTimestampInvalid] = useState(false);
+	const [startDate, setStartDate] = useState(moment().unix());
+	const [isStartDateInvalid, setIsStartDateInvalid] = useState(false);
+	const [endDate, setEndDate] = useState(moment().unix());
+	const [isEndDateInvalid, setIsEndDateInvalid] = useState(false);
 	const [title, setTitle] = useState('');
 	const [isTitleInvalid, setIsTitleInvalid] = useState(false);
 	const [address, setAddress] = useState('');
@@ -91,8 +91,8 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 	const resetState = () => {
 		// Reset state
 		setImageUrl('');
-		setStartTimestamp(moment().unix());
-		setEndTimestamp(moment().unix());
+		setStartDate(moment().unix());
+		setEndDate(moment().unix());
 		setTitle('');
 		setAddress('');
 		setLat('');
@@ -101,7 +101,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 	};
 
 	useEffect(() => {
-		setIsInvalid(isImageUrlInvalid || isStartTimestampInvalid || isEndTimestampInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid);
+		setIsInvalid(isImageUrlInvalid || isStartDateInvalid || isEndDateInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid);
 	});
 
 	const onAddClick = e => {
@@ -121,8 +121,8 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 
 			const eventToAdd = {
 				imageUrl: imageUrl,
-				startTimestamp: parseInt(startTimestamp), //  Make timestamp from date and time
-				endTimestamp: parseInt(endTimestamp), // same
+				startTimestamp: moment(startDate).unix(), //  Make timestamp from date and time
+				endTimestamp: moment(endDate).unix(), // same
 				title: title,
 				address: address,
 				lat: lat,
@@ -158,8 +158,8 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 								<DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />
 								<DataFieldTextArea state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />
 								<DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired />
-								<DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />
-								<DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />
+								<DataFieldDatepicker state={startDate} setState={setStartDate} isInvalid={isStartDateInvalid} setIsInvalid={setIsStartDateInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />
+								<DataFieldDatepicker state={endDate} setState={setEndDate} isInvalid={isEndDateInvalid} setIsInvalid={setIsEndDateInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />
 
 								<div className="eventadd-buttons">
 									<div className="eventadd-button-wrapper">
