@@ -12,6 +12,7 @@ import WAOForm from '../WAOForm';
 import DataFieldText from '../dataFields/DataFieldText';
 import DataFieldTextArea from '../dataFields/DataFieldTextArea';
 import DataFieldNumber from '../dataFields/DataFieldNumber';
+import DataFieldDatepicker from '../dataFields/DataFieldDatepicker';
 import DataFieldLocation from '../dataFields/DataFieldLocation';
 
 // 500 x 262
@@ -173,10 +174,10 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 
 	const [imageUrl, setImageUrl] = useState(event.imageUrl);
 	const [isImageUrlInvalid, setIsImageUrlInvalid] = useState(false);
-	const [startTimestamp, setStartTimestamp] = useState(event.startTimestamp);
-	const [isStartTimestampInvalid, setIsStartTimestampInvalid] = useState(false);
-	const [endTimestamp, setEndTimestamp] = useState(event.endTimestamp);
-	const [isEndTimestampInvalid, setIsEndTimestampInvalid] = useState(false);
+	const [startDate, setStartDate] = useState(moment.unix(event.startTimestamp).toDate());
+	const [isStartDateInvalid, setIsstartDateInvalid] = useState(false);
+	const [endDate, setEndDate] = useState(moment.unix(event.endTimestamp).toDate());
+	const [isEndDateInvalid, setIsendDateInvalid] = useState(false);
 	const [title, setTitle] = useState(event.title);
 	const [isTitleInvalid, setIsTitleInvalid] = useState(false);
 	const [address, setAddress] = useState(event.address);
@@ -189,14 +190,14 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 	const [isInvalid, setIsInvalid] = useState(false);
 
 	useEffect(() => {
-		setIsInvalid(isImageUrlInvalid || isStartTimestampInvalid || isEndTimestampInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid);
-	}, [isImageUrlInvalid, isStartTimestampInvalid, isEndTimestampInvalid, isTitleInvalid, isAddressInvalid, isDescriptionInvalid]);
+		setIsInvalid(isImageUrlInvalid || isStartDateInvalid || isEndDateInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid);
+	}, [isImageUrlInvalid, isStartDateInvalid, isEndDateInvalid, isTitleInvalid, isAddressInvalid, isDescriptionInvalid]);
 
 	const onEdit = () => {
 		onEditStart();
 		setImageUrl(event.imageUrl);
-		setStartTimestamp(event.startTimestamp);
-		setEndTimestamp(event.endTimestamp);
+		setStartDate(moment.unix(event.startTimestamp).toDate());
+		setEndDate(moment.unix(event.endTimestamp).toDate());
 		setTitle(event.title);
 		setAddress(event.address);
 		setLat(event.lat);
@@ -217,8 +218,8 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 
 			const formattedModdedEvent = {
 				imageUrl: imageUrl,
-				startTimestamp: parseInt(startTimestamp), //  Make timestamp from date and time
-				endTimestamp: parseInt(endTimestamp), // same
+				startTimestamp: moment(startDate).unix(), //  Make timestamp from date and time
+				endTimestamp: moment(endDate).unix(), // same
 				title: title,
 				address: address,
 				lat: lat,
@@ -309,8 +310,8 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 								</div>
 							)}
 
-							{isEditing && <DataFieldNumber state={startTimestamp} setState={setStartTimestamp} isInvalid={isStartTimestampInvalid} setIsInvalid={setIsStartTimestampInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />}
-							{isEditing && <DataFieldNumber state={endTimestamp} setState={setEndTimestamp} isInvalid={isEndTimestampInvalid} setIsInvalid={setIsEndTimestampInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />}
+							{isEditing && <DataFieldDatepicker state={startDate} setState={setStartDate} isInvalid={isStartDateInvalid} setIsInvalid={setIsstartDateInvalid} title="Start Date" isRequired />}
+							{isEditing && <DataFieldDatepicker state={endDate} setState={setEndDate} isInvalid={isEndDateInvalid} setIsInvalid={setIsendDateInvalid} title="End Date" isRequired />}
 
 							{!isEditing && canEdit && (
 								<div className="eventview-buttons">
