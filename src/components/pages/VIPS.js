@@ -99,52 +99,82 @@ const StyledVIPS = styled.div`
 	}
 `;
 
-const Card = () => {
-	return (
-		<div className="vips-card-wrapper">
-			<PageCard>
-				<div className="vips-card">
-					<div className="vips-card-header">
-						<img src={'http://drive.google.com/uc?export=view&id=1rkJKBznDbGqrb83wNrF4YoB3OuxjuS0W'} />
-						<div className="vips-card-content">
-							<div className="vips-card-data">
-								<div className="vips-card-data-title">Name:</div>
-								<div className="vips-card-data-content">Tory</div>
-							</div>
-							<div className="vips-card-data">
-								<div className="vips-card-data-title">Roles:</div>
-								<div className="vips-card-data-content">
-									Podcast Host
-									<br />
-									Software Engineer
-									<br />
-									Facebook Mod
-									<br />
-									Discord Mod
-								</div>
-							</div>
-							<div className="vips-card-data">
-								<div className="vips-card-data-title">Favorite Anime:</div>
-								<div className="vips-card-data-content">Fullmetal Alchemist</div>
-							</div>
-						</div>
-					</div>
-					<div className="vips-card-data">
-						<div className="vips-card-data-title">Bio:</div>
-						<div className="vips-card-data-content">Tory is a software engineer, drummer, weight lifter, and all out weeb. He enjoys dark, cold rooms where he can cover up and code, watch tv, play games or listen music.</div>
-					</div>
-				</div>
-			</PageCard>
-		</div>
-	);
-};
+const Card = () => {};
 
 const Founders = ({}) => {
 	return (
 		<div className="vips-content">
-			<Card />
-			<Card />
-			<Card />
+			<div className="vips-card-wrapper">
+				<PageCard>
+					<div className="vips-card">
+						<div className="vips-card-header">
+							<img src={'http://drive.google.com/uc?export=view&id=1rkJKBznDbGqrb83wNrF4YoB3OuxjuS0W'} />
+							<div className="vips-card-content">
+								<div className="vips-card-data">
+									<div className="vips-card-data-title">Name:</div>
+									<div className="vips-card-data-content">Tory</div>
+								</div>
+								<div className="vips-card-data">
+									<div className="vips-card-data-title">Roles:</div>
+									<div className="vips-card-data-content">
+										Podcast Host
+										<br />
+										Software Engineer
+										<br />
+										Facebook Mod
+										<br />
+										Discord Admin
+									</div>
+								</div>
+								<div className="vips-card-data">
+									<div className="vips-card-data-title">Favorite Anime:</div>
+									<div className="vips-card-data-content">Fullmetal Alchemist</div>
+								</div>
+							</div>
+						</div>
+						<div className="vips-card-data">
+							<div className="vips-card-data-title">Bio:</div>
+							<div className="vips-card-data-content">Tory is a software engineer, drummer, weight lifter, and all out weeb. He enjoys dark, cold rooms where he can cover up and code, watch tv, play games or listen music.</div>
+						</div>
+					</div>
+				</PageCard>
+			</div>
+
+			<div className="vips-card-wrapper">
+				<PageCard>
+					<div className="vips-card">
+						<div className="vips-card-header">
+							<img src={'http://drive.google.com/uc?export=view&id=1bkbpvdsZ3XRriH-11NtXyTACqfeXkbyQ'} />
+							<div className="vips-card-content">
+								<div className="vips-card-data">
+									<div className="vips-card-data-title">Name:</div>
+									<div className="vips-card-data-content">Brandon</div>
+								</div>
+								<div className="vips-card-data">
+									<div className="vips-card-data-title">Roles:</div>
+									<div className="vips-card-data-content">
+										Podcast Host
+										<br />
+										Video Editor
+										<br />
+										Facebook Mod
+										<br />
+										Discord Admin
+									</div>
+								</div>
+								<div className="vips-card-data">
+									<div className="vips-card-data-title">Favorite Anime:</div>
+									<div className="vips-card-data-content">Girl Watching Naruto</div>
+								</div>
+							</div>
+						</div>
+						<div className="vips-card-data">
+							<div className="vips-card-data-title">Bio:</div>
+							<div className="vips-card-data-content">Brandon is a drummer, singer, bio, bio bio bibibobiobiboibjasldfjlksadjf</div>
+						</div>
+					</div>
+				</PageCard>
+			</div>
 		</div>
 	);
 };
