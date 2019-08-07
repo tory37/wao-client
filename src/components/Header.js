@@ -72,8 +72,8 @@ const Header = ({ location }) => {
 				<Link to={routePaths.events}>
 					<HeaderButton title="Events" clipPath="5% 17%, 96% 5%, 94% 100%, 7% 100%" isSelected={isOnRoute(location, routePaths.events)} />
 				</Link>
-				<Link to={routePaths.photos}>
-					<HeaderButton title="photos" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={isOnRoute(location, routePaths.photos)} />
+				<Link to={routePaths.vips}>
+					<HeaderButton title="VIP" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={isOnRoute(location, routePaths.vips)} />
 				</Link>
 				<div className="user-menu-wrapper">
 					<UserStatus isSelected={isOnRoute(location, routePaths.userProfile)} />
