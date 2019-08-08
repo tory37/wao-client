@@ -9,7 +9,7 @@ export const routeDefs = {
 	userProfile: '/profile',
 	photos: '/photos',
 	adminDash: '/admin/dashboard',
-	vips: '/vips'
+	aboutUs: '/aboutus'
 };
 
 export const routePaths = {
@@ -23,7 +23,7 @@ export const routePaths = {
 	userProfile: '/profile',
 	photos: '/photos',
 	adminDash: '/admin/dashboard',
-	vips: '/vips'
+	aboutUs: '/aboutus'
 };
 
 export const isOnRoute = (location, route) => {
