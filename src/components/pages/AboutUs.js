@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Link, withRouter, Route } from 'react-router-dom';
+import aboutUsData from '../../data/aboutUs';
 
-import WAOButton from '../WAOButton';
-import PageCard from '../PageCard';
-import WAOSuperButton from '../WAOSuperButton';
 import PlayerCard from '../PlayerCard';
 
 const StyledAboutUs = styled.div`
@@ -59,9 +56,9 @@ const Card = () => {};
 const Founders = ({}) => {
 	return (
 		<div className="aboutus-content">
-			<PlayerCard />
-
-			<PlayerCard />
+			{aboutUsData.founders.map(founder => (
+					<PlayerCard name={founder.name} imageUrl={founder.imageUrl} text1={founder.roles} text2={founder.description} stats={founder.stats} iconName={founder.iconName} />
+			))}
 		</div>
 	);
 };
@@ -109,4 +106,4 @@ const AboutUs = ({ match, location, history }) => {
 
 const AboutUsFounders = () => {};
 
-export default withRouter(AboutUs);
+export default AboutUs;
