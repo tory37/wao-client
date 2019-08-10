@@ -4,12 +4,6 @@ import styled from '@emotion/styled';
 const StyledColorPicker = styled.div`
 	width: 100%;
 
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	align-items: center;
-	flex-wrap: wrap;
-
 	.color-picker-title {
 		margin-right: 10px;
 	}
@@ -17,9 +11,27 @@ const StyledColorPicker = styled.div`
 	.color-picker-display {
 		display: flex;
 		flex-direction: row;
-		justify-content: flex-start;
+		justify-content: center;
 		align-items: center;
 		margin-bottom: 10px;
+	}
+
+	.color-picker-edit {
+		text-align: left;
+
+		.color-picker-edit-title {
+			font-size: 12px;
+			color: white;
+			margin-bottom: 5px;
+		}
+
+		.color-picker-colors {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+		}
 	}
 
 	.color-picker-entry {
@@ -55,21 +67,27 @@ const ColorPicker = ({ colorsArray, selectedColor, onSelectColor, isEditing }) =
 		<StyledColorPicker>
 			{!isEditing && (
 				<div className="color-picker-display">
-					<div className="color-picker-title">Favorite Color:</div>
+					<div className="color-picker-title">Theme:</div>
 					<div className="color-picker-checkbox">
-						<ColorPickerCheckbox color={selectedColor} isEditing={isEditing}/>
+						<ColorPickerCheckbox color={selectedColor} isEditing={isEditing} />
 					</div>
 				</div>
 			)}
 
-			{isEditing &&
-				colorsArray.map(color => (
-					<div className="color-picker-entry" key={color}>
-						<div className="color-picker-checkbox">
-							<ColorPickerCheckbox color={color} onCheckboxClick={onSelectColor} isSelected={color.toString() === selectedColor.toString()} isEditing={isEditing} />
-						</div>
+			{isEditing && (
+				<div className="color-picker-edit">
+					<span className="color-picker-edit-title">Theme</span>
+					<div className="color-picker-colors">
+						{colorsArray.map(color => (
+							<div className="color-picker-entry" key={color}>
+								<div className="color-picker-checkbox">
+									<ColorPickerCheckbox color={color} onCheckboxClick={onSelectColor} isSelected={color.toString() === selectedColor.toString()} isEditing={isEditing} />
+								</div>
+							</div>
+						))}
 					</div>
-				))}
+				</div>
+			)}
 		</StyledColorPicker>
 	);
 };
