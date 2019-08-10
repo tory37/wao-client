@@ -38,5 +38,41 @@ export default {
 			],
 			iconName: 'fas fa-drum'
 		}
+	],
+	contributors: [
+		{
+			name: 'Trent',
+			imageUrl: 'https://vignette.wikia.nocookie.net/megamitensei/images/3/3f/Incubus2.jpg/revision/latest?cb=20190331170439',
+			roles: 'Art Engineer | Discord Host',
+			description: 'Tell em what it is BOII',
+			stats: [
+				{
+					title: 'Fav Anime',
+					value: 'Something Wierd'
+				},
+				{
+					title: 'Fav Food',
+					value: 'Curry'
+				}
+			],
+			iconName: 'fas fa-paint-brush'
+		},
+		{
+			name: 'Landon',
+			imageUrl: 'https://i.kym-cdn.com/entries/icons/original/000/004/952/emo-dad-22891-1257438303-107.jpg',
+			roles: 'Audio Engineer |',
+			description: 'Watup its ya boi',
+			stats: [
+				{
+					title: 'Fav Anime',
+					value: 'Fullmetal Alchemist'
+				},
+				{
+					title: 'Fav Food',
+					value: 'Curry'
+				}
+			],
+			iconName: 'fas fa-music'
+		}
 	]
 };

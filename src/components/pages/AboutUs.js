@@ -64,7 +64,13 @@ const Founders = ({}) => {
 };
 
 const Contributors = ({}) => {
-	return <div>contributors</div>;
+	return (
+		<div className="aboutus-content">
+			{aboutUsData.contributors.map(contributor => (
+					<PlayerCard name={contributor.name} imageUrl={contributor.imageUrl} text1={contributor.roles} text2={contributor.description} stats={contributor.stats} iconName={contributor.iconName} />
+			))}
+		</div>
+	);
 };
 
 const SuperPatrons = ({}) => {
