@@ -13,7 +13,7 @@ const StyledPageCard = styled.div`
 
 const PageCard = ({ children, isLoading, isSkewed }) => {
 	return (
-		<SkewedBox clipPath={isSkewed ? '3% 0, 100% 0, 97% 100%, 0 100%' : '0 0, 100% 0, 100% 100%, 0 100%'} color="gray" isSelected>
+		<SkewedBox clipPath={isSkewed ? '3% 0, 100% 0, 97% 100%, 0 100%' : '0 0, 100% 0, 100% 100%, 0 100%'} color="gray" isSelected >
 			<CenteredContent>
 				<LoadingOverlay isLoading={isLoading} />
 				<StyledPageCard isSkewed={isSkewed}>{children}</StyledPageCard>

@@ -8,7 +8,8 @@ export const routeDefs = {
 	passwordChange: '/password-change/:token',
 	userProfile: '/profile',
 	photos: '/photos',
-	adminDash: '/admin/dashboard'
+	adminDash: '/admin/dashboard',
+	aboutUs: '/aboutus'
 };
 
 export const routePaths = {
@@ -21,7 +22,8 @@ export const routePaths = {
 	passwordChange: '/password-change',
 	userProfile: '/profile',
 	photos: '/photos',
-	adminDash: '/admin/dashboard'
+	adminDash: '/admin/dashboard',
+	aboutUs: '/aboutus'
 };
 
 export const isOnRoute = (location, route) => {

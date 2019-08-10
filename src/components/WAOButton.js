@@ -54,7 +54,7 @@ const StyledButton = styled.div`
 
 const WAOButton = ({ auth, title, color, clickCallback, isDisabled, isLoading, iconClass, isSubmit, useUserColor, isSelected, xs3, xs2, xs, sm, md, lg, xl, xl2, xl3, xl4, xl5, xl6, xl7 }) => {
 	const onClick = () => {
-		if (!isDisabled) {
+		if (!isDisabled && clickCallback) {
 			clickCallback();
 		}
 	};
