@@ -6,8 +6,8 @@ import PageCard from './PageCard';
 const border = '5px solid black';
 
 const StyledPlayerCard = styled.div`
-	width: 350px;
-	height: 480;
+	width: 300px;
+	height: 445px;
 	margin-bottom: 20px;
 
 	.playercard-name {
@@ -22,8 +22,8 @@ const StyledPlayerCard = styled.div`
 	.playercard-image {
 		border-right: ${props => props.border};
 		border-left: ${props => props.border};
-		width: 285px;
-		height: 285px;
+		width: 235px;
+		height: 235px;
 	}
 
 	.playercard-details {
@@ -32,7 +32,7 @@ const StyledPlayerCard = styled.div`
 		font-size: 12px;
 		margin-top: -4px;
 		padding: 5px;
-		height: 120px;
+		height: 135px;
 
 		.playercard-details-text1 {
 			font-size: 14px;
