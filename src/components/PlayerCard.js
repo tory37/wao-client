@@ -7,7 +7,7 @@ const border = '5px solid black';
 
 const StyledPlayerCard = styled.div`
 	width: 300px;
-	height: 445px;
+	height: 475px;
 	margin-bottom: 20px;
 
 	.playercard-name {
@@ -24,6 +24,8 @@ const StyledPlayerCard = styled.div`
 		border-left: ${props => props.border};
 		width: 235px;
 		height: 235px;
+		object-fit: cover;
+		object-position: top;
 	}
 
 	.playercard-details {
@@ -32,7 +34,7 @@ const StyledPlayerCard = styled.div`
 		font-size: 12px;
 		margin-top: -4px;
 		padding: 5px;
-		height: 135px;
+		height: 165px;
 
 		.playercard-details-text1 {
 			font-size: 14px;
