@@ -59,7 +59,7 @@ export default {
 		},
 		{
 			name: 'Landon aka Landon',
-			imageUrl: 'https://i.kym-cdn.com/entries/icons/original/000/004/952/emo-dad-22891-1257438303-107.jpg',
+			imageUrl: 'http://drive.google.com/uc?export=view&id=10KK2i18FSaYZbn9l4OGXTHvRPW4avpC3',
 			roles: 'Audio Engineer | Composer',
 			description:
 				'Landon is an audio engineer but who cares about that. He is currently writing a dissertation about how birds are government drones. He expects to graduate from LSU with a PhD in conspiracy theories in the spring on 2020. Most importantly he is ranked in the top 1% of Modern Warfare players (not even joking).',
@@ -79,7 +79,7 @@ export default {
 			name: 'Moaku',
 			imageUrl: 'http://drive.google.com/uc?export=view&id=1W6fyDTNpaDSjcdccotxHv0nqMJK9mwqM',
 			roles: 'Discord Admin |',
-			description: 'Nerd, been studying Japanese for like 4 years non stop, and correctly believes that Hibike! Euphonium is objectively the best anime to ever exist.',
+			description: 'Nerd, been studying Japanese for like 4 years non stop, and correctly believes that Hibike! Euphonium is objectively the best anime to ever exist. He also runs https://www.moakuwolf.moe/ where you can read up on Japanese used in anime and games!',
 			stats: [
 				{
 					title: 'Fav Anime',

@@ -39,8 +39,7 @@ const StyledHeader = styled.div`
 		}
 
 		.header-logo {
-			width: 64px;
-			height: 64px;
+			width: 86px;
 
 			&:hover {
 				transform-origin: bottom;
@@ -50,7 +49,7 @@ const StyledHeader = styled.div`
 	}
 
 	.user-menu-wrapper {
-		margin-bottom: -3px;
+		margin-bottom: 6px;
 
 		@media only screen and (min-width: 574px) {
 			margin-left: auto;
@@ -63,7 +62,7 @@ const Header = ({ location }) => {
 		<StyledHeader>
 			<div className="header-logo-wrapper">
 				<Link to={routePaths.home}>
-					<img class="header-logo" alt="Weebs and Otakus Logo" src="http://drive.google.com/uc?export=view&id=12XHIwlxx1rUyNs99V90zfnQwlgpRhbi6" />
+					<img class="header-logo" alt="Weebs and Otakus Logo" src="http://drive.google.com/uc?export=view&id=1ljGcS7wrUlKGpd8YGhN3yvpobqYc_N22" />
 					{/* <div className="header-title">{'Weebs And Otakus'}</div> */}
 				</Link>
 			</div>
