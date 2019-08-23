@@ -22,7 +22,8 @@ const StyledApp = styled.div`
 	justify-content: center;
 	overflow-y: hidden;
 
-	background-image: url('http://drive.google.com/uc?export=view&id=1R70sKhUzOICiS6HkiE36-YEisHmuB0o8');
+	background-color: black;
+	background-image: url('http://drive.google.com/uc?export=view&id=1ZUrrzHMA1fb4QGTCOHJ8j6WcH2EkU0T_');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center;

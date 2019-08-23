@@ -7,7 +7,6 @@ const border = '5px solid black';
 
 const StyledPlayerCard = styled.div`
 	width: 300px;
-	height: 475px;
 	margin-bottom: 20px;
 
 	.playercard-name {
@@ -34,7 +33,6 @@ const StyledPlayerCard = styled.div`
 		font-size: 12px;
 		margin-top: -4px;
 		padding: 5px;
-		height: 165px;
 
 		.playercard-details-text1 {
 			font-size: 14px;
@@ -44,6 +42,14 @@ const StyledPlayerCard = styled.div`
 		.playercard-details-text2 {
 			font-style: italic;
 			font-size: 12;
+		}
+	}
+
+	@media only screen and (min-width: 620px) {
+		height: 475px;
+
+		.playercard-details {
+			height: 165px;
 		}
 	}
 

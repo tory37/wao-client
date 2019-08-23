@@ -22,12 +22,13 @@ const StyledAboutUs = styled.div`
 	}
 
 	.aboutus-header {
-		width: 100%;
+		width: calc(100% - 30px);
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
 		align-items: center;
-		margin: auto;
+		margin-right: 15px;
+		margin-left: 15px;
 	}
 
 	.aboutus-content {
