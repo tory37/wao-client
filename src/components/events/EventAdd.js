@@ -148,7 +148,7 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 
 	return (
 		<StyledEventAdd>
-			{!isAdding && <WAOButton title="Add New" color="purple" iconClass="far fa-plus-square" useUserColor xl3 clickCallback={onAddClick} isDisabled={!canAdd} />}
+			{!isAdding && <WAOButton title="Add New" color="goldenrod" iconClass="far fa-plus-square" xl3 clickCallback={onAddClick} isDisabled={!canAdd} />}
 			{isAdding && (
 				<div className="eventadd-view">
 					<PageCard>

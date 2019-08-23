@@ -136,7 +136,7 @@ const UserStatus = ({ isSelected, auth, logoutUser, history }) => {
 										<WAOButton color="green" title="Profile" useUserColor clickCallback={onProfileClick} xl3></WAOButton>
 									</div>
 									<div className="userstatus-buttondropdown-entry">
-										<WAOButton color="purple" title="Logout" clickCallback={onLogoutClick} xl3></WAOButton>
+										<WAOButton color="goldenrod" title="Logout" clickCallback={onLogoutClick} xl3></WAOButton>
 									</div>
 									{auth.isAdmin && (
 										<div className="userstatus-buttondropdown-entry">

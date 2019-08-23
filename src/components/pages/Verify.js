@@ -135,7 +135,7 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 											<DataFieldEmail state={email} setState={setEmail} isInvalid={isInvalid} setIsInvalid={setIsInvalid} title="Email" isRequired />
 
 											<div className="verify-error-resend-button">
-												<WAOButton title="Resend" color="purple" clickCallback={onResendClick} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+												<WAOButton title="Resend" color="goldenrod" clickCallback={onResendClick} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
 											</div>
 
 											<div className="verify-signup">
@@ -154,7 +154,7 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 										<DataFieldEmail state={email} setState={setEmail} isInvalid={isInvalid} setIsInvalid={setIsInvalid} title="Email" isRequired />
 
 										<div className="verify-error-resend-button">
-											<WAOButton title="Resend" color="purple" clickCallback={onResendClick} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+											<WAOButton title="Resend" color="golenrod" clickCallback={onResendClick} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
 										</div>
 
 										<div className="verify-signup">

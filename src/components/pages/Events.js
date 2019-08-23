@@ -137,7 +137,7 @@ const Events = ({ events, auth, isLoadingEvents, fetchAllEvents }) => {
 								{isLoadingEvents && <span>Loading Events</span>}
 								{!isLoadingEvents && (
 									<div className="events-no-upcoming-refresh">
-										No Events to Show <WAOButton title="Refresh" userUserColor color="purple" useUserColor clickCallback={fetchAllEvents} md />
+										No Events to Show <WAOButton title="Refresh" userUserColor color="goldenrod" useUserColor clickCallback={fetchAllEvents} md />
 									</div>
 								)}
 							</CenteredContent>
@@ -147,7 +147,7 @@ const Events = ({ events, auth, isLoadingEvents, fetchAllEvents }) => {
 
 				{!shouldShowPast && pastEvents.length !== 0 && (
 					<div className="events-show-past-button">
-						<WAOButton title="Show Past" color="blue" useUserColor xl3 clickCallback={onShowPastEvents} isLoading={isLoadingEvents} isDisabled={isLoadingEvents} />
+						<WAOButton title="Show Past" color="goldenrod" xl3 clickCallback={onShowPastEvents} isLoading={isLoadingEvents} isDisabled={isLoadingEvents} />
 					</div>
 				)}
 			</StyledEvents>

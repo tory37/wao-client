@@ -204,7 +204,7 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 
 							<div className="spacer" />
 
-							<ColorPicker colorsArray={colorsArray} onSelectColor={onSelectColor} selectedColor={color} isEditing={isEditing} />
+							{/* <ColorPicker colorsArray={colorsArray} onSelectColor={onSelectColor} selectedColor={color} isEditing={isEditing} /> */}
 
 							<div className="userprofile-subscriptions-title">Subscriptions</div>
 							<div className="userprofile-subscriptions">
@@ -223,7 +223,7 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 							{!isEditing && !isUpdatingPassword && (
 								<div className="userprofile-buttons">
 									<div className="userprofile-button-wrapper">
-										<WAOButton title="Change Pass" color="purple" useUserColor clickCallback={onUpdatePasswordClick} iconClass="fas fa-key" xl6 />
+										<WAOButton title="Change Pass" color="goldenrod" clickCallback={onUpdatePasswordClick} iconClass="fas fa-key" xl6 />
 									</div>
 									<div>
 										<WAOButton title="Edit" color="orange" useUserColor clickCallback={onEdit} iconClass="fas fa-edit" />

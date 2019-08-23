@@ -66,7 +66,7 @@ const PasswordReset = ({ resetPassword, auth }) => {
 
 						{!auth.isAuthenticated && !isFinishedSending && (
 							<div className="passwordreset-button">
-								<WAOButton title="Reset" color="purple" clickCallback={onResetPasswordClick} isDisabled={isLoading || isInvalid} isLoading={isLoading} />
+								<WAOButton title="Reset" color="goldenrod" clickCallback={onResetPasswordClick} isDisabled={isLoading || isInvalid} isLoading={isLoading} />
 							</div>
 						)}
 

@@ -76,10 +76,10 @@ export default {
 			iconName: 'fas fa-music'
 		},
 		{
-			name: 'Ty aka Moaku',
-			imageUrl: 'https://img1.ak.crunchyroll.com/i/spire4/dbac8331314d177bf9b847e84a0470931559392436_full.jpg',
+			name: 'Moaku',
+			imageUrl: 'http://drive.google.com/uc?export=view&id=1W6fyDTNpaDSjcdccotxHv0nqMJK9mwqM',
 			roles: 'Discord Admin |',
-			description: 'gimme the bio',
+			description: 'Nerd, been studying Japanese for like 4 years non stop, and correctly believes that Hibike! Euphonium is objectively the best anime to ever exist.',
 			stats: [
 				{
 					title: 'Fav Anime',
