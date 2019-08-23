@@ -55,12 +55,8 @@ const StyledUserProfile = styled.div`
 			flex-wrap: wrap;
 
 			.userprofile-subscriptions-entry {
-				width: 100%;
+				text-align: center;
 				margin-bottom: 5px;
-
-				@media only screen and (min-width: 500px) {
-					width: 50%;
-				}
 			}
 		}
 

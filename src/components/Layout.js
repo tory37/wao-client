@@ -8,10 +8,9 @@ import BugReportModal from './BugReportModal';
 
 const headerMarings = {
 	width_0: '10px',
-	width_410: '15px',
 	width_500: '40px',
 	width_945: '0'
-}
+};
 
 const StyledLayout = styled.div`
 	width: 100%;
@@ -19,17 +18,9 @@ const StyledLayout = styled.div`
 	position: relative;
 
 	.layout-header-wrapper {
-		height: 100px;
+		height: 109px;
 
-		@media only screen and (min-width: 410px) {
-			height: 105px;
-		}
-
-		@media only screen and (min-width: 500px) {
-			height: 126px;
-		}
-
-		@media only screen and (min-width: 885px) {
+		@media only screen and (min-width: 574px) {
 			height: 65px;
 		}
 	}
@@ -45,29 +36,20 @@ const StyledLayout = styled.div`
 		overflow-y: scroll;
 		padding-top: 10px;
 
-		height: calc(100vh - 100px);
+		height: calc(100vh - 120px);
 
-		@media only screen and (min-width: 410px) {
-			height: calc(100vh - 105px);
-		}
-
-		@media only screen and (min-width: 500px) {
-			height: calc(100vh - 126px);
-		}
-
-		@media only screen and (min-width: 885px) {
-			height: calc(100vh - 65px);
+		@media only screen and (min-width: 574px) {
+			height: calc(100vh - 76px);
 		}
 
 		main {
 			min-height: calc(100% - 5px - ${props => props.theme.footer.height + ' - ' + props.theme.footer.marginTop});
 		}
 
-
 		footer {
 			text-align: center;
 			font-size: 10px;
-			
+
 			border-top: solid 5px black;
 			width: 100%;
 			height: ${props => props.theme.footer.height};
@@ -101,9 +83,7 @@ const Layout = ({ children, auth }) => (
 			</div>
 		)}
 		<div className="layout-body-wrapper">
-			<main>
-				{children}
-			</main>
+			<main>{children}</main>
 			<footer>
 				<a href="mailto:support@weebsandotakus.com">Support</a>
 			</footer>

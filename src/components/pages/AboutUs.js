@@ -30,16 +30,6 @@ const StyledAboutUs = styled.div`
 		margin: auto;
 	}
 
-	.aboutus-superbutton {
-		width: 100%;
-		text-align: center;
-		margin-bottom: 20px;
-
-		@media only screen and (min-width: 500px) {
-			display: none;
-		}
-	}
-
 	.aboutus-content {
 		width: 100%;
 		display: flex;
@@ -57,7 +47,7 @@ const Founders = ({}) => {
 	return (
 		<div className="aboutus-content">
 			{aboutUsData.founders.map(founder => (
-					<PlayerCard name={founder.name} imageUrl={founder.imageUrl} text1={founder.roles} text2={founder.description} stats={founder.stats} iconName={founder.iconName} />
+				<PlayerCard name={founder.name} imageUrl={founder.imageUrl} text1={founder.roles} text2={founder.description} stats={founder.stats} iconName={founder.iconName} />
 			))}
 		</div>
 	);
@@ -67,7 +57,7 @@ const Contributors = ({}) => {
 	return (
 		<div className="aboutus-content">
 			{aboutUsData.contributors.map(contributor => (
-					<PlayerCard name={contributor.name} imageUrl={contributor.imageUrl} text1={contributor.roles} text2={contributor.description} stats={contributor.stats} iconName={contributor.iconName} />
+				<PlayerCard name={contributor.name} imageUrl={contributor.imageUrl} text1={contributor.roles} text2={contributor.description} stats={contributor.stats} iconName={contributor.iconName} />
 			))}
 		</div>
 	);

@@ -9,14 +9,9 @@ const StyledHeaderButton = styled.div`
 	width: 80px;
 	height: 40px;
 	font-size: 11px;
+	margin-bottom: -3px;
 
-	@media only screen and (min-width: 410px) {
-		width: 100px;
-		height: 45px;
-		font-size: 14px;
-	}
-
-	@media only screen and (min-width: 500px) {
+	@media only screen and (min-width: 574px) {
 		width: 120px;
 		height: 60px;
 		margin-left: 10px;

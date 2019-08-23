@@ -2,7 +2,7 @@ export default {
 	founders: [
 		{
 			name: 'Tory aka Birb',
-			imageUrl: 'http://drive.google.com/uc?export=view&id=1HSnGTtWFoBgtxpZx5KI1vaQpJNdTdia1',
+			imageUrl: 'http://drive.google.com/uc?export=view&id=1fw2RQSJfgNDH7al598EKF5IH6PLPUGRX',
 			roles: 'Podcast Host | Software Engineer | Facebook Mod | Discord Admin',
 			description: 'Tory is a software engineer, drummer, weight lifter, and all out weeb. He enjoys dark, cold rooms where he can cover up and code, watch tv, play games or listen music.',
 			stats: [
@@ -18,10 +18,10 @@ export default {
 			iconName: 'fas fa-dove'
 		},
 		{
-			name: 'Brandon aka Phyleus',
-			imageUrl: 'http://drive.google.com/uc?export=view&id=1HPreGA6C_87XpNP7OAXjxC9vhxeCS4W_',
-			roles: 'Podcast Host | Video Editor | Facebook Mod | Discord Admin',
-			description: 'Brandon is a drummer, singer, bio, bio bio ',
+			name: 'Brandon aka Sensei Swagg',
+			imageUrl: 'http://drive.google.com/uc?export=view&id=1oQ1God8w9WoDlIUstobJoGvmvaIc1Tg_',
+			roles: 'Podcast Host | Video/Photo Editor | FB Group Admin | Discord Admin',
+			description: 'Brandon is an Agile Coach by day and a drummer/singer at night. He enjoys hanging out with his buds, watching/discussing anime, and playing video games.',
 			stats: [
 				{
 					title: 'Fav Anime',
@@ -41,10 +41,10 @@ export default {
 	],
 	contributors: [
 		{
-			name: 'Trent aka Lord Blackwool',
+			name: 'Alistar Blackwool',
 			imageUrl: 'https://vignette.wikia.nocookie.net/megamitensei/images/3/3f/Incubus2.jpg/revision/latest?cb=20190331170439',
 			roles: 'Art Engineer | Discord Host',
-			description: 'gimme da bio',
+			description: 'Lord of nothing and constant menace to society',
 			stats: [
 				{
 					title: 'Fav Anime',

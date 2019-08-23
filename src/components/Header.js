@@ -10,6 +10,7 @@ const StyledHeader = styled.div`
 	width: 100%;
 	height: 100%;
 	font-family: NinjaNaruto, Times, serif !important;
+	margin-top: 10px;
 
 	/* border-bottom: none; */
 	border-bottom: solid 5px black;
@@ -17,44 +18,42 @@ const StyledHeader = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	align-items: center;
+	align-items: flex-end;
 	flex-wrap: wrap;
+
+	@media only screen and (min-width: 574px) {
+		justify-content: flex-start;
+	}
 
 	a {
 		text-decoration: none;
 	}
 
-	.header-title {
-		color: white;
-		font-size: 25px;
+	.header-logo-wrapper {
+		width: 100%;
 		text-align: center;
-		margin-top: 20px;
-		padding-bottom: 0px;
-		margin-bottom: 10px;
 
-		@media only screen and (min-width: 500px) {
-			font-size: 36px;
+		@media only screen and (min-width: 574px) {
+			width: 64px;
+			margin-right: 10px;
 		}
 
-		@media only screen and (min-width: 885px) {
-			margin-bottom: 0;
-		}
+		.header-logo {
+			width: 64px;
+			height: 64px;
 
-		:hover {
-			transform: scale(1.02);
-			transform-origin: bottom;
+			&:hover {
+				transform-origin: bottom;
+				transform: scale(1.2);
+			}
 		}
 	}
 
-	.header-buttons {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-		align-items: flex-end;
-		margin-bottom: -10px;
+	.user-menu-wrapper {
+		margin-bottom: -3px;
 
-		@media only screen and (min-width: 885px) {
-			margin-bottom: -20px;
+		@media only screen and (min-width: 574px) {
+			margin-left: auto;
 		}
 	}
 `;
@@ -62,22 +61,23 @@ const StyledHeader = styled.div`
 const Header = ({ location }) => {
 	return (
 		<StyledHeader>
-			<Link to={routePaths.home}>
-				<div className="header-title">{'Weebs And Otakus'}</div>
-			</Link>
-			<div className="header-buttons">
+			<div className="header-logo-wrapper">
 				<Link to={routePaths.home}>
-					<HeaderButton title="Home" clipPath="0 0, 99% 13%, 96% 100%, 7% 100%" isSelected={isOnRoute(location, routePaths.home)} />
+					<img class="header-logo" alt="Weebs and Otakus Logo" src="http://drive.google.com/uc?export=view&id=12XHIwlxx1rUyNs99V90zfnQwlgpRhbi6" />
+					{/* <div className="header-title">{'Weebs And Otakus'}</div> */}
 				</Link>
-				<Link to={routePaths.events}>
-					<HeaderButton title="Events" clipPath="5% 17%, 96% 5%, 94% 100%, 7% 100%" isSelected={isOnRoute(location, routePaths.events)} />
-				</Link>
-				<Link to={routePaths.aboutUs}>
-					<HeaderButton title="About" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={isOnRoute(location, routePaths.aboutUs)} />
-				</Link>
-				<div className="user-menu-wrapper">
-					<UserStatus isSelected={isOnRoute(location, routePaths.userProfile)} />
-				</div>
+			</div>
+			<Link to={routePaths.home}>
+				<HeaderButton title="Home" clipPath="0 0, 99% 13%, 96% 100%, 7% 100%" isSelected={isOnRoute(location, routePaths.home)} />
+			</Link>
+			<Link to={routePaths.events}>
+				<HeaderButton title="Events" clipPath="5% 17%, 96% 5%, 94% 100%, 7% 100%" isSelected={isOnRoute(location, routePaths.events)} />
+			</Link>
+			<Link to={routePaths.aboutUs}>
+				<HeaderButton title="About" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={isOnRoute(location, routePaths.aboutUs)} />
+			</Link>
+			<div className="user-menu-wrapper">
+				<UserStatus isSelected={isOnRoute(location, routePaths.userProfile)} />
 			</div>
 		</StyledHeader>
 	);

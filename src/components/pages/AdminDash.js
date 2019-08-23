@@ -15,10 +15,6 @@ const StyledAdminDash = styled.div`
 
 	.admindash-bugs {
 		width: 100%;
-
-		@media only screen and (min-width: 410px) {
-			width: 500px;
-		}
 	}
 `;
 

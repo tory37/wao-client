@@ -46,7 +46,7 @@ const StyledApp = styled.div`
 
 		height: 100%;
 		max-width: 1020px;
-		background-color: rgba(40, 40, 40, 0.95);
+		background-color: rgba(40, 40, 40, 0.993);
 
 		display: flex;
 		flex-direction: row;
