@@ -23,10 +23,11 @@ const StyledApp = styled.div`
 	overflow-y: hidden;
 
 	background-color: black;
-	background-image: url('http://drive.google.com/uc?export=view&id=1ZUrrzHMA1fb4QGTCOHJ8j6WcH2EkU0T_');
+	background-image: url('http://drive.google.com/uc?export=view&id=1NI9PopprjaTg9PaFumPKfJ7DUHGH7o5J');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center;
+	background-size: cover;
 
 	a {
 		color: white;
@@ -47,7 +48,7 @@ const StyledApp = styled.div`
 
 		height: 100%;
 		max-width: 1020px;
-		background-color: rgba(40, 40, 40, 0.993);
+		background-color: rgba(40, 40, 40, 0.85);
 
 		display: flex;
 		flex-direction: row;
