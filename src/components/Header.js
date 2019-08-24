@@ -21,7 +21,7 @@ const StyledHeader = styled.div`
 	align-items: flex-end;
 	flex-wrap: wrap;
 
-	@media only screen and (min-width: 574px) {
+	@media only screen and (min-width: 614px) {
 		justify-content: flex-start;
 	}
 
@@ -32,10 +32,12 @@ const StyledHeader = styled.div`
 	.header-logo-wrapper {
 		width: 100%;
 		text-align: center;
+		margin-bottom: -9px;
 
-		@media only screen and (min-width: 574px) {
+		@media only screen and (min-width: 614px) {
 			width: 64px;
 			margin-right: 10px;
+			margin-bottom: -6px;
 		}
 
 		.header-logo {
@@ -49,9 +51,7 @@ const StyledHeader = styled.div`
 	}
 
 	.user-menu-wrapper {
-		margin-bottom: 6px;
-
-		@media only screen and (min-width: 574px) {
+		@media only screen and (min-width: 614px) {
 			margin-left: auto;
 		}
 	}

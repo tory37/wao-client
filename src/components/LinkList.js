@@ -14,7 +14,7 @@ const StyledLinkList = styled.div`
 	.linklist-entries {
 		width: 100%;
 
-		@media only screen and (max-width: 574px) {
+		@media only screen and (max-width: 614px) {
 			display: flex;
 			flex-direction: row;
 			justify-content: space-around;
@@ -22,13 +22,13 @@ const StyledLinkList = styled.div`
 		}
 
 		.linklist-entry-full {
-			@media only screen and (max-width: 574px) {
+			@media only screen and (max-width: 614px) {
 				display: none;
 			}
 		}
 
 		.linklist-entry-mini {
-			@media only screen and (min-width: 575px) {
+			@media only screen and (min-width: 615px) {
 				display: none;
 			}
 		}

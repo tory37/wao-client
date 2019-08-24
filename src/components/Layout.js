@@ -20,7 +20,7 @@ const StyledLayout = styled.div`
 	.layout-header-wrapper {
 		height: 109px;
 
-		@media only screen and (min-width: 574px) {
+		@media only screen and (min-width: 614px) {
 			height: 65px;
 		}
 	}
@@ -38,7 +38,7 @@ const StyledLayout = styled.div`
 
 		height: calc(100vh - 120px);
 
-		@media only screen and (min-width: 574px) {
+		@media only screen and (min-width: 614px) {
 			height: calc(100vh - 76px);
 		}
 

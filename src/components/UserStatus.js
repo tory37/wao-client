@@ -15,7 +15,7 @@ const StyledUserStatus = styled.div`
 	width: 45px;
 	height: 45px;
 
-	@media only screen and (min-width: 574px) {
+	@media only screen and (min-width: 614px) {
 		width: 60px;
 		height: 60px;
 	}
