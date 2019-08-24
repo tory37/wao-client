@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import {TwitterTimelineEmbed} from 'react-twitter-embed';
 
 import SkewedBox from '../SkewedBox';
 import LinkList from '../LinkList';
@@ -128,9 +129,7 @@ const Home = () => {
 			<div className="home-second-row">
 				<div className="home-second-row-entry">
 					<div className="home-header">Latest News</div>
-					<a className="twitter-timeline" data-theme="dark" data-link-color="#FAB81E" href="https://twitter.com/WeebsAndOtakus?ref_src=twsrc%5Etfw">
-						Tweets by WeebsAndOtakus
-					</a>
+					<TwitterTimelineEmbed source="profile" screenName="weebsandotakus" />
 				</div>
 				<div className="home-second-row-entry">
 					<div className="home-header">Calendar</div>
