@@ -62,7 +62,7 @@ const Header = ({ location }) => {
 		<StyledHeader>
 			<div className="header-logo-wrapper">
 				<Link to={routePaths.home}>
-					<img class="header-logo" alt="Weebs and Otakus Logo" src="http://drive.google.com/uc?export=view&id=1ljGcS7wrUlKGpd8YGhN3yvpobqYc_N22" />
+					<img className="header-logo" alt="Weebs and Otakus Logo" src="http://drive.google.com/uc?export=view&id=1ljGcS7wrUlKGpd8YGhN3yvpobqYc_N22" />
 					{/* <div className="header-title">{'Weebs And Otakus'}</div> */}
 				</Link>
 			</div>

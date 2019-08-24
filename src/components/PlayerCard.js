@@ -94,10 +94,10 @@ const PlayerCard = ({ name, imageUrl, text1, text2, stats, iconName }) => {
 					<div className="playercard-details-text1">
 						{text1Split.map((text, index) => {
 							return (
-								<>
+								<div key={index}>
 									<span>{text}</span>
 									{iconName && index !== text1Split.length - 1 && <i className={iconName}></i>}
-								</>
+								</div>
 							);
 							if (index !== text1Split.length - 1) {
 							}

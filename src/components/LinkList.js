@@ -10,13 +10,36 @@ const StyledLinkList = styled.div`
 	.linklist-title {
 		font-family: NinjaNaruto;
 	}
+
+	.linklist-entries {
+		width: 100%;
+
+		@media only screen and (max-width: 574px) {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			align-items: center;
+		}
+
+		.linklist-entry-full {
+			@media only screen and (max-width: 574px) {
+				display: none;
+			}
+		}
+
+		.linklist-entry-mini {
+			@media only screen and (min-width: 575px) {
+				display: none;
+			}
+		}
+	}
 `;
 
 function LinkList() {
 	const facebookUrl = 'https://www.facebook.com/groups/339371983406620/';
 	const discordUrl = 'https://discordapp.com/invite/4esrFJx';
-	const youtubeUrl = 'https://youtube.com/weebsandotakus';
-	const redditUrl = '';
+	const youtubeUrl = 'https://www.youtube.com/channel/UCST-uKFhHNfQpf4M7B81LlQ';
+	const twitterUrl = 'https://twitter.com/WeebsAndOtakus';
 
 	const openInNewTab = url => {
 		var win = window.open(url, '_blank');
@@ -27,10 +50,36 @@ function LinkList() {
 		<StyledLinkList>
 			<PageCard>
 				<div className="linklist-title">Links</div>
-				<WAOButton title="Facebook" iconClass="fab fa-facebook-f" color="#3C5A99" clickCallback={() => openInNewTab(facebookUrl)} xl3 />
-				<WAOButton title="Discord" iconClass="fab fa-discord" color="#7289da" clickCallback={() => openInNewTab(discordUrl)} xl3 />
-				<WAOButton title="Youtube" iconClass="fab fa-youtube" color="#FF0000" clickCallback={() => openInNewTab(youtubeUrl)} xl3 />
-				{/* <WAOButton title="Reddit" iconClass="fab fa-reddit-alien" color="#FF4500" clickCallback={() => openInNewTab(redditUrl)} xl3 /> */}
+				<div className="linklist-entries">
+					<div className="linklist-entry-full">
+						<WAOButton title="Facebook" iconClass="fab fa-facebook-f" color="#3C5A99" clickCallback={() => openInNewTab(facebookUrl)} xl3 />
+					</div>
+					<div className="linklist-entry-mini">
+						<WAOButton iconClass="fab fa-facebook-f" color="#3C5A99" clickCallback={() => openInNewTab(facebookUrl)} xs />
+					</div>
+
+					<div className="linklist-entry-full">
+						<WAOButton title="Discord" iconClass="fab fa-discord" color="#7289da" clickCallback={() => openInNewTab(discordUrl)} xl3 />					
+					</div>
+					<div className="linklist-entry-mini">
+						<WAOButton iconClass="fab fa-discord" color="#7289da" clickCallback={() => openInNewTab(discordUrl)} xs />					
+					</div>
+
+					<div className="linklist-entry-full">
+						<WAOButton title="Youtube" iconClass="fab fa-youtube" color="#FF0000" clickCallback={() => openInNewTab(youtubeUrl)} xl3 />
+					</div>
+					<div className="linklist-entry-mini">
+						<WAOButton iconClass="fab fa-youtube" color="#FF0000" clickCallback={() => openInNewTab(youtubeUrl)} xs />
+					</div>
+
+					<div className="linklist-entry-full">
+						<WAOButton title="Twitter" iconClass="fab fa-twitter" color="#00aced" clickCallback={() => openInNewTab(twitterUrl)} xl3 />
+					</div>
+					<div className="linklist-entry-mini">
+						<WAOButton iconClass="fab fa-twitter" color="#00aced" clickCallback={() => openInNewTab(twitterUrl)} xs />
+					</div>
+
+				</div>
 			</PageCard>
 		</StyledLinkList>
 	);

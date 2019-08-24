@@ -41,7 +41,7 @@ const StyledApp = styled.div`
 		width: calc(100% - 20px);
 		padding: 0 10px 0 10px;
 
-		@media only and screen (min-width: 350px) {
+		@media only screen and (min-width: 350px) {
 			width: calc(100% - 60px);
 			padding: 0 30px 0 30px;
 		}

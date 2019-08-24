@@ -19,6 +19,7 @@ const StyledAboutUs = styled.div`
 		font-size: 32px;
 		font-weight: 600;
 		margin-bottom: 10px;
+		font-family: NinjaNaruto;
 	}
 
 	.aboutus-header {
@@ -47,8 +48,8 @@ const Card = () => {};
 const Founders = ({}) => {
 	return (
 		<div className="aboutus-content">
-			{aboutUsData.founders.map(founder => (
-				<PlayerCard name={founder.name} imageUrl={founder.imageUrl} text1={founder.roles} text2={founder.description} stats={founder.stats} iconName={founder.iconName} />
+			{aboutUsData.founders.map((founder, index) => (
+				<PlayerCard key={index} name={founder.name} imageUrl={founder.imageUrl} text1={founder.roles} text2={founder.description} stats={founder.stats} iconName={founder.iconName} />
 			))}
 		</div>
 	);
@@ -57,8 +58,8 @@ const Founders = ({}) => {
 const Contributors = ({}) => {
 	return (
 		<div className="aboutus-content">
-			{aboutUsData.contributors.map(contributor => (
-				<PlayerCard name={contributor.name} imageUrl={contributor.imageUrl} text1={contributor.roles} text2={contributor.description} stats={contributor.stats} iconName={contributor.iconName} />
+			{aboutUsData.contributors.map((contributor, index) => (
+					<PlayerCard key={index} name={contributor.name} imageUrl={contributor.imageUrl} text1={contributor.roles} text2={contributor.description} stats={contributor.stats} iconName={contributor.iconName} />
 			))}
 		</div>
 	);
@@ -85,7 +86,7 @@ const AboutUs = ({ match, location, history }) => {
 		<StyledAboutUs>
 			<div className="aboutus-section">
 				<div className="aboutus-title">About Us</div>
-				<div className="aboutus-header">Hello everyone, this will say what we are and who we are. Maybe something about our backstory. How we got started. etc.</div>
+				<div className="aboutus-header">We'd like to give a special thanks to everyone involed in this awesome project. </div>
 			</div>
 
 			<div className="aboutus-section">

@@ -3,7 +3,7 @@ export default {
 		{
 			name: 'Tory aka Birb',
 			imageUrl: 'http://drive.google.com/uc?export=view&id=1fw2RQSJfgNDH7al598EKF5IH6PLPUGRX',
-			roles: 'Podcast Host | Software Engineer | Facebook Mod | Discord Admin',
+			roles: 'Podcast Host | Software Engineer | Facebook Group Admin | Discord Admin',
 			description: 'Tory is a software engineer, drummer, weight lifter, and all out weeb. He enjoys dark, cold rooms where he can cover up and code, watch tv, play games or listen music.',
 			stats: [
 				{
