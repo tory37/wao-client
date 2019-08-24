@@ -107,9 +107,9 @@ const Home = () => {
 			</div>
 			<div className="home-header">Welcome Home</div>
 			<div className="home-content">
-				<SkewedBox color="gray" isSelected>
+				<SkewedBox color="#4a4a4a" isSelected>
 					<div className="home-content-inner">
-						<div>We’ve just soft-launched this website! This truly is a massive effort for every one of us, and we’re happy to finally show it to you! If you have any ideas to make this thing better, send us an email at weebsandotakus@gmail.com.</div>
+						<div>We’ve just soft-launched this website! This truly is a massive effort for every one of us, and we’re happy to finally show it to you! If you have any ideas to make this thing better, send us an email at <a href="mailto:support@weebsandotakus.com">weebsandotakus@gmail.com</a>.</div>
 						<br></br>
 						<div>What started as a Facebook group is now much more, as made apparent by the links to the right! We will continue to do our best to use this website as a catalyst, tying in all of our separate communities into one W&O Family!</div>
 						<br></br>

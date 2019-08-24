@@ -23,7 +23,7 @@ const StyledHeaderButton = styled.div`
 const HeaderButton = ({ auth, title, clipPath, isSelected }) => {
 	return (
 		<StyledHeaderButton clipPath={clipPath}>
-			<SkewedBox clipPath={clipPath} color={isSelected ? (auth.isAuthenticated && auth.user.color ? auth.user.color : 'red') : 'gray'} isSelected={isSelected} shouldGrowOnHover useScale={true}>
+			<SkewedBox clipPath={clipPath} color={isSelected ? (auth.isAuthenticated && auth.user.color ? auth.user.color : 'red') : '#4a4a4a'} isSelected={isSelected} shouldGrowOnHover useScale={true}>
 				<CenteredContent>
 					<span>{title}</span>
 				</CenteredContent>

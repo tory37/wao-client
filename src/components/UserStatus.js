@@ -128,7 +128,7 @@ const UserStatus = ({ isSelected, auth, logoutUser, history }) => {
 
 				{isOpen && (
 					<div className="userstatus-buttondropdown" ref={buttonDropdown}>
-						<SkewedBox color="gray" clipPath="0 6%, 100% 0, 100% 96%, 0% 100%">
+						<SkewedBox color="#4a4a4a" clipPath="0 6%, 100% 0, 100% 96%, 0% 100%">
 							{auth.isAuthenticated && (
 								<div className="userstatus-buttondropdown-inner">
 									<div className="userstatus-buttondropdown-entry">{auth.user.username}</div>
@@ -140,7 +140,7 @@ const UserStatus = ({ isSelected, auth, logoutUser, history }) => {
 									</div>
 									{auth.isAdmin && (
 										<div className="userstatus-buttondropdown-entry">
-											<WAOButton color="gray" title="Admin" clickCallback={onAdminClick} xl3></WAOButton>
+											<WAOButton color="#4a4a4a" title="Admin" clickCallback={onAdminClick} xl3></WAOButton>
 										</div>
 									)}
 								</div>
