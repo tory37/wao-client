@@ -33,13 +33,17 @@ const StyledHome = styled.div`
 
 	.home-content {
 		width: calc(100% - 10px);
-		margin-left: 10px;
 		margin-bottom: 40px;
 
 		@media only screen and (min-width: 615px) {
 			margin-right: 10px;
+			margin-left: 0;
 			width: calc(100% - 10px - 10px - ${props => props.linkListWidth}) !important;
-			margin-bottom: 10px;
+			margin-bottom: 40px;
+		}
+
+		.home-content-inner {
+			padding: 10px;
 		}
 	}
 
@@ -101,9 +105,21 @@ const Home = () => {
 			<div className="home-banner">
 				<img alt="Weebs and Otakus Banner" src={process.env.PUBLIC_URL + '/img/banner.png'} />
 			</div>
+			<div className="home-header">Welcome Home</div>
 			<div className="home-content">
-				<div className="home-header">Welcome Home</div>
-				<div>We are a collection of artists, gamers, anime and Japanese culture fans creating content for themselves. What are you waiting for? Join us.</div>
+				<SkewedBox color="gray" isSelected>
+					<div className="home-content-inner">
+						<div>We’ve just soft-launched this website! This truly is a massive effort for every one of us, and we’re happy to finally show it to you! If you have any ideas to make this thing better, send us an email at weebsandotakus@gmail.com.</div>
+						<br></br>
+						<div>What started as a Facebook group is now much more, as made apparent by the links to the right! We will continue to do our best to use this website as a catalyst, tying in all of our separate communities into one W&O Family!</div>
+						<br></br>
+						<div>As more announcements are made and events are schedule, you’ll find them displayed below, respectively, under “Lastest News” and “Calendar”.</div>
+						<br></br>
+						<div>Lastly, to learn more about the group and the many folks working behind the scenes, click on the About tab at the top!</div>
+						<br></br>
+						<div>Thank you for joining us on this adventure.</div>
+					</div>
+				</SkewedBox>
 			</div>
 			<div className="home-linklist">
 				<LinkList></LinkList>
