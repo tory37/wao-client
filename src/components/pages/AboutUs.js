@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import aboutUsData from '../../data/aboutUs';
 
 import PlayerCard from '../PlayerCard';
+import ContributorCard from '../ContributorCard';
 
 const StyledAboutUs = styled.div`
 	width: 100%;
@@ -59,7 +60,7 @@ const Contributors = ({}) => {
 	return (
 		<div className="aboutus-content">
 			{aboutUsData.contributors.map((contributor, index) => (
-					<PlayerCard key={index} name={contributor.name} imageUrl={contributor.imageUrl} text1={contributor.roles} text2={contributor.description} stats={contributor.stats} iconName={contributor.iconName} />
+					<ContributorCard key={index} small name={contributor.name} imageUrl={contributor.imageUrl} text1={contributor.roles} text2={contributor.description} stats={contributor.stats} iconName={contributor.iconName} />
 			))}
 		</div>
 	);

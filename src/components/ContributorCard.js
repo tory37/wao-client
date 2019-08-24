@@ -5,82 +5,77 @@ import PageCard from './PageCard';
 
 const border = '5px solid black';
 
-const StyledPlayerCard = styled.div`
-	width: ${props => (props.isSmall ? '250px' : '300px')};
+const StyledContributorCard = styled.div`
+	width: 240px;
 	margin-bottom: 20px;
+    text-align: center;
 
 	@media only screen and (max-width: 1080px) {
 		width: 300px;
 	}
 
-	.playercard-name {
+	.contributorcard-name {
 		text-align: left;
 		border: ${props => props.border};
 		padding: 5px;
 		background-image: linear-gradient(to right, #050505, #505050);
 		font-weight: 600;
-		font-size: 18px;
+		font-size: 14px;
 	}
 
-	.playercard-image {
+	.contributorcard-image {
 		border-right: ${props => props.border};
 		border-left: ${props => props.border};
-		width: ${props => props.isSmall ? '210px' : '235px'};
-		height: ${props => props.isSmall ? '210px' : '235px'};
+		width: 180px;
+		height: 180px;
 		object-fit: cover;
 		object-position: top;
 	}
 
-	.playercard-details {
+	.contributorcard-details {
 		border: ${props => props.border};
 		background-image: linear-gradient(to right, #050505, #505050);
 		font-size: 12px;
 		margin-top: -4px;
 		padding: 5px;
+        height: 180px;
+        overflow-y: scroll;
 
-		.playercard-details-text1 {
+		.contributorcard-details-text1 {
 			font-size: 14px;
 			margin-bottom: 10px;
 		}
 
-		.playercard-details-text2 {
+		.contributorcard-details-text2 {
 			font-style: italic;
 			font-size: 12;
 		}
 	}
 
-	@media only screen and (min-width: 620px) {
-		height: 510px;
-
-		.playercard-details {
-			height: 205px;
-		}
-	}
-
     /* Stats are out for now */
-	/* .playercard-stats {
+	/* .contributorcard-stats {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
 		align-items: center;
 
-		.playercard-stats-stat {
+		.contributorcard-stats-stat {
 			border: ${props => props.border};
 			font-size: 10px;
 			background-image: linear-gradient(to right, gray, black, gray);
 			padding: 5px;
 
-			.playercard-stats-stat-title {
+			.contributorcard-stats-stat-title {
 				font-weight: 600;
 			}
 
-			.playercard-stats-stat-value {
+			.contributorcard-stats-stat-value {
 			}
 		}
 	} */
 `;
 
-const PlayerCard = ({ name, imageUrl, text1, text2, stats, iconName, small }) => {
+const ContributorCard = ({ name, imageUrl, text1, text2, stats, iconName, small }) => {
 	const [text1Split, setText1Split] = useState([]);
 
 	useEffect(() => {
@@ -90,12 +85,12 @@ const PlayerCard = ({ name, imageUrl, text1, text2, stats, iconName, small }) =>
 	}, [text1]);
 
 	return (
-		<StyledPlayerCard border={border} isSmall={small}>
-			<PageCard>
-				<div className="playercard-name">{name}</div>
-				<img className="playercard-image" src={process.env.PUBLIC_URL + '/img/' + imageUrl} />
-				<div className="playercard-details">
-					<div className="playercard-details-text1">
+		<StyledContributorCard border={border} isSmall={small}>
+            <PageCard>
+				<div className="contributorcard-name">{name}</div>
+				<img className="contributorcard-image" src={process.env.PUBLIC_URL + '/img/' + imageUrl} />
+				<div className="contributorcard-details">
+					<div className="contributorcard-details-text1">
 						{text1Split.map((text, index) => {
 							return (
 								<div key={index}>
@@ -107,23 +102,23 @@ const PlayerCard = ({ name, imageUrl, text1, text2, stats, iconName, small }) =>
 							}
 						})}
 					</div>
-					<div className="playercard-details-text2">{text2}</div>
+					<div className="contributorcard-details-text2">{text2}</div>
 				</div>
 
 				{/* Stats are out for now
-                    <div className="playercard-stats">
+                    <div className="contributorcard-stats">
 					{stats &&
 						stats.map(stat => (
-							<div className="playercard-stats-stat">
-								<span className="playercard-stats-stat-title">{stat.title}</span>
+							<div className="contributorcard-stats-stat">
+								<span className="contributorcard-stats-stat-title">{stat.title}</span>
 								<span>{': '}</span>
-								<span className="playercard-stats-stat-value">{stat.value}</span>
+								<span className="contributorcard-stats-stat-value">{stat.value}</span>
 							</div>
 						))}
-				</div> */}
-			</PageCard>
-		</StyledPlayerCard>
+                </div> */}
+            </PageCard>
+		</StyledContributorCard>
 	);
 };
 
-export default PlayerCard;
+export default ContributorCard;
