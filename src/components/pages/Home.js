@@ -97,7 +97,7 @@ const Home = () => {
 	return (
 		<StyledHome linkListWidth={linkListWidth}>
 			<div className="home-banner">
-				<img alt="Weebs and Otakus Banner" src="http://drive.google.com/uc?export=view&id=1_koZwP_aicmT8S12xRRp4zCGbLvKHmLz" />
+				<img alt="Weebs and Otakus Banner" src={process.env.PUBLIC_URL + '/img/banner.png' } />
 			</div>
 			<div className="home-content">
 				<div className="home-header">

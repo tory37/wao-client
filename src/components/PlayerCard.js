@@ -89,7 +89,7 @@ const PlayerCard = ({ name, imageUrl, text1, text2, stats, iconName }) => {
 		<StyledPlayerCard border={border}>
 			<PageCard>
 				<div className="playercard-name">{name}</div>
-				<img className="playercard-image" src={imageUrl} />
+				<img className="playercard-image" src={process.env.PUBLIC_URL + '/img/' +imageUrl} />
 				<div className="playercard-details">
 					<div className="playercard-details-text1">
 						{text1Split.map((text, index) => {
