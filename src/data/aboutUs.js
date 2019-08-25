@@ -42,7 +42,7 @@ export default {
 	contributors: [
 		{
 			name: 'Alistar Blackwool',
-			imageUrl: '',
+			imageUrl: 'trent.jpg',
 			roles: 'Art Engineer | Discord Host',
 			description: 'Lord of nothing and constant menace to society',
 			stats: [
