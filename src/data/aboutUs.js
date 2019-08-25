@@ -94,9 +94,9 @@ export default {
 		},
 		{
 			name: 'Steffi aka Ylarnja',
-			imageUrl: 'steffi.png',
+			imageUrl: 'steffi.jpeg',
 			roles: 'Discord Admin |',
-			description: 'Gimme da bio',
+			description: 'Software Developer, japanese learner and professional sloth.',
 			stats: [
 				{
 					title: 'Fav Anime',
