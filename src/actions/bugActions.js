@@ -39,7 +39,7 @@ export const addNewBugReport = bugReport => dispatch => {
 	return bugs
 		.addBugReport(bugReport)
 		.then(res => {
-			displaySuccessNotification(res.data, notificationId);
+			displaySuccessNotification('Successfully reported bug', notificationId);
 			//dispatch(addBugReport(bugReport));
 		}) // re-direct to login on siccessful register
 		.catch(err => {

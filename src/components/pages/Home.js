@@ -129,7 +129,7 @@ const Home = () => {
 			<div className="home-second-row">
 				<div className="home-second-row-entry">
 					<div className="home-header">Latest News</div>
-					<TwitterTimelineEmbed source="profile" screenName="weebsandotakus" />
+					<TwitterTimelineEmbed sourceType="profile" screenName="weebsandotakus" />
 				</div>
 				<div className="home-second-row-entry">
 					<div className="home-header">Calendar</div>
