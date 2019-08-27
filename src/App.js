@@ -37,6 +37,11 @@ const StyledApp = styled.div`
 		}
 	}
 
+	iframe {
+		border: 5px solid black !important;
+		border-radius: 0;
+	}
+
 	.app-content {
 		width: calc(100% - 20px);
 		padding: 0 10px 0 10px;
