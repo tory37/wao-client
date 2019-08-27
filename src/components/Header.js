@@ -75,9 +75,10 @@ const Header = ({ location }) => {
 			<Link to={routePaths.aboutUs}>
 				<HeaderButton title="About" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={isOnRoute(location, routePaths.aboutUs)} />
 			</Link>
-			<div className="user-menu-wrapper">
+			{/* AUTH */}
+			{/* <div className="user-menu-wrapper">
 				<UserStatus isSelected={isOnRoute(location, routePaths.userProfile)} />
-			</div>
+			</div> */}
 		</StyledHeader>
 	);
 };

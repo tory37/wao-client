@@ -18,7 +18,9 @@ const StyledLayout = styled.div`
 	position: relative;
 
 	.layout-header-wrapper {
-		height: 109px;
+		height: 104px;
+		/* AUTH */
+		/* height: 109px; */
 
 		@media only screen and (min-width: 614px) {
 			height: 65px;

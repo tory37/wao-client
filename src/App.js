@@ -77,28 +77,29 @@ function App() {
 	useEffect(() => {
 		store.dispatch(fetchAllEvents());
 
-		// isLoadingAuth state is true by default, must stop it at all branches
-		// Check for token to keep user logged in
-		if (localStorage['weebsandotakus-jwtToken']) {
-			// Set auth token header auth
-			const token = localStorage['weebsandotakus-jwtToken'];
-			setAuthToken(token);
-			// Decode token and get user info and exp
-			const decoded = jwtDecode(token);
+		//  AUTH
+		// // isLoadingAuth state is true by default, must stop it at all branches
+		// // Check for token to keep user logged in
+		// if (localStorage['weebsandotakus-jwtToken']) {
+		// 	// Set auth token header auth
+		// 	const token = localStorage['weebsandotakus-jwtToken'];
+		// 	setAuthToken(token);
+		// 	// Decode token and get user info and exp
+		// 	const decoded = jwtDecode(token);
 
-			// Check for expired token
-			const currentTime = Date.now() / 1000; // to get in milliseconds
-			if (decoded.exp < currentTime) {
-				// Logout user
-				store.dispatch(logoutUser());
-				store.dispatch(stopLoadingAuth());
-			} else {
-				// Set user and isAuthenticated, this dispatches stopLoadingAuth
-				store.dispatch(fetchUser());
-			}
-		} else {
-			store.dispatch(stopLoadingAuth());
-		}
+		// 	// Check for expired token
+		// 	const currentTime = Date.now() / 1000; // to get in milliseconds
+		// 	if (decoded.exp < currentTime) {
+		// 		// Logout user
+		// 		store.dispatch(logoutUser());
+		// 		store.dispatch(stopLoadingAuth());
+		// 	} else {
+		// 		// Set user and isAuthenticated, this dispatches stopLoadingAuth
+		// 		store.dispatch(fetchUser());
+		// 	}
+		// } else {
+		// 	store.dispatch(stopLoadingAuth());
+		// }
 	}, []);
 
 	return (
