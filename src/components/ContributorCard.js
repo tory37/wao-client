@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import Linkify from 'react-linkify';
 
 import PageCard from './PageCard';
 
@@ -102,7 +103,12 @@ const ContributorCard = ({ name, imageUrl, text1, text2, stats, iconName, small 
 							}
 						})}
 					</div>
-					<div className="contributorcard-details-text2">{text2}</div>
+
+					<Linkify>
+						<div className="playercard-details-text2">
+							{text2}
+						</div>
+					</Linkify>
 				</div>
 
 				{/* Stats are out for now

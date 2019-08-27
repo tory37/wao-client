@@ -87,7 +87,7 @@ const Layout = ({ children, auth }) => (
 		<div className="layout-body-wrapper">
 			<main>{children}</main>
 			<footer>
-				<a href="mailto:support@weebsandotakus.com">Support</a>
+				<a href="mailto:weebsandotakus@gmail.com">Support</a>
 			</footer>
 		</div>
 	</StyledLayout>

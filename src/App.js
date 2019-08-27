@@ -30,10 +30,11 @@ const StyledApp = styled.div`
 	background-size: cover;
 
 	a {
-		color: white;
+		color: goldenrod;
+		cursor: pointer;
 
 		&:visited {
-			color: darkgreen(gold, 0.3);
+			color: goldenrod;
 		}
 	}
 
