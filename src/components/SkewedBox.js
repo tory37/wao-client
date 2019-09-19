@@ -17,23 +17,23 @@ const StyledSkewedBox = styled.div`
 	transform: scale(${props => (props.isSelected && props.useScale ? 1.2 : 1)});
 
 	&:hover {
-		transform: scale(${props => ((props.shouldGrowOnHover || props.isSelected) && props.useScale ? 1.2 : 1)});
-		width: ${props => ((props.shouldGrowOnHover || props.isSelected) && !props.useScale ? '100%' : '90%')};
-		height: ${props => ((props.shouldGrowOnHover || props.isSelected) && !props.useScale ? '100%' : '90%')};
+		transform: scale(${props => (!props.isDisabled && (props.shouldGrowOnHover || props.isSelected) && props.useScale ? 1.2 : 1)});
+		width: ${props => (!props.isDisabled && (props.shouldGrowOnHover || props.isSelected) && !props.useScale ? '100%' : '90%')};
+		height: ${props => (!props.isDisabled && (props.shouldGrowOnHover || props.isSelected) && !props.useScale ? '100%' : '90%')};
 	}
 
-	.inner {
-		background-color: ${props => props.color};
+	& > .skewedbox-inner {
+		background-color: ${props => (props.isDisabled ? 'black' : props.color)};
 		width: 100%;
 		height: 100%;
 		clip-path: polygon(${props => props.clipPath});
 	}
 `;
 
-const SkewedBox = ({ children, clipPath, color, shouldGrowOnHover, isSelected, fromCenter, useScale }) => {
+const SkewedBox = ({ children, clipPath, color, shouldGrowOnHover, isSelected, fromCenter, useScale, isDisabled }) => {
 	return (
-		<StyledSkewedBox clipPath={clipPath} borderWidth={borderWidth} color={color} shouldGrowOnHover={shouldGrowOnHover} isSelected={isSelected} fromCenter={fromCenter} useScale={useScale}>
-			<div className="inner">{children}</div>
+		<StyledSkewedBox clipPath={clipPath} borderWidth={borderWidth} color={color} shouldGrowOnHover={shouldGrowOnHover} isSelected={isSelected} fromCenter={fromCenter} useScale={useScale} isDisabled={isDisabled}>
+			<div className="skewedbox-inner">{children}</div>
 		</StyledSkewedBox>
 	);
 };

@@ -1,19 +1,18 @@
 import React from 'react';
+import _ from 'lodash';
 import { toast } from 'react-toastify';
 
-const getContentFromRequestError = error => {
+const getContentFromRequestError = (error, defaultMessage) => {
 	console.log(error);
-	if (error && error.response && error.response.data && error.response.data.messages) {
-		return (
-			<div>
-				{error.response.data.messages.map((message, i) => (
-					<div key={i}>{message}</div>
-				))}
-			</div>
-		);
-	}
+	var messages = _.get(error, 'response.data.messages', [defaultMessage]);
 
-	return <div>Unknown Error</div>;
+	return (
+		<div>
+			{messages.map((message, i) => (
+				<div key={i}>{message}</div>
+			))}
+		</div>
+	);
 };
 
 const displayLoadingNotification = content => {
@@ -21,7 +20,8 @@ const displayLoadingNotification = content => {
 		type: toast.TYPE.INFO,
 		autoClose: false,
 		closeButton: false,
-		closeOnClick: false
+		closeOnClick: false,
+		pauseOnFocus: true
 	});
 	return toastId;
 };
@@ -33,24 +33,26 @@ const displaySuccessNotification = (content, toastId) => {
 			type: toast.TYPE.SUCCESS,
 			autoClose: null,
 			closeOnClick: null,
-			closeButton: null
+			closeButton: null,
+			pauseOnFocusLoss: false
 		});
 	} else {
 		toast.success(content);
 	}
 };
 
-const displayErrorNotification = (err, toastId) => {
+const displayErrorNotification = (err, defaultMessage, toastId) => {
 	if (toastId) {
 		toast.update(toastId, {
-			render: getContentFromRequestError(err),
+			render: getContentFromRequestError(err, defaultMessage),
 			type: toast.TYPE.ERROR,
 			autoClose: null,
 			closeOnClick: null,
-			closeButton: null
+			closeButton: null,
+			pauseOnFocusLoss: false
 		});
 	} else {
-		toast.error(getContentFromRequestError(err));
+		toast.error(getContentFromRequestError(err, defaultMessage));
 	}
 };
 
@@ -61,7 +63,8 @@ const displayWarningNotification = (content, toastId) => {
 			type: toast.TYPE.WARNING,
 			autoClose: null,
 			closeOnClick: null,
-			closeButton: null
+			closeButton: null,
+			pauseOnFocusLoss: false
 		});
 	} else {
 		toast.warning(content);

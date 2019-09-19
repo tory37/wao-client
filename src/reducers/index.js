@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux';
-import authReducer from './authReducer';
-import errorReducer from './errorReducer';
-import eventsReducer from './eventsReducer';
+import auth from './auth';
+import events from './events';
+import isLoadingEvents from './isLoadingEvents';
+import isLoadingAuth from './isLoadingAuth';
+import bugReports from './bugReports';
 
 export default combineReducers({
-	auth: authReducer,
-	errors: errorReducer,
-	events: eventsReducer
+	auth: auth,
+	events: events,
+	isLoadingEvents: isLoadingEvents,
+	isLoadingAuth: isLoadingAuth,
+	bugReports: bugReports
 });

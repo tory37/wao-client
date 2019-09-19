@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { connect } from 'react-redux';
 
 import SkewedBox from './SkewedBox';
 import CenteredContent from './CenteredContent';
@@ -9,19 +10,7 @@ const StyledHeaderButton = styled.div`
 	height: 40px;
 	font-size: 11px;
 
-	@media only screen and (min-width: 410px) {
-		width: 100px;
-		height: 45px;
-		font-size: 14px;
-	}
-
-	@media only screen and (min-width: 500px) {
-		width: 120px;
-		height: 50px;
-		font-size: 16px;
-	}
-
-	@media only screen and (min-width: 835px) {
+	@media only screen and (min-width: 614px) {
 		width: 120px;
 		height: 60px;
 		margin-left: 10px;
@@ -31,10 +20,10 @@ const StyledHeaderButton = styled.div`
 	color: white;
 `;
 
-const HeaderButton = ({ title, clipPath, isSelected }) => {
+const HeaderButton = ({ auth, title, clipPath, isSelected }) => {
 	return (
 		<StyledHeaderButton clipPath={clipPath}>
-			<SkewedBox clipPath={clipPath} color="#4d4d4d" isSelected={isSelected} useScale={true}>
+			<SkewedBox clipPath={clipPath} color={isSelected ? (auth.isAuthenticated && auth.user.color ? auth.user.color : 'red') : '#4a4a4a'} isSelected={isSelected} shouldGrowOnHover useScale={true}>
 				<CenteredContent>
 					<span>{title}</span>
 				</CenteredContent>
@@ -43,4 +32,8 @@ const HeaderButton = ({ title, clipPath, isSelected }) => {
 	);
 };
 
-export default HeaderButton;
+const mapStateToProps = state => ({
+	auth: state.auth
+});
+
+export default connect(mapStateToProps)(HeaderButton);

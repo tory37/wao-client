@@ -13,7 +13,8 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				isAuthenticated: !_.isEmpty(action.payload),
-				user: action.payload
+				isAdmin: _.includes(action.payload.roles, 'ADMIN'),
+				user: { ...action.payload, color: 'red' }
 			};
 		case USER_LOADING:
 			return {
