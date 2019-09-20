@@ -292,7 +292,7 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 
 							{isEditing && <DataFieldTextArea state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />}
 
-							{!isEditing && (
+							{!isEditing && event.lat && event.lng (
 								<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} target="_blank" rel="noopener noreferrer" className="eventview-location eventview-entry">
 									<i className="fas fa-street-view"></i>
 									<div className="eventview-location-address">{event.address}</div>
