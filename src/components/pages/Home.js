@@ -4,6 +4,7 @@ import {TwitterTimelineEmbed} from 'react-twitter-embed';
 
 import SkewedBox from '../SkewedBox';
 import LinkList from '../LinkList';
+import LinkListLink from '../LinkListLink';
 
 const linkListWidth = '150px';
 
@@ -101,6 +102,11 @@ const StyledHome = styled.div`
 `;
 
 const Home = () => {
+	const facebookUrl = 'https://www.facebook.com/groups/339371983406620/';
+	const discordUrl = 'https://discordapp.com/invite/4esrFJx';
+	const youtubeUrl = 'https://www.youtube.com/channel/UCST-uKFhHNfQpf4M7B81LlQ';
+	const twitterUrl = 'https://twitter.com/WeebsAndOtakus';
+
 	return (
 		<StyledHome linkListWidth={linkListWidth}>
 			<div className="home-banner">
@@ -123,7 +129,12 @@ const Home = () => {
 				</SkewedBox>
 			</div>
 			<div className="home-linklist">
-				<LinkList></LinkList>
+				<LinkList title="Links">
+					<LinkListLink title="Facebook" iconClass="fab fa-facebook-f" color="#3C5A99" url={facebookUrl}/>
+					<LinkListLink title="Discord" iconClass="fab fa-discord" color="#7289da" url={discordUrl}/>
+					<LinkListLink title="Youtube" iconClass="fab fa-youtube" color="#FF0000" url={youtubeUrl}/>
+					<LinkListLink title="Twitter" iconClass="fab fa-twitter" color="#00aced" url={twitterUrl}/>
+				</LinkList>
 			</div>
 
 			<div className="home-second-row">

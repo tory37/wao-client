@@ -43,6 +43,12 @@ const StyledButton = styled.div`
 			i {
 				font-size: 14px;
 			}
+
+			img {
+				width: 15px;
+				height: 15px;
+				filter: invert(1);
+			}
 		}
 	}
 
@@ -52,7 +58,7 @@ const StyledButton = styled.div`
 	}
 `;
 
-const WAOButton = ({ auth, title, color, clickCallback, isDisabled, isLoading, iconClass, isSubmit, useUserColor, isSelected, xs3, xs2, xs, sm, md, lg, xl, xl2, xl3, xl4, xl5, xl6, xl7 }) => {
+const WAOButton = ({ auth, title, color, clickCallback, isDisabled, isLoading, iconClass, imageUrl, isSubmit, useUserColor, isSelected, xs3, xs2, xs, sm, md, lg, xl, xl2, xl3, xl4, xl5, xl6, xl7 }) => {
 	const onClick = () => {
 		if (!isDisabled && clickCallback) {
 			clickCallback();
@@ -66,6 +72,7 @@ const WAOButton = ({ auth, title, color, clickCallback, isDisabled, isLoading, i
 					<CenteredContent>
 						<div className="waobutton-inner">
 							{iconClass && <i className={iconClass}></i>}
+							{imageUrl && <img src={imageUrl} />}
 							{title && <span className="waobutton-title">{title}</span>}
 							{isLoading && (
 								<div className="waobutton-loading">

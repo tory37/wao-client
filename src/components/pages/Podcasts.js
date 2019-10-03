@@ -1,0 +1,83 @@
+import React from 'react';
+import styled from '@emotion/styled';
+
+import SkewedBox from '../SkewedBox';
+import LinkList from '../LinkList';
+import LinkListLink from '../LinkListLink';
+
+const linkListWidth = '175px';
+
+const StyledPodcasts = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: flex-start;
+	flex-wrap: wrap;
+
+	.podcasts-content {
+		width: calc(100% - 10px);
+		margin-bottom: 40px;
+
+		@media only screen and (min-width: 615px) {
+			margin-right: 10px;
+			margin-left: 0;
+			width: calc(100% - 10px - 10px - ${props => props.linkListWidth}) !important;
+			margin-bottom: 40px;
+		}
+
+		.podcasts-content-inner {
+			padding: 10px;
+		}
+	}
+
+	.podcasts-linklist {
+		width: 100%;
+		margin-bottom: 40px;
+
+		@media only screen and (min-width: 615px) {
+			width: ${props => props.linkListWidth};
+			margin-bottom: 20px;
+		}
+	}
+`;
+
+const Podcasts = () => {
+    const itunesUrl = '';
+    const castroUrl = '';
+    const googleUrl = '';
+    const pocketCastsUrl = '';
+    const overcastUrl = '';
+    const radioPublicUrl = '';
+    const stitcherUrl = '';
+    const tuneInUrl = '';
+    const rssUrl = '';
+    
+	return (
+		<StyledPodcasts linkListWidth={linkListWidth}>
+			<div className="podcasts-content">
+				<SkewedBox color="#4a4a4a" isSelected>
+					<div className="podcasts-content-inner">
+						Episodes will be here
+					</div>
+				</SkewedBox>
+			</div>
+			<div className="podcasts-linklist">
+                <LinkList title="Subscribe">
+					<LinkListLink title="Apple" imageUrl="https://assets.podiant.co/img/apple.svg" color="#B150E2" url={itunesUrl}/>
+					<LinkListLink title="Castro" imageUrl="https://assets.podiant.co/img/castro.svg" color="#7289da" url={castroUrl}/>
+					<LinkListLink title="Google" imageUrl="https://assets.podiant.co/img/google.svg" color="#FF0000" url={googleUrl}/>
+					<LinkListLink title="Pocket Casts" imageUrl="https://assets.podiant.co/img/pcast.svg" color="#00aced" url={pocketCastsUrl}/>
+                    <LinkListLink title="Overcast" imageUrl="https://assets.podiant.co/img/overcast.svg" color="#3C5A99" url={overcastUrl}/>
+					<LinkListLink title="RadioPublic" imageUrl="https://assets.podiant.co/img/radiopublic.svg" color="#3C5A99" url={radioPublicUrl}/>
+					<LinkListLink title="Stitcher" imageUrl="https://assets.podiant.co/img/stitcher.svg" color="#3C5A99" url={stitcherUrl}/>
+					<LinkListLink title="TuneIn" imageUrl="https://assets.podiant.co/img/tunein.svg" color="#3C5A99" url={tuneInUrl}/>
+					<LinkListLink title="RSS" imageUrl="https://assets.podiant.co/img/rss.svg" color="#3C5A99" url={rssUrl}/>
+
+				</LinkList>
+			</div>
+		</StyledPodcasts>
+	);
+};
+
+export default Podcasts;
