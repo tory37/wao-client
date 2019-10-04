@@ -11,12 +11,12 @@ const StyledSidebarMenu = styled.div`
     height: 200px;
 `;
 
-const SidebarMenu = ({ isSidebarOpen, closeSidebar }) => {
+const SidebarMenu = ({children, isSidebarOpen, closeSidebar }) => {
     return (
         <StyledSidebarMenu>
             <SkewedBox color="#4A4A48">
                 <CenteredContent>
-                    What
+                   {children}
                 </CenteredContent>
             </SkewedBox>
         </StyledSidebarMenu>

@@ -10,7 +10,7 @@ const StyledHeaderButton = styled.div`
 	height: 40px;
 	font-size: 11px;
 
-	@media only screen and (min-width: 614px) {
+	@media only screen and (min-width: 690px) {
 		width: 120px;
 		height: 60px;
 		margin-left: 10px;

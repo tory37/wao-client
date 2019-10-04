@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import SkewedBox from '../SkewedBox';
 import LinkList from '../LinkList';
-import LinkListLink from '../LinkListLink';
+import LinkListButton from '../LinkListButton';
 
 const linkListWidth = '175px';
 
@@ -64,15 +64,15 @@ const Podcasts = () => {
 			</div>
 			<div className="podcasts-linklist">
                 <LinkList title="Subscribe">
-					<LinkListLink title="Apple" imageUrl="https://assets.podiant.co/img/apple.svg" color="#B150E2" url={itunesUrl} xl6/>
-					<LinkListLink title="Castro" imageUrl="https://assets.podiant.co/img/castro.svg" color="#7289da" url={castroUrl} xl6/>
-					<LinkListLink title="Google" imageUrl="https://assets.podiant.co/img/google.svg" color="#FF0000" url={googleUrl} xl6/>
-					<LinkListLink title="Pocket Casts" imageUrl="https://assets.podiant.co/img/pcast.svg" color="#00aced" url={pocketCastsUrl} xl6/>
-                    <LinkListLink title="Overcast" imageUrl="https://assets.podiant.co/img/overcast.svg" color="#3C5A99" url={overcastUrl} xl6/>
-					<LinkListLink title="RadioPublic" imageUrl="https://assets.podiant.co/img/radiopublic.svg" color="#3C5A99" url={radioPublicUrl} xl6/>
-					<LinkListLink title="Stitcher" imageUrl="https://assets.podiant.co/img/stitcher.svg" color="#3C5A99" url={stitcherUrl} xl6/>
-					<LinkListLink title="TuneIn" imageUrl="https://assets.podiant.co/img/tunein.svg" color="#3C5A99" url={tuneInUrl} xl6/>
-					<LinkListLink title="RSS" imageUrl="https://assets.podiant.co/img/rss.svg" color="#3C5A99" url={rssUrl} xl6/>
+					<LinkListButton title="Apple" imageUrl="https://assets.podiant.co/img/apple.svg" color="#B150E2" url={itunesUrl} xl6/>
+					<LinkListButton title="Castro" imageUrl="https://assets.podiant.co/img/castro.svg" color="#7289da" url={castroUrl} xl6/>
+					<LinkListButton title="Google" imageUrl="https://assets.podiant.co/img/google.svg" color="#FF0000" url={googleUrl} xl6/>
+					<LinkListButton title="Pocket Casts" imageUrl="https://assets.podiant.co/img/pcast.svg" color="#00aced" url={pocketCastsUrl} xl6/>
+                    <LinkListButton title="Overcast" imageUrl="https://assets.podiant.co/img/overcast.svg" color="#3C5A99" url={overcastUrl} xl6/>
+					<LinkListButton title="RadioPublic" imageUrl="https://assets.podiant.co/img/radiopublic.svg" color="#3C5A99" url={radioPublicUrl} xl6/>
+					<LinkListButton title="Stitcher" imageUrl="https://assets.podiant.co/img/stitcher.svg" color="#3C5A99" url={stitcherUrl} xl6/>
+					<LinkListButton title="TuneIn" imageUrl="https://assets.podiant.co/img/tunein.svg" color="#3C5A99" url={tuneInUrl} xl6/>
+					<LinkListButton title="RSS" imageUrl="https://assets.podiant.co/img/rss.svg" color="#3C5A99" url={rssUrl} xl6/>
 
 				</LinkList>
 			</div>

@@ -4,7 +4,7 @@ import {TwitterTimelineEmbed} from 'react-twitter-embed';
 
 import SkewedBox from '../SkewedBox';
 import LinkList from '../LinkList';
-import LinkListLink from '../LinkListLink';
+import LinkListButton from '../LinkListButton';
 
 const linkListWidth = '150px';
 
@@ -37,7 +37,7 @@ const StyledHome = styled.div`
 		width: calc(100% - 10px);
 		margin-bottom: 40px;
 
-		@media only screen and (min-width: 615px) {
+		@media only screen and (min-width: 690px) {
 			margin-right: 10px;
 			margin-left: 0;
 			width: calc(100% - 10px - 10px - ${props => props.linkListWidth}) !important;
@@ -53,7 +53,7 @@ const StyledHome = styled.div`
 		width: 100%;
 		margin-bottom: 40px;
 
-		@media only screen and (min-width: 615px) {
+		@media only screen and (min-width: 690px) {
 			width: ${props => props.linkListWidth};
 			margin-bottom: 20px;
 		}
@@ -72,7 +72,7 @@ const StyledHome = styled.div`
 			width: 100%;
 			margin-bottom: 40px;
 
-			@media only screen and (min-width: 615px) {
+			@media only screen and (min-width: 690px) {
 				width: calc(50% - 40px);
 				margin-left: 10px;
 				margin-right: 10px;
@@ -130,10 +130,10 @@ const Home = () => {
 			</div>
 			<div className="home-linklist">
 				<LinkList title="Links">
-					<LinkListLink title="Facebook" iconClass="fab fa-facebook-f" color="#3C5A99" url={facebookUrl} xl3/>
-					<LinkListLink title="Discord" iconClass="fab fa-discord" color="#7289da" url={discordUrl} xl3/>
-					<LinkListLink title="Youtube" iconClass="fab fa-youtube" color="#FF0000" url={youtubeUrl} xl3/>
-					<LinkListLink title="Twitter" iconClass="fab fa-twitter" color="#00aced" url={twitterUrl} xl3/>
+					<LinkListButton title="Facebook" iconClass="fab fa-facebook-f" color="#3C5A99" shouldCollapse url={facebookUrl} xl3/>
+					<LinkListButton title="Discord" iconClass="fab fa-discord" color="#7289da" shouldCollapse url={discordUrl} xl3/>
+					<LinkListButton title="Youtube" iconClass="fab fa-youtube" color="#FF0000" shouldCollapse url={youtubeUrl} xl3/>
+					<LinkListButton title="Twitter" iconClass="fab fa-twitter" color="#00aced" shouldCollapse url={twitterUrl} xl3/>
 				</LinkList>
 			</div>
 

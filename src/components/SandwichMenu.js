@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import { openSidebar as openSidebarAction, closeSidebar as closeSidebarAction } from '../actions/sidebarActions';
@@ -20,6 +20,19 @@ const StyledSandwichMenu = styled.div`
 `;
 
 const SandwichMenu = ({ isSidebarOpen, openSidebar, closeSidebar }) => {
+    const menuButton = useRef();
+
+    useEffect(() => {
+		// add when mounted
+		document.addEventListener('mousedown', handleClick);
+
+		// return function to be called when unmounted
+		return () => {
+			document.removeEventListener('mousedown', handleClick);
+		};
+	}, [isSidebarOpen]);
+    
+
     const onClick = () => {
         if (isSidebarOpen) {
             closeSidebar();
@@ -28,12 +41,27 @@ const SandwichMenu = ({ isSidebarOpen, openSidebar, closeSidebar }) => {
         }
     }
 
+    const handleClick = e => {
+		if (menuButton.current.contains(e.target)) {
+			if (isSidebarOpen) {
+				closeSidebar();
+				return;
+			}
+			openSidebar();
+			// inside click
+			return;
+		} else {
+			// outside click
+			closeSidebar();
+		}
+	};
+
     return (
         <StyledSandwichMenu>
-            <div className="sandwichmenu-wrapper" onClick={onClick}>
+            <div className="sandwichmenu-wrapper" ref={menuButton}>
                 <SkewedBox color="#4A4A48">
                     <CenteredContent>
-                        <i class="fas fa-bars"></i>
+                        <i className="fas fa-bars"></i>
                     </CenteredContent>
                 </SkewedBox>
             </div>

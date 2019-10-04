@@ -14,24 +14,12 @@ const StyledLinkList = styled.div`
 	.linklist-entries {
 		width: 100%;
 
-		@media only screen and (max-width: 614px) {
+		@media only screen and (max-width: 690px) {
 			display: flex;
 			flex-direction: row;
 			justify-content: space-around;
 			align-items: center;
 			flex-wrap: wrap;
-		}
-
-		.linklist-entry-full {
-			@media only screen and (max-width: 614px) {
-				display: none;
-			}
-		}
-
-		.linklist-entry-mini {
-			@media only screen and (min-width: 615px) {
-				display: none;
-			}
 		}
 	}
 `;
