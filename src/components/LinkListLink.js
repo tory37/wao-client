@@ -19,7 +19,7 @@ const StyledLinkListLink = styled.div`
     }
 `;
 
-const LinkListLink = ({title, iconClass, imageUrl, color, url}) => {
+const LinkListLink = ({title, iconClass, imageUrl, color, url, xl3, xl6}) => {
 
 	const openInNewTab = url => {
 		var win = window.open(url, '_blank');
@@ -29,10 +29,10 @@ const LinkListLink = ({title, iconClass, imageUrl, color, url}) => {
 	return (
 		<StyledLinkListLink>
             <div className="linklist-entry-full">
-                <WAOButton title={title} iconClass={iconClass} imageUrl={imageUrl} color={color} clickCallback={() => openInNewTab(url)} xl6 />
+                <WAOButton title={title} iconClass={iconClass} imageUrl={imageUrl} color={color} clickCallback={() => openInNewTab(url)} xl3={xl3} xl6={xl6} />
             </div>
             <div className="linklist-entry-mini">
-                <WAOButton iconClass={iconClass} color={color} clickCallback={() => openInNewTab(url)} xs />
+                <WAOButton iconClass={iconClass} color={color} imageUrl={imageUrl} clickCallback={() => openInNewTab(url)} xs />
             </div>
 		</StyledLinkListLink>
 	);

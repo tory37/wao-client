@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import Header from './Header';
 import BugReportModal from './BugReportModal';
+import SidebarMenu from './SidebarMenu';
 
 const headerMarings = {
 	width_0: '10px',
@@ -18,11 +19,11 @@ const StyledLayout = styled.div`
 	position: relative;
 
 	.layout-header-wrapper {
-		height: 104px;
+		height: 60px;
 		/* AUTH */
 		/* height: 109px; */
 
-		@media only screen and (min-width: 614px) {
+		@media only screen and (min-width: 690px) {
 			height: 65px;
 		}
 	}
@@ -37,11 +38,17 @@ const StyledLayout = styled.div`
 		width: 100%;
 		overflow-y: scroll;
 		padding-top: 10px;
+		position: relative;
 
 		height: calc(100vh - 120px);
 
 		@media only screen and (min-width: 614px) {
 			height: calc(100vh - 76px);
+		}
+
+		.layout-body-sidebar {
+			position: absolute;
+			right: -200px;
 		}
 
 		main {
@@ -85,6 +92,9 @@ const Layout = ({ children, auth }) => (
 			</div>
 		)}
 		<div className="layout-body-wrapper">
+			<div className="layout-body-sidebar">
+				<SidebarMenu />
+			</div>
 			<main>{children}</main>
 			<footer>
 				<a href="mailto:weebsandotakus@gmail.com">Support</a>
@@ -94,7 +104,8 @@ const Layout = ({ children, auth }) => (
 );
 
 const mapStateToProps = state => ({
-	auth: state.auth
+	auth: state.auth,
+	isSidebarOpen: state.sidebar
 });
 
 Layout.propTypes = {

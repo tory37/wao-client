@@ -130,10 +130,10 @@ const Home = () => {
 			</div>
 			<div className="home-linklist">
 				<LinkList title="Links">
-					<LinkListLink title="Facebook" iconClass="fab fa-facebook-f" color="#3C5A99" url={facebookUrl}/>
-					<LinkListLink title="Discord" iconClass="fab fa-discord" color="#7289da" url={discordUrl}/>
-					<LinkListLink title="Youtube" iconClass="fab fa-youtube" color="#FF0000" url={youtubeUrl}/>
-					<LinkListLink title="Twitter" iconClass="fab fa-twitter" color="#00aced" url={twitterUrl}/>
+					<LinkListLink title="Facebook" iconClass="fab fa-facebook-f" color="#3C5A99" url={facebookUrl} xl3/>
+					<LinkListLink title="Discord" iconClass="fab fa-discord" color="#7289da" url={discordUrl} xl3/>
+					<LinkListLink title="Youtube" iconClass="fab fa-youtube" color="#FF0000" url={youtubeUrl} xl3/>
+					<LinkListLink title="Twitter" iconClass="fab fa-twitter" color="#00aced" url={twitterUrl} xl3/>
 				</LinkList>
 			</div>
 
