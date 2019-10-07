@@ -43,6 +43,12 @@ const StyledButton = styled.div`
 			i {
 				font-size: 14px;
 			}
+
+			img {
+				width: 15px;
+				height: 15px;
+				filter: invert(1);
+			}
 		}
 	}
 
@@ -52,7 +58,7 @@ const StyledButton = styled.div`
 	}
 `;
 
-const WAOButton = ({ auth, title, color, clickCallback, isDisabled, isLoading, iconClass, isSubmit, useUserColor, isSelected, xs3, xs2, xs, sm, md, lg, xl, xl2, xl3, xl4, xl5, xl6, xl7 }) => {
+const WAOButton = ({ auth, title, color, clickCallback, isDisabled, isLoading, iconClass, imageUrl, isSubmit, useUserColor, isSelected, xs3, xs2, xs, sm, md, lg, xl, xl2, xl3, xl4, xl5, xl6, xl7 }) => {
 	const onClick = () => {
 		if (!isDisabled && clickCallback) {
 			clickCallback();
@@ -62,10 +68,11 @@ const WAOButton = ({ auth, title, color, clickCallback, isDisabled, isLoading, i
 	return (
 		<StyledButton useUserColor={useUserColor} xs3={xs3} xs2={xs2} xs={xs} sm={sm} md={md} lg={lg} xl={xl} xl2={xl2} xl3={xl3} xl4={xl4} xl5={xl5} xl6={xl6} xl7={xl7} isDisabled={isDisabled} isLoading={isLoading} isSelected={isSelected}>
 			<button className="waobutton-click-wrapper" onClick={onClick} type={isSubmit ? 'submit' : 'button'}>
-				<SkewedBox clipPath="3% 0, 100% 0, 96% 100%, 0% 100%" shouldGrowOnHover fromCenter useScale color={useUserColor && auth.user.color ? auth.user.color : color} isDisabled={isDisabled}>
+				<SkewedBox clipPath="3% 0, 100% 0, 96% 100%, 0% 100%" shouldGrowOnHover fromCenter useScale color={useUserColor && auth.user.color ? auth.user.color : isSelected ? 'red' : color} isDisabled={isDisabled}>
 					<CenteredContent>
 						<div className="waobutton-inner">
 							{iconClass && <i className={iconClass}></i>}
+							{imageUrl && <img src={imageUrl} />}
 							{title && <span className="waobutton-title">{title}</span>}
 							{isLoading && (
 								<div className="waobutton-loading">

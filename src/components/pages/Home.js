@@ -4,6 +4,7 @@ import {TwitterTimelineEmbed} from 'react-twitter-embed';
 
 import SkewedBox from '../SkewedBox';
 import LinkList from '../LinkList';
+import LinkListButton from '../LinkListButton';
 
 const linkListWidth = '150px';
 
@@ -36,7 +37,7 @@ const StyledHome = styled.div`
 		width: calc(100% - 10px);
 		margin-bottom: 40px;
 
-		@media only screen and (min-width: 615px) {
+		@media only screen and (min-width: 690px) {
 			margin-right: 10px;
 			margin-left: 0;
 			width: calc(100% - 10px - 10px - ${props => props.linkListWidth}) !important;
@@ -52,7 +53,7 @@ const StyledHome = styled.div`
 		width: 100%;
 		margin-bottom: 40px;
 
-		@media only screen and (min-width: 615px) {
+		@media only screen and (min-width: 690px) {
 			width: ${props => props.linkListWidth};
 			margin-bottom: 20px;
 		}
@@ -71,7 +72,7 @@ const StyledHome = styled.div`
 			width: 100%;
 			margin-bottom: 40px;
 
-			@media only screen and (min-width: 615px) {
+			@media only screen and (min-width: 690px) {
 				width: calc(50% - 40px);
 				margin-left: 10px;
 				margin-right: 10px;
@@ -101,6 +102,11 @@ const StyledHome = styled.div`
 `;
 
 const Home = () => {
+	const facebookUrl = 'https://www.facebook.com/groups/339371983406620/';
+	const discordUrl = 'https://discordapp.com/invite/4esrFJx';
+	const youtubeUrl = 'https://www.youtube.com/channel/UCST-uKFhHNfQpf4M7B81LlQ';
+	const twitterUrl = 'https://twitter.com/WeebsAndOtakus';
+
 	return (
 		<StyledHome linkListWidth={linkListWidth}>
 			<div className="home-banner">
@@ -123,7 +129,12 @@ const Home = () => {
 				</SkewedBox>
 			</div>
 			<div className="home-linklist">
-				<LinkList></LinkList>
+				<LinkList title="Links">
+					<LinkListButton title="Facebook" iconClass="fab fa-facebook-f" color="#3C5A99" shouldCollapse url={facebookUrl} xl3/>
+					<LinkListButton title="Discord" iconClass="fab fa-discord" color="#7289da" shouldCollapse url={discordUrl} xl3/>
+					<LinkListButton title="Youtube" iconClass="fab fa-youtube" color="#FF0000" shouldCollapse url={youtubeUrl} xl3/>
+					<LinkListButton title="Twitter" iconClass="fab fa-twitter" color="#00aced" shouldCollapse url={twitterUrl} xl3/>
+				</LinkList>
 			</div>
 
 			<div className="home-second-row">
