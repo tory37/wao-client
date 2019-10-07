@@ -7,18 +7,15 @@ import SkewedBox from './SkewedBox';
 import CenteredContent from './CenteredContent';
 
 const StyledSidebarMenu = styled.div`
-    width:100px;
-    height: 200px;
+    width: 180px;
 `;
 
 const SidebarMenu = ({children, isSidebarOpen, closeSidebar }) => {
     return (
         <StyledSidebarMenu>
-            <SkewedBox color="#4A4A48">
-                <CenteredContent>
-                   {children}
-                </CenteredContent>
-            </SkewedBox>
+            <CenteredContent>
+                {children}
+            </CenteredContent>
         </StyledSidebarMenu>
     )
 };

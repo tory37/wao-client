@@ -68,7 +68,7 @@ const WAOButton = ({ auth, title, color, clickCallback, isDisabled, isLoading, i
 	return (
 		<StyledButton useUserColor={useUserColor} xs3={xs3} xs2={xs2} xs={xs} sm={sm} md={md} lg={lg} xl={xl} xl2={xl2} xl3={xl3} xl4={xl4} xl5={xl5} xl6={xl6} xl7={xl7} isDisabled={isDisabled} isLoading={isLoading} isSelected={isSelected}>
 			<button className="waobutton-click-wrapper" onClick={onClick} type={isSubmit ? 'submit' : 'button'}>
-				<SkewedBox clipPath="3% 0, 100% 0, 96% 100%, 0% 100%" shouldGrowOnHover fromCenter useScale color={useUserColor && auth.user.color ? auth.user.color : color} isDisabled={isDisabled}>
+				<SkewedBox clipPath="3% 0, 100% 0, 96% 100%, 0% 100%" shouldGrowOnHover fromCenter useScale color={useUserColor && auth.user.color ? auth.user.color : isSelected ? 'red' : color} isDisabled={isDisabled}>
 					<CenteredContent>
 						<div className="waobutton-inner">
 							{iconClass && <i className={iconClass}></i>}

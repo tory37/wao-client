@@ -15,14 +15,14 @@ const StyledLinkListButton = styled.div`
 
     .linklist-entry-mini {
         display: none;
-        
+
         @media only screen and (max-width: 690px) {
             display: ${props => props.shouldCollapse ? 'inherit' : 'none'};
         }
     }
 `;
 
-const LinkListButton = ({title, link, iconClass, imageUrl, color, url, shouldCollapse, xl3, xl6}) => {
+const LinkListButton = ({title, link, iconClass, imageUrl, isSelected, color, url, shouldCollapse, xl3, xl6}) => {
 
 	const openInNewTab = url => {
         if (url) {
@@ -31,8 +31,8 @@ const LinkListButton = ({title, link, iconClass, imageUrl, color, url, shouldCol
         }
     };
     
-    const fullContent = (<WAOButton title={title} iconClass={iconClass} imageUrl={imageUrl} color={color} clickCallback={() => openInNewTab(url)} xl3={xl3} xl6={xl6} />);
-    const miniContent = (<WAOButton iconClass={iconClass} color={color} imageUrl={imageUrl} clickCallback={() => openInNewTab(url)} xs />);
+    const fullContent = (<WAOButton title={title} iconClass={iconClass} isSelected={isSelected} imageUrl={imageUrl} color={color} clickCallback={() => openInNewTab(url)} xl3={xl3} xl6={xl6} />);
+    const miniContent = (<WAOButton iconClass={iconClass} color={color} isSelected={isSelected} imageUrl={imageUrl} clickCallback={() => openInNewTab(url)} xs />);
 
 	return (
 		<StyledLinkListButton shouldCollapse={shouldCollapse}>

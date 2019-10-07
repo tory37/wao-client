@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
+import { routePaths, isOnRoute, routeDefs } from '../routeDefs';
+import { withRouter } from 'react-router-dom';
 
 import Header from './Header';
 import BugReportModal from './BugReportModal';
@@ -51,6 +53,7 @@ const StyledLayout = styled.div`
 		.layout-body-sidebar {
 			position: absolute;
 			right: -200px;
+			top: -5px;
 			transition: right 300ms ease-in-out;
 			z-index: 1000;
 
@@ -93,7 +96,7 @@ const StyledLayout = styled.div`
 	}
 `;
 
-const Layout = ({ children, auth, isSidebarOpen }) => (
+const Layout = ({ children, auth, isSidebarOpen, location }) => (
 	<StyledLayout>
 		<div className="layout-header-wrapper">
 			<Header />
@@ -107,10 +110,10 @@ const Layout = ({ children, auth, isSidebarOpen }) => (
 			<div className={'layout-body-sidebar' + (isSidebarOpen ? ' open' : '')}>
 				<SidebarMenu>
 					<LinkList title="Links">
-						<LinkListButton title="Home" color="#3C5A99" shouldCollapse={false} xl3/>
-						<LinkListButton title="Events" color="#7289da" xl3/>
-						<LinkListButton title="About Us" color="#FF0000" xl3/>
-						<LinkListButton title="Podcast" color="#00aced" xl3/>
+						<LinkListButton title="Home" color="#4a4a4a" link={routeDefs.home} isSelected={isOnRoute(location, routePaths.home)}  shouldCollapse={false} xl3/>
+						<LinkListButton title="Events" color="#4a4a4a" link={routeDefs.events} isSelected={isOnRoute(location, routePaths.events)} xl3/>
+						<LinkListButton title="About Us" color="#4a4a4a" link={routeDefs.aboutUs} isSelected={isOnRoute(location, routePaths.aboutUs)} xl3/>
+						{/* <LinkListButton title="Podcasts" color="#4a4a4a" link={routeDefs.podcasts} isSelected={isOnRoute(location, routePaths.podcasts)} xl3/> */}
 					</LinkList>
 				</SidebarMenu>
 			</div>
@@ -131,4 +134,4 @@ Layout.propTypes = {
 	children: PropTypes.node.isRequired
 };
 
-export default connect(mapStateToProps)(Layout);
+export default connect(mapStateToProps)(withRouter(Layout));
