@@ -108,6 +108,23 @@ export default {
 				}
 			],
 			iconName: 'fas fa-rocket'
+		},
+		{
+			name: 'Ironsouled',
+			imageUrl: 'ironsouled.jpg',
+			roles: 'Discord Admin |',
+			description: 'Your description / bio here',
+			stats: [
+				{
+					title: 'Fav Anime',
+					value: 'Fullmetal Alchemist'
+				},
+				{
+					title: 'Fav Food',
+					value: 'Curry'
+				}
+			],
+			iconName: 'fas fa-fire'
 		}
 	]
 };

@@ -113,7 +113,7 @@ const Layout = ({ children, auth, isSidebarOpen, location }) => (
 						<LinkListButton title="Home" color="#4a4a4a" link={routeDefs.home} isSelected={isOnRoute(location, routePaths.home)}  shouldCollapse={false} xl3/>
 						<LinkListButton title="Events" color="#4a4a4a" link={routeDefs.events} isSelected={isOnRoute(location, routePaths.events)} xl3/>
 						<LinkListButton title="About Us" color="#4a4a4a" link={routeDefs.aboutUs} isSelected={isOnRoute(location, routePaths.aboutUs)} xl3/>
-						{/* <LinkListButton title="Podcasts" color="#4a4a4a" link={routeDefs.podcasts} isSelected={isOnRoute(location, routePaths.podcasts)} xl3/> */}
+						<LinkListButton title="Podcasts" color="#4a4a4a" link={routeDefs.podcasts} isSelected={isOnRoute(location, routePaths.podcasts)} xl3/>
 					</LinkList>
 				</SidebarMenu>
 			</div>
