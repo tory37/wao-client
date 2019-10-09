@@ -286,7 +286,11 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 										{isDescExpanded ? <span>Collapse</span> : <span>Expand</span>}
 									</div>
 
-									<div className={'content ' + (isDescExpanded ? 'collapsed' : 'expanded')}>{event.description}</div>
+									<div className={'content ' + (isDescExpanded ? 'collapsed' : 'expanded')}>
+										{event.description.split('|').map((i,key) => {
+											return <div key={key}>{i}<br /></div>;
+										})}
+									</div>
 								</div>
 							)}
 
