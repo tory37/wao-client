@@ -38,6 +38,22 @@ const StyledLayout = styled.div`
 		z-index: 100;
 	}
 
+	.layout-body-sidebar {
+		position: absolute;
+		right: -200px;
+		top: 55px;
+		transition: right 300ms ease-in-out;
+		z-index: 1000;
+
+		&.open {
+			right: 0;
+		}
+
+		@media only screen and (min-width: 690px) {
+			display: none;
+		}
+	}
+
 	.layout-body-wrapper {
 		width: 100%;
 		overflow-y: scroll;
@@ -48,22 +64,6 @@ const StyledLayout = styled.div`
 
 		@media only screen and (min-width: 690px) {
 			height: calc(100vh - 76px);
-		}
-
-		.layout-body-sidebar {
-			position: absolute;
-			right: -200px;
-			top: -5px;
-			transition: right 300ms ease-in-out;
-			z-index: 1000;
-
-			&.open {
-				right: 0;
-			}
-
-			@media only screen and (min-width: 690px) {
-				display: none;
-			}
 		}
 
 		main {
@@ -107,20 +107,21 @@ const Layout = ({ children, auth, isSidebarOpen, location }) => (
 			</div>
 		)}
 		<div className="layout-body-wrapper">
-			<div className={'layout-body-sidebar' + (isSidebarOpen ? ' open' : '')}>
-				<SidebarMenu>
-					<LinkList title="Links">
-						<LinkListButton title="Home" color="#4a4a4a" link={routeDefs.home} isSelected={isOnRoute(location, routePaths.home)}  shouldCollapse={false} xl3/>
-						<LinkListButton title="Events" color="#4a4a4a" link={routeDefs.events} isSelected={isOnRoute(location, routePaths.events)} xl3/>
-						<LinkListButton title="About Us" color="#4a4a4a" link={routeDefs.aboutUs} isSelected={isOnRoute(location, routePaths.aboutUs)} xl3/>
-						{/* <LinkListButton title="Podcasts" color="#4a4a4a" link={routeDefs.podcasts} isSelected={isOnRoute(location, routePaths.podcasts)} xl3/> */}
-					</LinkList>
-				</SidebarMenu>
-			</div>
 			<main>{children}</main>
 			<footer>
 				<a href="mailto:weebsandotakus@gmail.com">Support</a>
 			</footer>
+		</div>
+
+		<div className={'layout-body-sidebar' + (isSidebarOpen ? ' open' : '')}>
+			<SidebarMenu>
+				<LinkList title="Links">
+					<LinkListButton title="Home" color="#4a4a4a" link={routeDefs.home} isSelected={isOnRoute(location, routePaths.home)}  shouldCollapse={false} xl3/>
+					<LinkListButton title="Events" color="#4a4a4a" link={routeDefs.events} isSelected={isOnRoute(location, routePaths.events)} xl3/>
+					<LinkListButton title="About Us" color="#4a4a4a" link={routeDefs.aboutUs} isSelected={isOnRoute(location, routePaths.aboutUs)} xl3/>
+					{/* <LinkListButton title="Podcasts" color="#4a4a4a" link={routeDefs.podcasts} isSelected={isOnRoute(location, routePaths.podcasts)} xl3/> */}
+				</LinkList>
+			</SidebarMenu>
 		</div>
 	</StyledLayout>
 );
