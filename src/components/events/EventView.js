@@ -286,13 +286,17 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 										{isDescExpanded ? <span>Collapse</span> : <span>Expand</span>}
 									</div>
 
-									<div className={'content ' + (isDescExpanded ? 'collapsed' : 'expanded')}>{event.description}</div>
+									<div className={'content ' + (isDescExpanded ? 'collapsed' : 'expanded')}>
+										{event.description.split('|').map((i,key) => {
+											return <div key={key}>{i}<br /></div>;
+										})}
+									</div>
 								</div>
 							)}
 
 							{isEditing && <DataFieldTextArea state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />}
 
-							{!isEditing && (
+							{!isEditing && event.lat && event.lng (
 								<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} target="_blank" rel="noopener noreferrer" className="eventview-location eventview-entry">
 									<i className="fas fa-street-view"></i>
 									<div className="eventview-location-address">{event.address}</div>

@@ -8,6 +8,7 @@ import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Signup from './components/pages/Signup';
 import Events from './components/pages/Events';
+import Podcasts from './components/pages/Podcasts';
 import UserProfile from './components/pages/UserProfile';
 import Verify from './components/pages/Verify';
 import PasswordReset from './components/pages/PasswordReset';
@@ -23,6 +24,7 @@ const Routes = () => (
 			<Switch>
 				<Route exact path={routeDefs.home} component={Home} />
 				<Route exact path={routeDefs.events} component={Events} />
+				<Route exact path={routeDefs.podcasts} component={Podcasts} />
 				<Route exact path={routeDefs.login + '/:goback?'} component={Login} />
 				<Route exact path={routeDefs.signup} component={Signup} />
 				<Route exact path={routeDefs.verifyUser} component={Verify} />

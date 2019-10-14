@@ -1,6 +1,7 @@
 export const routeDefs = {
 	home: '/',
 	events: '/events',
+	podcasts: '/podcasts',
 	login: '/login',
 	signup: '/signup',
 	verifyUser: '/verify/:token?',
@@ -15,6 +16,7 @@ export const routeDefs = {
 export const routePaths = {
 	home: '/',
 	events: '/events',
+	podcasts: '/podcasts',
 	login: '/login',
 	signup: '/signup',
 	verifyUser: '/verify',

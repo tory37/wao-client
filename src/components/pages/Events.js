@@ -37,6 +37,11 @@ const StyledEvents = styled.div`
 		width: 100%;
 	}
 
+	.events-no-upcoming {
+		width: 200px;
+		height: 45px;
+	}
+
 	.events-show-past-button {
 		margin-top: 10px;
 	}
@@ -118,6 +123,16 @@ const Events = ({ events, auth, isLoadingEvents, fetchAllEvents }) => {
 							</div>
 						);
 					})}
+
+				{(!futureEvents || futureEvents.length === 0) && !shouldShowPast &&
+					<div className="events-no-upcoming">
+						<SkewedBox color="red" clipPath="0 0, 99% 13%, 96% 100%, 7% 100%" isSelected>
+							<CenteredContent>
+								No Upcoming Events
+							</CenteredContent>
+						</SkewedBox>
+					</div>
+				}
 
 				{shouldShowPast &&
 					pastEvents &&
