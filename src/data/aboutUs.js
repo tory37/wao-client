@@ -131,6 +131,24 @@ export default {
         }
       ],
       iconName: "fas fa-feather"
+    },
+    {
+      name: "Courtney",
+      imageUrl: "courtney.jpg",
+      roles: "FB Group Admin |",
+      description:
+        "Here to make your days brighter and your nightmares darker. Type A. Horror fanatic. Loves cute things. Who's ready to party?!",
+      stats: [
+        {
+          title: "Fav Anime",
+          value: "Fullmetal Alchemist"
+        },
+        {
+          title: "Fav Food",
+          value: "Curry"
+        }
+      ],
+      iconName: "fas fa-coffee"
     }
   ]
 };
