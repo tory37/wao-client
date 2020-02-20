@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import aboutUsData from '../../data/aboutUs';
 
-import PlayerCard from '../PlayerCard';
-import ContributorCard from '../ContributorCard';
+import StaffCard from '../StaffCard';
 
 const StyledAboutUs = styled.div`
 	width: 100%;
@@ -44,34 +43,32 @@ const StyledAboutUs = styled.div`
 	}
 `;
 
-const Card = () => {};
-
-const Founders = ({}) => {
+const Founders = ( { } ) => {
 	return (
 		<div className="aboutus-content">
-			{aboutUsData.founders.map((founder, index) => (
-				<PlayerCard key={index} name={founder.name} imageUrl={founder.imageUrl} text1={founder.roles} text2={founder.description} stats={founder.stats} iconName={founder.iconName} />
-			))}
+			{ aboutUsData.founders.map( ( founder, index ) => (
+				<StaffCard key={ index } isFullBody name={ founder.name } imageUrl={ founder.imageUrl } text1={ founder.roles } text2={ founder.description } stats={ founder.stats } iconName={ founder.iconName } />
+			) ) }
 		</div>
 	);
 };
 
-const Contributors = ({}) => {
+const Contributors = ( { } ) => {
 	return (
 		<div className="aboutus-content">
-			{aboutUsData.contributors.map((contributor, index) => (
-					<ContributorCard key={index} small name={contributor.name} imageUrl={contributor.imageUrl} text1={contributor.roles} text2={contributor.description} stats={contributor.stats} iconName={contributor.iconName} />
-			))}
+			{ aboutUsData.contributors.map( ( contributor, index ) => (
+				<StaffCard key={ index } name={ contributor.name } imageUrl={ contributor.imageUrl } text1={ contributor.roles } text2={ contributor.description } stats={ contributor.stats } iconName={ contributor.iconName } />
+			) ) }
 		</div>
 	);
 };
 
-const SuperPatrons = ({}) => {
+const SuperPatrons = ( { } ) => {
 	return <div>super patrons</div>;
 };
 
-const AboutUs = ({ match, location, history }) => {
-	useEffect(() => {}, []);
+const AboutUs = ( { match, location, history } ) => {
+	useEffect( () => { }, [] );
 
 	const types = {
 		founders: '/founders',
@@ -80,7 +77,7 @@ const AboutUs = ({ match, location, history }) => {
 	};
 
 	const onNavClick = route => {
-		history.push(match.url + route);
+		history.push( match.url + route );
 	};
 
 	return (
@@ -103,6 +100,6 @@ const AboutUs = ({ match, location, history }) => {
 	);
 };
 
-const AboutUsFounders = () => {};
+const AboutUsFounders = () => { };
 
 export default AboutUs;
