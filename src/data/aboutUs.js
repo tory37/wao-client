@@ -6,7 +6,7 @@ export default {
       roles:
         "Podcast Host | Software Engineer | Facebook Group Admin | Discord Admin",
       description:
-        "Tory is a software engineer, drummer, weight lifter, and all out weeb. He enjoys dark, cold rooms where he can cover up and code, watch tv, play games or listen music.  https://twitter.com/torayquaza",
+        "Tory is a software engineer, drummer, weight lifter, and all out weeb. He enjoys dark, cold rooms where he can cover up and code, watch tv, play games or listen music.",
       stats: [
         {
           title: "Fav Anime",
@@ -82,7 +82,7 @@ export default {
     {
       name: "Moaku",
       imageUrl: "moaku.png",
-      roles: "Discord Admin |",
+      roles: "Discord Admin",
       description:
         "Nerd, been studying Japanese for like 4 years non stop, and correctly believes that Hibike! Euphonium is objectively the best anime to ever exist. He also runs https://www.moakuwolf.moe/ where you can read up on Japanese used in anime and games!",
       stats: [
@@ -100,7 +100,7 @@ export default {
     {
       name: "Steffi aka Ylarnja",
       imageUrl: "steffi.jpeg",
-      roles: "Discord Admin |",
+      roles: "Discord Admin",
       description:
         "Software Developer, japanese learner and professional sloth.",
       stats: [
@@ -118,7 +118,7 @@ export default {
     {
       name: "Ironsouled",
       imageUrl: "iron.jpg",
-      roles: "Discord Admin |",
+      roles: "Discord Admin",
       description: "Business owner, VN fanatic, and the saltiest man alive",
       stats: [
         {
@@ -135,7 +135,7 @@ export default {
     {
       name: "Courtney",
       imageUrl: "courtney.jpg",
-      roles: "FB Group Admin |",
+      roles: "FB Group Admin",
       description:
         "Here to make your days brighter and your nightmares darker. Type A. Horror fanatic. Loves cute things. Who's ready to party?!",
       stats: [
