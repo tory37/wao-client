@@ -92,12 +92,12 @@ const Header = ({ location }) => {
 				<Link to={routePaths.events}>
 					<HeaderButton title="Events" clipPath="5% 17%, 96% 5%, 94% 100%, 7% 100%" isSelected={isOnRoute(location, routePaths.events)} />
 				</Link>
+				<Link to={routePaths.podcasts}>
+					<HeaderButton title="Podcast" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={isOnRoute(location, routePaths.podcasts)} />
+				</Link>
 				<Link to={routePaths.aboutUs}>
 					<HeaderButton title="About" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={isOnRoute(location, routePaths.aboutUs)} />
 				</Link>
-				{/* <Link to={routePaths.podcasts}>
-					<HeaderButton title="Podcasts" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={isOnRoute(location, routePaths.podcasts)} />
-				</Link> */}
 				{/* AUTH */}
 				{/* <div className="user-menu-wrapper">
 					<UserStatus isSelected={isOnRoute(location, routePaths.userProfile)} />
