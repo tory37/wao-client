@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import SkewedBox from '../SkewedBox';
-import LinkList from '../LinkList';
-import LinkListButton from '../LinkListButton';
+// import SkewedBox from '../SkewedBox';
+// import LinkList from '../LinkList';
+// import LinkListButton from '../LinkListButton';
+import SectionHeader from '../../styles/SectionHeader';
 
 const linkListWidth = '175px';
 
@@ -17,13 +18,18 @@ const StyledPodcasts = styled.div`
 
 	.podcasts-content {
 		width: calc(100% - 10px);
-		margin-bottom: 40px;
+		text-align: center;
+		
+		iframe {
+			width: 250px;
+			height: 158px;
 
-		@media only screen and (min-width: 615px) {
-			margin-right: 10px;
-			margin-left: 0;
-			width: calc(100% - 10px - 10px - ${props => props.linkListWidth}) !important;
-			margin-bottom: 40px;
+			@media only screen and (min-width: 615px) {
+				width: 100%;
+				text-align: center;
+				width: 560px;
+				height: 315px;
+			}
 		}
 
 		.podcasts-content-inner {
@@ -31,38 +37,35 @@ const StyledPodcasts = styled.div`
 		}
 	}
 
-	.podcasts-linklist {
+	/* .podcasts-linklist {
 		width: 100%;
 		margin-bottom: 40px;
 
 		@media only screen and (min-width: 615px) {
-			width: ${props => props.linkListWidth};
+			width: ${props => props.linkListWidth };
 			margin-bottom: 20px;
 		}
-	}
+	} */
 `;
 
 const Podcasts = () => {
-    const itunesUrl = '';
-    const castroUrl = '';
-    const googleUrl = '';
-    const pocketCastsUrl = '';
-    const overcastUrl = '';
-    const radioPublicUrl = '';
-    const stitcherUrl = '';
-    const tuneInUrl = '';
-    const rssUrl = '';
-    
+	// const itunesUrl = '';
+	// const castroUrl = '';
+	// const googleUrl = '';
+	// const pocketCastsUrl = '';
+	// const overcastUrl = '';
+	// const radioPublicUrl = '';
+	// const stitcherUrl = '';
+	// const tuneInUrl = '';
+	// const rssUrl = '';
+
 	return (
-		<StyledPodcasts linkListWidth={linkListWidth}>
+		<StyledPodcasts linkListWidth={ linkListWidth }>
+			<SectionHeader aligned="center">Our Podcast</SectionHeader>
 			<div className="podcasts-content">
-				<SkewedBox color="#4a4a4a" isSelected>
-					<div className="podcasts-content-inner">
-						Episodes will be here
-					</div>
-				</SkewedBox>
+				<iframe src="https://www.youtube.com/embed/videoseries?list=PLIEslNtaROnzNIQsHHVDBDPugnEEjPa9i" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			</div>
-			<div className="podcasts-linklist">
+			{/* <div className="podcasts-linklist">
                 <LinkList title="Subscribe">
 					<LinkListButton title="Apple" imageUrl="https://assets.podiant.co/img/apple.svg" color="#B150E2" url={itunesUrl} xl6/>
 					<LinkListButton title="Castro" imageUrl="https://assets.podiant.co/img/castro.svg" color="#7289da" url={castroUrl} xl6/>
@@ -75,7 +78,7 @@ const Podcasts = () => {
 					<LinkListButton title="RSS" imageUrl="https://assets.podiant.co/img/rss.svg" color="#3C5A99" url={rssUrl} xl6/>
 
 				</LinkList>
-			</div>
+			</div> */}
 		</StyledPodcasts>
 	);
 };
