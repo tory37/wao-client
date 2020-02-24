@@ -10,6 +10,9 @@
     "@types/react": "^16.9.22",
     "@types/react-dom": "^16.9.5",
     "@types/react-redux": "^7.1.7",
+    "@types/redux": "^3.6.0",
+    "@types/redux-mock-store": "^1.0.2",
+    "@types/redux-thunk": "^2.1.0",
     "axios": "^0.19.0",
     "copy-webpack-plugin": "^5.1.1",
     "emotion-theming": "^10.0.10",
@@ -62,5 +65,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "redux-mock-store": "^1.5.4"
+  }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import { addNewBugReport as addNewBugReportAction } from '../actions/bugActions';
+import { addNewBugReport as addNewBugReportAction } from '../store/bugReports/actions';
 
 import WAOButton from './WAOButton';
 import PageCard from './PageCard';
@@ -42,45 +42,45 @@ const StyledBugReportModal = styled.div`
 	}
 `;
 
-const BugReportModal = ({ addNewBugReport }) => {
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
-	const [description, setDescription] = useState('');
-	const [isInvalid, setIsInvalid] = useState('');
+const BugReportModal = ( { addNewBugReport } ) => {
+	const [ isModalOpen, setIsModalOpen ] = useState( false );
+	const [ isLoading, setIsLoading ] = useState( false );
+	const [ description, setDescription ] = useState( '' );
+	const [ isInvalid, setIsInvalid ] = useState( '' );
 
 	const onTriggerModal = () => {
-		setIsModalOpen(!isModalOpen);
+		setIsModalOpen( !isModalOpen );
 	};
 
 	const onSave = () => {
-		setIsLoading(true);
+		setIsLoading( true );
 
-		addNewBugReport({
+		addNewBugReport( {
 			description
-		})
-			.then(() => {
-				setIsModalOpen(false);
-				setDescription('');
-			})
-			.catch(() => {})
-			.finally(() => {
-				setIsLoading(false);
-			});
+		} )
+			.then( () => {
+				setIsModalOpen( false );
+				setDescription( '' );
+			} )
+			.catch( () => { } )
+			.finally( () => {
+				setIsLoading( false );
+			} );
 	};
 
 	const onCancel = () => {
-		setIsModalOpen(false);
+		setIsModalOpen( false );
 	};
 
 	return (
 		<StyledBugReportModal>
 			<div className="bugreportmodal-button">
-				<WAOButton title={'Report Bug'} color="red" xl3 clickCallback={onTriggerModal} isSelected={isModalOpen} />
+				<WAOButton title={ 'Report Bug' } color="red" xl3 clickCallback={ onTriggerModal } isSelected={ isModalOpen } />
 			</div>
 
-			{isModalOpen && (
+			{ isModalOpen && (
 				<div className="bugreportmodal-modal">
-					<PageCard isLoading={isLoading} isSkewed>
+					<PageCard isLoading={ isLoading } isSkewed>
 						<div className="bugreportmodal-header">
 							Please include:
 							<br />
@@ -89,23 +89,23 @@ const BugReportModal = ({ addNewBugReport }) => {
 							- A description of when this bug is happening
 							<br />- A description of the steps leading you to the bug
 						</div>
-						<DataFieldTextArea state={description} setState={setDescription} isInvalid={isInvalid} setIsInvalid={setIsInvalid} title="Description" isRequired />
+						<DataFieldTextArea state={ description } setState={ setDescription } isInvalid={ isInvalid } setIsInvalid={ setIsInvalid } title="Description" isRequired />
 						<div className="eventadd-buttons">
 							<div className="eventadd-button-wrapper">
-								<WAOButton title="Quit" color="red" lg clickCallback={onCancel} iconClass="far fa-stop-circle" isLoading={isLoading} isDisabled={isLoading} />
+								<WAOButton title="Quit" color="red" lg clickCallback={ onCancel } iconClass="far fa-stop-circle" isLoading={ isLoading } isDisabled={ isLoading } />
 							</div>
-							<WAOButton title="Save" color="green" lg clickCallback={onSave} iconClass="far fa-play-circle" isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+							<WAOButton title="Save" color="green" lg clickCallback={ onSave } iconClass="far fa-play-circle" isLoading={ isLoading } isDisabled={ isLoading || isInvalid } isSubmit />
 						</div>
 					</PageCard>
 				</div>
-			)}
+			) }
 		</StyledBugReportModal>
 	);
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ( {} );
 
 export default connect(
 	mapStateToProps,
 	{ addNewBugReport: addNewBugReportAction }
-)(BugReportModal);
+)( BugReportModal );
