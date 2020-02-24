@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import auth from '../reducers/auth';
+import auth from './auth/reducer';
 import events from '../reducers/events';
 import isLoadingEvents from '../reducers/isLoadingEvents';
-import isLoadingAuth from '../reducers/isLoadingAuth';
+import isLoadingAuth from './isLoadingAuth/reducer';
 import bugReports from './bugReports/reducer';
 import sidebar from './sidebar/reducer';
 

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { registerUser } from '../../actions/authActions';
+import { registerUser } from 'store/auth/actions';
 import { routePaths } from '../../routeDefs';
 
 import WAOForm from '../WAOForm';
@@ -51,32 +51,32 @@ const StyledSignup = styled.div`
 		}
 	}
 `;
-const Signup = ({ auth, history, registerUser }) => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [isInvalid, setIsInvalid] = useState(true);
+const Signup = ( { auth, history, registerUser } ) => {
+	const [ isLoading, setIsLoading ] = useState( false );
+	const [ isInvalid, setIsInvalid ] = useState( true );
 
-	const [username, setUsername] = useState('');
-	const [isUsernameInvalid, setIsUsernameInvalid] = useState(false);
-	const [email, setEmail] = useState('');
-	const [isEmailInvalid, setIsEmailInvalid] = useState(false);
-	const [password, setPassword] = useState('');
-	const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
-	const [confirmPassword, setConfirmPassword] = useState('');
-	const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] = useState(false);
+	const [ username, setUsername ] = useState( '' );
+	const [ isUsernameInvalid, setIsUsernameInvalid ] = useState( false );
+	const [ email, setEmail ] = useState( '' );
+	const [ isEmailInvalid, setIsEmailInvalid ] = useState( false );
+	const [ password, setPassword ] = useState( '' );
+	const [ isPasswordInvalid, setIsPasswordInvalid ] = useState( false );
+	const [ confirmPassword, setConfirmPassword ] = useState( '' );
+	const [ isConfirmPasswordInvalid, setIsConfirmPasswordInvalid ] = useState( false );
 
-	useEffect(() => {
+	useEffect( () => {
 		// If logged in user naviages here, redirect
-		if (auth.isAuthenticated) {
-			history.push(routePaths.home);
+		if ( auth.isAuthenticated ) {
+			history.push( routePaths.home );
 		}
-	}, [auth.isAuthenticated]);
+	}, [ auth.isAuthenticated ] );
 
-	useEffect(() => {
-		setIsInvalid(isUsernameInvalid || isEmailInvalid || isPasswordInvalid || isConfirmPasswordInvalid);
-	}, [isUsernameInvalid, isEmailInvalid, isPasswordInvalid, isConfirmPasswordInvalid]);
+	useEffect( () => {
+		setIsInvalid( isUsernameInvalid || isEmailInvalid || isPasswordInvalid || isConfirmPasswordInvalid );
+	}, [ isUsernameInvalid, isEmailInvalid, isPasswordInvalid, isConfirmPasswordInvalid ] );
 
 	const onSubmit = e => {
-		setIsLoading(true);
+		setIsLoading( true );
 
 		const newUser = {
 			username: username,
@@ -85,28 +85,28 @@ const Signup = ({ auth, history, registerUser }) => {
 			password2: confirmPassword
 		};
 
-		registerUser(newUser, history).catch(() => {
-			setIsLoading(false);
-		});
+		registerUser( newUser, history ).catch( () => {
+			setIsLoading( false );
+		} );
 	};
 
 	return (
 		<PageWrapper>
 			<StyledSignup>
-				<PageCard isLoading={isLoading} isSkewed>
-					<WAOForm onSubmit={onSubmit} canSubmit={!isLoading && !isInvalid}>
+				<PageCard isLoading={ isLoading } isSkewed>
+					<WAOForm onSubmit={ onSubmit } canSubmit={ !isLoading && !isInvalid }>
 						<div className="signup-content">
 							<div className="signup-title">Signup</div>
 
-							<DataFieldText state={username} setState={setUsername} isInvalid={isUsernameInvalid} setIsInvalid={setIsUsernameInvalid} title="Username" isRequired />
-							<DataFieldEmail state={email} setState={setEmail} isInvalid={isEmailInvalid} setIsInvalid={setIsEmailInvalid} title="Email" isRequired />
-							<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldValidate />
-							<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
+							<DataFieldText state={ username } setState={ setUsername } isInvalid={ isUsernameInvalid } setIsInvalid={ setIsUsernameInvalid } title="Username" isRequired />
+							<DataFieldEmail state={ email } setState={ setEmail } isInvalid={ isEmailInvalid } setIsInvalid={ setIsEmailInvalid } title="Email" isRequired />
+							<DataFieldPassword state={ password } setState={ setPassword } isInvalid={ isPasswordInvalid } setIsInvalid={ setIsPasswordInvalid } shouldValidate />
+							<DataFieldConfirmPassword state={ confirmPassword } setState={ setConfirmPassword } isInvalid={ isConfirmPasswordInvalid } setIsInvalid={ setIsConfirmPasswordInvalid } password={ password } />
 
 							<div className="spacer" />
 
 							<div className="signup-button">
-								<WAOButton title="Signup" color="blue" clickCallback={onSubmit} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+								<WAOButton title="Signup" color="blue" clickCallback={ onSubmit } isLoading={ isLoading } isDisabled={ isLoading || isInvalid } isSubmit />
 							</div>
 
 							<div className="signup-to-login">
@@ -124,11 +124,11 @@ Signup.propTypes = {
 	registerUser: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => ( {
 	auth: state.auth
-});
+} );
 
 export default connect(
 	mapStateToProps,
 	{ registerUser }
-)(withRouter(Signup));
+)( withRouter( Signup ) );

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import { logoutUser as logoutUserAction } from '../actions/authActions';
+import { logoutUser as logoutUserAction } from 'store/auth/actions';
 import { routePaths } from '../routeDefs';
 
 import SkewedBox from './SkewedBox';
@@ -59,60 +59,60 @@ const StyledUserStatus = styled.div`
 	}
 `;
 
-const UserStatus = ({ isSelected, auth, logoutUser, history }) => {
-	const [isOpen, setIsOpen] = useState(false);
+const UserStatus = ( { isSelected, auth, logoutUser, history } ) => {
+	const [ isOpen, setIsOpen ] = useState( false );
 
 	const userImage = useRef();
 	const buttonDropdown = useRef();
 
-	useEffect(() => {
+	useEffect( () => {
 		// add when mounted
-		document.addEventListener('mousedown', handleClick);
+		document.addEventListener( 'mousedown', handleClick );
 
 		// return function to be called when unmounted
 		return () => {
-			document.removeEventListener('mousedown', handleClick);
+			document.removeEventListener( 'mousedown', handleClick );
 		};
-	}, [isOpen]);
+	}, [ isOpen ] );
 
 	const onProfileClick = e => {
-		history.push(routePaths.userProfile);
-		setIsOpen(false);
+		history.push( routePaths.userProfile );
+		setIsOpen( false );
 	};
 
 	const onLogoutClick = e => {
 		logoutUser();
-		setIsOpen(false);
+		setIsOpen( false );
 	};
 
 	const onLoginClick = e => {
-		history.push(routePaths.login);
-		setIsOpen(false);
+		history.push( routePaths.login );
+		setIsOpen( false );
 	};
 
 	const onSignupClick = e => {
-		history.push(routePaths.signup);
-		setIsOpen(false);
+		history.push( routePaths.signup );
+		setIsOpen( false );
 	};
 
 	const onAdminClick = e => {
-		history.push(routePaths.adminDash);
-		setIsOpen(false);
+		history.push( routePaths.adminDash );
+		setIsOpen( false );
 	};
 
 	const handleClick = e => {
-		if (userImage.current.contains(e.target)) {
-			if (isOpen) {
-				setIsOpen(false);
+		if ( userImage.current.contains( e.target ) ) {
+			if ( isOpen ) {
+				setIsOpen( false );
 				return;
 			}
-			setIsOpen(true);
+			setIsOpen( true );
 			// inside click
 			return;
-		} else if (buttonDropdown && buttonDropdown.current && !buttonDropdown.current.contains(e.target)) {
+		} else if ( buttonDropdown && buttonDropdown.current && !buttonDropdown.current.contains( e.target ) ) {
 			// outside click
-			if (isOpen) {
-				setIsOpen(false);
+			if ( isOpen ) {
+				setIsOpen( false );
 			}
 		}
 	};
@@ -120,55 +120,55 @@ const UserStatus = ({ isSelected, auth, logoutUser, history }) => {
 	return (
 		<StyledUserStatus>
 			<div className="usestatus-content">
-				<div className="userstatus-profile-image" ref={userImage}>
-					<SkewedBox shouldGrowOnHover useScale isSelected={isSelected}>
-						<Img src={auth.isAuthenticated && auth.user.imageUrl && auth.user.imageUrl.length > 0 ? auth.user.imageUrl : defaultProfileImage} />
+				<div className="userstatus-profile-image" ref={ userImage }>
+					<SkewedBox shouldGrowOnHover useScale isSelected={ isSelected }>
+						<Img src={ auth.isAuthenticated && auth.user.imageUrl && auth.user.imageUrl.length > 0 ? auth.user.imageUrl : defaultProfileImage } />
 					</SkewedBox>
 				</div>
 
-				{isOpen && (
-					<div className="userstatus-buttondropdown" ref={buttonDropdown}>
+				{ isOpen && (
+					<div className="userstatus-buttondropdown" ref={ buttonDropdown }>
 						<SkewedBox color="#4a4a4a" clipPath="0 6%, 100% 0, 100% 96%, 0% 100%">
-							{auth.isAuthenticated && (
+							{ auth.isAuthenticated && (
 								<div className="userstatus-buttondropdown-inner">
-									<div className="userstatus-buttondropdown-entry">{auth.user.username}</div>
+									<div className="userstatus-buttondropdown-entry">{ auth.user.username }</div>
 									<div className="userstatus-buttondropdown-entry">
-										<WAOButton color="green" title="Profile" useUserColor clickCallback={onProfileClick} xl3></WAOButton>
+										<WAOButton color="green" title="Profile" useUserColor clickCallback={ onProfileClick } xl3></WAOButton>
 									</div>
 									<div className="userstatus-buttondropdown-entry">
-										<WAOButton color="goldenrod" title="Logout" clickCallback={onLogoutClick} xl3></WAOButton>
+										<WAOButton color="goldenrod" title="Logout" clickCallback={ onLogoutClick } xl3></WAOButton>
 									</div>
-									{auth.isAdmin && (
+									{ auth.isAdmin && (
 										<div className="userstatus-buttondropdown-entry">
-											<WAOButton color="#4a4a4a" title="Admin" clickCallback={onAdminClick} xl3></WAOButton>
+											<WAOButton color="#4a4a4a" title="Admin" clickCallback={ onAdminClick } xl3></WAOButton>
 										</div>
-									)}
+									) }
 								</div>
-							)}
+							) }
 
-							{!auth.isAuthenticated && (
+							{ !auth.isAuthenticated && (
 								<div className="userstatus-buttondropdown-inner">
 									<div className="userstatus-buttondropdown-entry">
-										<WAOButton color="green" title="Login" clickCallback={onLoginClick} xl3></WAOButton>
+										<WAOButton color="green" title="Login" clickCallback={ onLoginClick } xl3></WAOButton>
 									</div>
 									<div className="userstatus-buttondropdown-entry">
-										<WAOButton color="Blue" title="Signup" clickCallback={onSignupClick} xl3></WAOButton>
+										<WAOButton color="Blue" title="Signup" clickCallback={ onSignupClick } xl3></WAOButton>
 									</div>
 								</div>
-							)}
+							) }
 						</SkewedBox>
 					</div>
-				)}
+				) }
 			</div>
 		</StyledUserStatus>
 	);
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => ( {
 	auth: state.auth
-});
+} );
 
 export default connect(
 	mapStateToProps,
 	{ logoutUser: logoutUserAction }
-)(withRouter(UserStatus));
+)( withRouter( UserStatus ) );

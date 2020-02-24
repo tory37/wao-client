@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import { updatePassword as updatePasswordAction, updateUserProfile as updateUserProfileAction } from '../../actions/authActions';
+import { updatePassword as updatePasswordAction, updateUserProfile as updateUserProfileAction } from 'store/auth/actions';
 
 import WAOForm from '../WAOForm';
 import PageWrapper from '../PageWrapper';
@@ -75,65 +75,65 @@ const StyledUserProfile = styled.div`
 	}
 `;
 
-const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
-	const colorsArray = ['#282929', 'red', 'blue', 'purple', 'brown', 'orange', 'green'];
+const UserProfile = ( { auth, updateUserProfile, updatePassword } ) => {
+	const colorsArray = [ '#282929', 'red', 'blue', 'purple', 'brown', 'orange', 'green' ];
 	const SUBSCRIPTIONS = {
 		EVENTS: 'EVENTS'
 	};
 
 	const { user } = auth;
 
-	const [isLoading, setIsLoading] = useState(false);
-	const [isEditing, setIsEditing] = useState(false);
-	const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
+	const [ isLoading, setIsLoading ] = useState( false );
+	const [ isEditing, setIsEditing ] = useState( false );
+	const [ isUpdatingPassword, setIsUpdatingPassword ] = useState( false );
 
-	const [imageUrl, setImageUrl] = useState(user.imageUrl);
-	const [isImageUrlInvalid, setIsImageUrlInvalid] = useState(false);
-	const [username, setUsername] = useState(user.username);
-	const [isUsernameInvalid, setIsUsernameInvalid] = useState(false);
-	const [email, setEmail] = useState(user.email);
-	const [isEmailInvalid, setIsEmailInvalid] = useState(false);
-	const [color, setColor] = useState(user.color && user.color.length > 0 ? user.color : 'black');
-	const [isSubscribedEvents, setIsSubscribedEvents] = useState(user.subscriptions ? user.subscriptions.includes(SUBSCRIPTIONS.EVENTS) : false);
+	const [ imageUrl, setImageUrl ] = useState( user.imageUrl );
+	const [ isImageUrlInvalid, setIsImageUrlInvalid ] = useState( false );
+	const [ username, setUsername ] = useState( user.username );
+	const [ isUsernameInvalid, setIsUsernameInvalid ] = useState( false );
+	const [ email, setEmail ] = useState( user.email );
+	const [ isEmailInvalid, setIsEmailInvalid ] = useState( false );
+	const [ color, setColor ] = useState( user.color && user.color.length > 0 ? user.color : 'black' );
+	const [ isSubscribedEvents, setIsSubscribedEvents ] = useState( user.subscriptions ? user.subscriptions.includes( SUBSCRIPTIONS.EVENTS ) : false );
 
-	const [isProfileInvalid, setIsProfileInvalid] = useState(false);
-	const [isPasswordUpdateInvalid, setIsPasswordUpdateInvalid] = useState(false);
+	const [ isProfileInvalid, setIsProfileInvalid ] = useState( false );
+	const [ isPasswordUpdateInvalid, setIsPasswordUpdateInvalid ] = useState( false );
 
-	const [password, setPassword] = useState('');
-	const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
-	const [confirmPassword, setConfirmPassword] = useState('');
-	const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] = useState(false);
+	const [ password, setPassword ] = useState( '' );
+	const [ isPasswordInvalid, setIsPasswordInvalid ] = useState( false );
+	const [ confirmPassword, setConfirmPassword ] = useState( '' );
+	const [ isConfirmPasswordInvalid, setIsConfirmPasswordInvalid ] = useState( false );
 
-	useEffect(() => {
-		setIsProfileInvalid(isImageUrlInvalid || isUsernameInvalid || isEmailInvalid);
-	}, [isImageUrlInvalid, isUsernameInvalid, isEmailInvalid]);
+	useEffect( () => {
+		setIsProfileInvalid( isImageUrlInvalid || isUsernameInvalid || isEmailInvalid );
+	}, [ isImageUrlInvalid, isUsernameInvalid, isEmailInvalid ] );
 
-	useEffect(() => {
-		setIsPasswordUpdateInvalid(isPasswordInvalid || isConfirmPasswordInvalid);
-	}, [isPasswordInvalid, isConfirmPasswordInvalid]);
+	useEffect( () => {
+		setIsPasswordUpdateInvalid( isPasswordInvalid || isConfirmPasswordInvalid );
+	}, [ isPasswordInvalid, isConfirmPasswordInvalid ] );
 
 	const onEdit = e => {
-		setIsEditing(true);
+		setIsEditing( true );
 
-		setImageUrl(user.imageUrl);
-		setUsername(user.username);
-		setEmail(user.email);
-		setColor(user.color && user.color.length > 0 ? user.color : 'black');
+		setImageUrl( user.imageUrl );
+		setUsername( user.username );
+		setEmail( user.email );
+		setColor( user.color && user.color.length > 0 ? user.color : 'black' );
 	};
 
 	const onCancel = e => {
-		if (isEditing) {
-			setIsEditing(false);
+		if ( isEditing ) {
+			setIsEditing( false );
 		}
 
-		if (isUpdatingPassword) {
-			setIsUpdatingPassword(false);
+		if ( isUpdatingPassword ) {
+			setIsUpdatingPassword( false );
 		}
 	};
 
 	const onSave = e => {
-		setIsLoading(true);
-		if (isEditing) {
+		setIsLoading( true );
+		if ( isEditing ) {
 			const updatedUser = {
 				imageUrl: imageUrl,
 				username: username,
@@ -142,105 +142,105 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 				subscriptions: []
 			};
 
-			if (isSubscribedEvents) {
-				updatedUser.subscriptions.push(SUBSCRIPTIONS.EVENTS);
+			if ( isSubscribedEvents ) {
+				updatedUser.subscriptions.push( SUBSCRIPTIONS.EVENTS );
 			}
 
-			updateUserProfile(updatedUser, user._id)
-				.then(() => {
-					setIsEditing(false);
-				})
-				.finally(() => {
-					setIsLoading(false);
-				});
+			updateUserProfile( updatedUser, user._id )
+				.then( () => {
+					setIsEditing( false );
+				} )
+				.finally( () => {
+					setIsLoading( false );
+				} );
 		}
 
-		if (isUpdatingPassword) {
-			updatePassword(password, confirmPassword, user._id)
-				.then(() => {
-					setIsUpdatingPassword(false);
-				})
-				.finally(() => {
-					setIsLoading(false);
-				});
+		if ( isUpdatingPassword ) {
+			updatePassword( password, confirmPassword, user._id )
+				.then( () => {
+					setIsUpdatingPassword( false );
+				} )
+				.finally( () => {
+					setIsLoading( false );
+				} );
 		}
 	};
 
 	const onSelectColor = color => {
-		setColor(color);
+		setColor( color );
 	};
 
 	const onUpdatePasswordClick = e => {
-		setIsUpdatingPassword(true);
+		setIsUpdatingPassword( true );
 
-		setPassword('');
-		setConfirmPassword('');
+		setPassword( '' );
+		setConfirmPassword( '' );
 	};
 
 	return (
 		<PageWrapper>
 			<StyledUserProfile>
-				<PageCard isLoading={isLoading} isSkewed>
-					<WAOForm onSubmit={onSave} canSubmit={!isLoading && ((isEditing && !isProfileInvalid) || (isUpdatingPassword && !isPasswordUpdateInvalid))}>
+				<PageCard isLoading={ isLoading } isSkewed>
+					<WAOForm onSubmit={ onSave } canSubmit={ !isLoading && ( ( isEditing && !isProfileInvalid ) || ( isUpdatingPassword && !isPasswordUpdateInvalid ) ) }>
 						<div className="userprofile-content">
-							{!isEditing && (
+							{ !isEditing && (
 								<div className="userprofile-image">
 									<SkewedBox>
-										<Img src={auth.isAuthenticated && user.imageUrl && user.imageUrl.length > 0 ? user.imageUrl : defaultProfileImage} />
+										<Img src={ auth.isAuthenticated && user.imageUrl && user.imageUrl.length > 0 ? user.imageUrl : defaultProfileImage } />
 									</SkewedBox>
 								</div>
-							)}
+							) }
 
-							{isEditing && <DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" />}
+							{ isEditing && <DataFieldText state={ imageUrl } setState={ setImageUrl } isInvalid={ isImageUrlInvalid } setIsInvalid={ setIsImageUrlInvalid } title="Image Url" /> }
 
-							{!isEditing && <div className="userprofile-username">{user.username}</div>}
-							{!isEditing && <div className="spacer" />}
+							{ !isEditing && <div className="userprofile-username">{ user.username }</div> }
+							{ !isEditing && <div className="spacer" /> }
 
-							{isEditing && <DataFieldText state={username} setState={setUsername} isInvalid={isUsernameInvalid} setIsInvalid={setIsUsernameInvalid} title="Username" isRequired />}
+							{ isEditing && <DataFieldText state={ username } setState={ setUsername } isInvalid={ isUsernameInvalid } setIsInvalid={ setIsUsernameInvalid } title="Username" isRequired /> }
 
-							{!isEditing && <div className="userprofile-email">{user.email}</div>}
+							{ !isEditing && <div className="userprofile-email">{ user.email }</div> }
 
-							{isEditing && <DataFieldEmail state={email} setState={setEmail} isInvalid={isEmailInvalid} setIsInvalid={setIsEmailInvalid} title="Email" isRequired />}
+							{ isEditing && <DataFieldEmail state={ email } setState={ setEmail } isInvalid={ isEmailInvalid } setIsInvalid={ setIsEmailInvalid } title="Email" isRequired /> }
 
 							<div className="spacer" />
 
-							{/* <ColorPicker colorsArray={colorsArray} onSelectColor={onSelectColor} selectedColor={color} isEditing={isEditing} /> */}
+							{/* <ColorPicker colorsArray={colorsArray} onSelectColor={onSelectColor} selectedColor={color} isEditing={isEditing} /> */ }
 
 							<div className="userprofile-subscriptions-title">Subscriptions</div>
 							<div className="userprofile-subscriptions">
 								<div className="userprofile-subscriptions-entry">
-									<DataFieldCheckbox color={user.color} state={isSubscribedEvents} setState={setIsSubscribedEvents} isEditing={isEditing} title="New Event Notifications" />
+									<DataFieldCheckbox color={ user.color } state={ isSubscribedEvents } setState={ setIsSubscribedEvents } isEditing={ isEditing } title="New Event Notifications" />
 								</div>
 							</div>
 
-							{isUpdatingPassword && (
+							{ isUpdatingPassword && (
 								<div>
-									<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldValidate />
-									<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
+									<DataFieldPassword state={ password } setState={ setPassword } isInvalid={ isPasswordInvalid } setIsInvalid={ setIsPasswordInvalid } shouldValidate />
+									<DataFieldConfirmPassword state={ confirmPassword } setState={ setConfirmPassword } isInvalid={ isConfirmPasswordInvalid } setIsInvalid={ setIsConfirmPasswordInvalid } password={ password } />
 								</div>
-							)}
+							) }
 
-							{!isEditing && !isUpdatingPassword && (
+							{ !isEditing && !isUpdatingPassword && (
 								<div className="userprofile-buttons">
 									<div className="userprofile-button-wrapper">
-										<WAOButton title="Change Pass" color="goldenrod" clickCallback={onUpdatePasswordClick} iconClass="fas fa-key" xl6 />
+										<WAOButton title="Change Pass" color="goldenrod" clickCallback={ onUpdatePasswordClick } iconClass="fas fa-key" xl6 />
 									</div>
 									<div>
-										<WAOButton title="Edit" color="orange" useUserColor clickCallback={onEdit} iconClass="fas fa-edit" />
+										<WAOButton title="Edit" color="orange" useUserColor clickCallback={ onEdit } iconClass="fas fa-edit" />
 									</div>
 								</div>
-							)}
+							) }
 
-							{(isEditing || isUpdatingPassword) && (
+							{ ( isEditing || isUpdatingPassword ) && (
 								<div className="userprofile-buttons">
 									<div className="userprofile-button-wrapper">
-										<WAOButton title="Quit" color="red" clickCallback={onCancel} isLoading={isLoading} isDisabled={isLoading} lg iconClass="far fa-stop-circle" />
+										<WAOButton title="Quit" color="red" clickCallback={ onCancel } isLoading={ isLoading } isDisabled={ isLoading } lg iconClass="far fa-stop-circle" />
 									</div>
 									<div>
-										<WAOButton title="Save" color="green" clickCallback={onSave} iconClass="far fa-play-circle" lg isLoading={isLoading} isDisabled={isLoading || (isEditing && isProfileInvalid) || (isUpdatingPassword && isPasswordUpdateInvalid)} isSubmit md />
+										<WAOButton title="Save" color="green" clickCallback={ onSave } iconClass="far fa-play-circle" lg isLoading={ isLoading } isDisabled={ isLoading || ( isEditing && isProfileInvalid ) || ( isUpdatingPassword && isPasswordUpdateInvalid ) } isSubmit md />
 									</div>
 								</div>
-							)}
+							) }
 						</div>
 					</WAOForm>
 				</PageCard>
@@ -249,11 +249,11 @@ const UserProfile = ({ auth, updateUserProfile, updatePassword }) => {
 	);
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => ( {
 	auth: state.auth
-});
+} );
 
 export default connect(
 	mapStateToProps,
 	{ updateUserProfile: updateUserProfileAction, updatePassword: updatePasswordAction }
-)(UserProfile);
+)( UserProfile );
