@@ -4,16 +4,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { registerUser } from 'store/auth/actions';
-import { routePaths } from '../../routeDefs';
+import { routePaths } from 'routeDefs';
 
-import WAOForm from '../WAOForm';
-import PageWrapper from '../PageWrapper';
-import PageCard from '../PageCard';
-import WAOButton from '../WAOButton';
-import DataFieldText from '../dataFields/DataFieldText';
-import DataFieldEmail from '../dataFields/DataFieldEmail';
-import DataFieldPassword from '../dataFields/DateFieldPassword';
-import DataFieldConfirmPassword from '../dataFields/DataFieldConfirmPassword';
+import WAOForm from 'components/WAOForm';
+import PageWrapper from 'components/PageWrapper';
+import PageCard from 'components/PageCard';
+import WAOButton from 'components/WAOButton';
+import DataFieldText from 'components/dataFields/DataFieldText';
+import DataFieldEmail from 'components/dataFields/DataFieldEmail';
+import DataFieldPassword from 'components/dataFields/DateFieldPassword';
+import DataFieldConfirmPassword from 'components/dataFields/DataFieldConfirmPassword';
 
 // 500 x 262
 const StyledSignup = styled.div`

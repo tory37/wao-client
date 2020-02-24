@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import moment from 'moment';
-import { updateEvent as updateEventAction } from '../../store/events/actions';
+import { updateEvent as updateEventAction } from 'store/events/actions';
 // import useOnSubmit from '../../hooks/useOnSubmit';
 
-import PageCard from '../PageCard';
+import PageCard from 'components/PageCard';
 import Img from 'react-image';
-import WAOButton from '../WAOButton';
-import WAOForm from '../WAOForm';
-import DataFieldText from '../dataFields/DataFieldText';
-import DataFieldTextArea from '../dataFields/DataFieldTextArea';
-import DataFieldNumber from '../dataFields/DataFieldNumber';
-import DataFieldDatepicker from '../dataFields/DataFieldDatepicker';
-import DataFieldLocation from '../dataFields/DataFieldLocation';
+import WAOButton from 'components/WAOButton';
+import WAOForm from 'components/WAOForm';
+import DataFieldText from 'components/dataFields/DataFieldText';
+import DataFieldTextArea from 'components/dataFields/DataFieldTextArea';
+import DataFieldNumber from 'components/dataFields/DataFieldNumber';
+import DataFieldDatepicker from 'components/dataFields/DataFieldDatepicker';
+import DataFieldLocation from 'components/dataFields/DataFieldLocation';
 
 // 500 x 262
 const StyledEventView = styled.div`

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
-import { routePaths } from '../../routeDefs';
+import { routePaths } from 'routeDefs';
 
 import { updatePasswordWithToken as updatePasswordWithTokenAction } from 'store/auth/actions';
 
-import WAOForm from '../WAOForm';
-import PageWrapper from '../PageWrapper';
-import PageCard from '../PageCard';
-import WAOButton from '../WAOButton';
-import DataFieldPassword from '../dataFields/DateFieldPassword';
-import DataFieldConfirmPassword from '../dataFields/DataFieldConfirmPassword';
+import WAOForm from 'components/WAOForm';
+import PageWrapper from 'components/PageWrapper';
+import PageCard from 'components/PageCard';
+import WAOButton from 'components/WAOButton';
+import DataFieldPassword from 'components/dataFields/DateFieldPassword';
+import DataFieldConfirmPassword from 'components/dataFields/DataFieldConfirmPassword';
 
 const StyledPasswordChange = styled.div`
 	width: 100%;

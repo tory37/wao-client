@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import { fetchAllBugReports as fetchAllBugReportsAction } from '../store/bugReports/actions';
+import { fetchAllBugReports as fetchAllBugReportsAction } from 'store/bugReports/actions';
 import _ from 'lodash';
 
 import PageCard from './PageCard';

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import { routePaths, isOnRoute, routeDefs } from '../routeDefs';
+import { routePaths, isOnRoute, routeDefs } from 'routeDefs';
 import { withRouter } from 'react-router-dom';
 
 import Header from './Header';

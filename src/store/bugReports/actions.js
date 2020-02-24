@@ -1,9 +1,9 @@
-import setAuthToken from '../../utils/auth';
+import setAuthToken from 'utils/auth';
 
-import bugs from '../../utils/api/bugs';
+import bugs from 'utils/api/bugs';
 
 import { SET_BUG_REPORTS, ADD_BUG_REPORT, UPDATE_BUG_REPORT } from './types';
-import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification } from '../../utils/notifications';
+import { displaySuccessNotification, displayErrorNotification, displayLoadingNotification } from 'utils/notifications';
 
 export const setBugReports = bugReports => ( {
 	type: SET_BUG_REPORTS,

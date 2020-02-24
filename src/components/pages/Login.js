@@ -5,14 +5,14 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { loginUser } from 'store/auth/actions';
 import queryString from 'query-string';
-import { routePaths } from '../../routeDefs';
+import { routePaths } from 'routeDefs';
 
-import WAOForm from '../WAOForm';
-import PageWrapper from '../PageWrapper';
-import PageCard from '../PageCard';
-import WAOButton from '../WAOButton';
-import DataFieldEmail from '../dataFields/DataFieldEmail';
-import DataFieldPassword from '../dataFields/DateFieldPassword';
+import WAOForm from 'components/WAOForm';
+import PageWrapper from 'components/PageWrapper';
+import PageCard from 'components/PageCard';
+import WAOButton from 'components/WAOButton';
+import DataFieldEmail from 'components/dataFields/DataFieldEmail';
+import DataFieldPassword from 'components/dataFields/DateFieldPassword';
 
 // 500 x 262
 const StyledLogin = styled.div`

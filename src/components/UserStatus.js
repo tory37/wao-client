@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import { logoutUser as logoutUserAction } from 'store/auth/actions';
-import { routePaths } from '../routeDefs';
+import { routePaths } from 'routeDefs';
 
 import SkewedBox from './SkewedBox';
 import WAOButton from './WAOButton';

@@ -3,13 +3,13 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { verifyUser as verifyUserAction, resendVerification as resendVerificationAction } from 'store/auth/actions';
-import { routePaths } from '../../routeDefs';
+import { routePaths } from 'routeDefs';
 
-import WAOForm from '../WAOForm';
-import PageWrapper from '../PageWrapper';
-import PageCard from '../PageCard';
-import WAOButton from '../WAOButton';
-import DataFieldEmail from '../dataFields/DataFieldEmail';
+import WAOForm from 'components/WAOForm';
+import PageWrapper from 'components/PageWrapper';
+import PageCard from 'components/PageCard';
+import WAOButton from 'components/WAOButton';
+import DataFieldEmail from 'components/dataFields/DataFieldEmail';
 
 const StyledVerify = styled.div`
 	width: 100%;

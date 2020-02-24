@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { openSidebar, closeSidebar } from '../store/sidebar/actions';
+import { openSidebar, closeSidebar } from 'store/sidebar/actions';
 
 import SkewedBox from './SkewedBox';
 import CenteredContent from './CenteredContent';

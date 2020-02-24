@@ -3,14 +3,14 @@ import styled from "@emotion/styled";
 import { connect } from "react-redux";
 import moment from "moment";
 import _ from "lodash";
-import { fetchAllEvents as fetchAllEventsAction } from "../../store/events/actions";
+import { fetchAllEvents as fetchAllEventsAction } from "store/events/actions";
 
-import PageWrapper from "../PageWrapper";
-import EventAdd from "../events/EventAdd";
-import EventView from "../events/EventView";
-import SkewedBox from "../SkewedBox";
-import CenteredContent from "../CenteredContent";
-import WAOButton from "../WAOButton";
+import PageWrapper from "components/PageWrapper";
+import EventAdd from "components/events/EventAdd";
+import EventView from "components/events/EventView";
+import SkewedBox from "components/SkewedBox";
+import CenteredContent from "components/CenteredContent";
+import WAOButton from "components/WAOButton";
 
 // 500 x 262
 const StyledEvents = styled.div`

@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import moment from 'moment';
 
-import PageCard from '../PageCard';
-import WAOButton from '../WAOButton';
-import { createEvent as createEventAction } from '../../store/events/actions';
-import WAOForm from '../WAOForm';
-import DataFieldText from '../dataFields/DataFieldText';
-import DataFieldTextArea from '../dataFields/DataFieldTextArea';
-import DataFieldDatepicker from '../dataFields/DataFieldDatepicker';
-import DataFieldLocation from '../dataFields/DataFieldLocation';
+import PageCard from 'components/PageCard';
+import WAOButton from 'components/WAOButton';
+import { createEvent as createEventAction } from 'store/events/actions';
+import WAOForm from 'components/WAOForm';
+import DataFieldText from 'components/dataFields/DataFieldText';
+import DataFieldTextArea from 'components/dataFields/DataFieldTextArea';
+import DataFieldDatepicker from 'components/dataFields/DataFieldDatepicker';
+import DataFieldLocation from 'components/dataFields/DataFieldLocation';
 
 // 500 x 262
 const StyledEventAdd = styled.div`

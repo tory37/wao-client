@@ -3,18 +3,18 @@ import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import { updatePassword as updatePasswordAction, updateUserProfile as updateUserProfileAction } from 'store/auth/actions';
 
-import WAOForm from '../WAOForm';
-import PageWrapper from '../PageWrapper';
-import PageCard from '../PageCard';
-import SkewedBox from '../SkewedBox';
-import WAOButton from '../WAOButton';
+import WAOForm from 'components/WAOForm';
+import PageWrapper from 'components/PageWrapper';
+import PageCard from 'components/PageCard';
+import SkewedBox from 'components/SkewedBox';
+import WAOButton from 'components/WAOButton';
 import Img from 'react-image';
-import ColorPicker from '../ColorPicker';
-import DataFieldText from '../dataFields/DataFieldText';
-import DataFieldEmail from '../dataFields/DataFieldEmail';
-import DataFieldPassword from '../dataFields/DateFieldPassword';
-import DataFieldConfirmPassword from '../dataFields/DataFieldConfirmPassword';
-import DataFieldCheckbox from '../dataFields/DataFieldCheckbox';
+import ColorPicker from 'components/ColorPicker';
+import DataFieldText from 'components/dataFields/DataFieldText';
+import DataFieldEmail from 'components/dataFields/DataFieldEmail';
+import DataFieldPassword from 'components/dataFields/DateFieldPassword';
+import DataFieldConfirmPassword from 'components/dataFields/DataFieldConfirmPassword';
+import DataFieldCheckbox from 'components/dataFields/DataFieldCheckbox';
 
 const defaultProfileImage = 'https://upload.wikimedia.org/wikipedia/commons/2/25/Wikipe-tan_silhouette.png';
 

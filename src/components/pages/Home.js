@@ -2,10 +2,10 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
 
-import SkewedBox from '../SkewedBox';
-import LinkList from '../LinkList';
-import LinkListButton from '../LinkListButton';
-import SectionHeader from '../../styles/SectionHeader';
+import SkewedBox from 'components/SkewedBox';
+import LinkList from 'components/LinkList';
+import LinkListButton from 'components/LinkListButton';
+import SectionHeader from 'styles/SectionHeader';
 
 const linkListWidth = '150px';
 

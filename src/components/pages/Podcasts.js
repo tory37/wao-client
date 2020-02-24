@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-// import SkewedBox from '../SkewedBox';
-// import LinkList from '../LinkList';
-// import LinkListButton from '../LinkListButton';
-import SectionHeader from '../../styles/SectionHeader';
+import SectionHeader from 'styles/SectionHeader';
 
 const linkListWidth = '175px';
 

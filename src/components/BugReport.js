@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import { setOpen as setOpenAction, setFixed as setFixedAction, setRejected as setRejectedAction } from '../store/bugReports/actions';
+import { setOpen as setOpenAction, setFixed as setFixedAction, setRejected as setRejectedAction } from 'store/bugReports/actions';
 
 import WAOButton from './WAOButton';
 

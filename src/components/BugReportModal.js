@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import { addNewBugReport as addNewBugReportAction } from '../store/bugReports/actions';
+import { addNewBugReport as addNewBugReportAction } from 'store/bugReports/actions';
 
 import WAOButton from './WAOButton';
 import PageCard from './PageCard';
