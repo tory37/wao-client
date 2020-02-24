@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import { setOpen as setOpenAction, setFixed as setFixedAction, setRejected as setRejectedAction } from '../actions/bugActions';
+import { setOpen as setOpenAction, setFixed as setFixedAction, setRejected as setRejectedAction } from 'store/bugReports/actions';
 
 import WAOButton from './WAOButton';
 
@@ -35,27 +35,27 @@ const StyledBugReport = styled.div`
 	}
 `;
 
-const BugReport = ({ bugReport, setOpen, setFixed, setRejected }) => {
-	const onFix = () => setFixed(bugReport._id);
+const BugReport = ( { bugReport, setOpen, setFixed, setRejected } ) => {
+	const onFix = () => setFixed( bugReport._id );
 
-	const onOpen = () => setOpen(bugReport._id);
+	const onOpen = () => setOpen( bugReport._id );
 
-	const onReject = () => setRejected(bugReport._id);
+	const onReject = () => setRejected( bugReport._id );
 
 	return (
 		<StyledBugReport>
-			<div className="bugreport-description">{bugReport.description}</div>
-			<div className="bugreport-reporter">{bugReport.reporter.username}</div>
+			<div className="bugreport-description">{ bugReport.description }</div>
+			<div className="bugreport-reporter">{ bugReport.reporter.username }</div>
 			<div className="bugreport-options">
-				{(bugReport.status === 'OPEN' || bugReport.status === 'FIXED') && <WAOButton title={'Reject'} color="red" sm clickCallback={onReject} />}
-				{(bugReport.status === 'FIXED' || bugReport.status === 'WONTFIX') && <WAOButton title={'Open'} color="gold" sm clickCallback={onOpen} />}
-				{(bugReport.status === 'OPEN' || bugReport.status === 'WONTFIX') && <WAOButton title={'Fix'} color="green" sm clickCallback={onFix} />}
+				{ ( bugReport.status === 'OPEN' || bugReport.status === 'FIXED' ) && <WAOButton title={ 'Reject' } color="red" sm clickCallback={ onReject } /> }
+				{ ( bugReport.status === 'FIXED' || bugReport.status === 'WONTFIX' ) && <WAOButton title={ 'Open' } color="gold" sm clickCallback={ onOpen } /> }
+				{ ( bugReport.status === 'OPEN' || bugReport.status === 'WONTFIX' ) && <WAOButton title={ 'Fix' } color="green" sm clickCallback={ onFix } /> }
 			</div>
 		</StyledBugReport>
 	);
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ( {} );
 
 export default connect(
 	mapStateToProps,
@@ -64,4 +64,4 @@ export default connect(
 		setFixed: setFixedAction,
 		setRejected: setRejectedAction
 	}
-)(BugReport);
+)( BugReport );

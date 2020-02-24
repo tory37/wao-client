@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { verifyUser as verifyUserAction, resendVerification as resendVerificationAction } from '../../actions/authActions';
-import { routePaths } from '../../routeDefs';
+import { verifyUser as verifyUserAction, resendVerification as resendVerificationAction } from 'store/auth/actions';
+import { routePaths } from 'routeDefs';
 
-import WAOForm from '../WAOForm';
-import PageWrapper from '../PageWrapper';
-import PageCard from '../PageCard';
-import WAOButton from '../WAOButton';
-import DataFieldEmail from '../dataFields/DataFieldEmail';
+import WAOForm from 'components/WAOForm';
+import PageWrapper from 'components/PageWrapper';
+import PageCard from 'components/PageCard';
+import WAOButton from 'components/WAOButton';
+import DataFieldEmail from 'components/dataFields/DataFieldEmail';
 
 const StyledVerify = styled.div`
 	width: 100%;
@@ -74,87 +74,87 @@ const StyledVerify = styled.div`
 	}
 `;
 
-const Verify = ({ match, history, verifyUser, resendVerification }) => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [hasToken, setHasToken] = useState(false);
-	const [isError, setIsError] = useState(false);
-	const [email, setEmail] = useState('');
-	const [isInvalid, setIsInvalid] = useState(false);
+const Verify = ( { match, history, verifyUser, resendVerification } ) => {
+	const [ isLoading, setIsLoading ] = useState( false );
+	const [ hasToken, setHasToken ] = useState( false );
+	const [ isError, setIsError ] = useState( false );
+	const [ email, setEmail ] = useState( '' );
+	const [ isInvalid, setIsInvalid ] = useState( false );
 
-	const [isResendFinished, setIsResendFinished] = useState(false);
-	const [isResendError, setIsResendError] = useState(false);
+	const [ isResendFinished, setIsResendFinished ] = useState( false );
+	const [ isResendError, setIsResendError ] = useState( false );
 
-	useEffect(() => {
-		setIsLoading(true);
+	useEffect( () => {
+		setIsLoading( true );
 		const { token } = match.params;
 
-		if (token) {
-			setHasToken(true);
-			verifyUser(token)
-				.then(() => history.push(routePaths.login))
-				.catch(() => setIsError(true))
-				.finally(() => setIsLoading(false));
+		if ( token ) {
+			setHasToken( true );
+			verifyUser( token )
+				.then( () => history.push( routePaths.login ) )
+				.catch( () => setIsError( true ) )
+				.finally( () => setIsLoading( false ) );
 		} else {
-			setIsLoading(false);
+			setIsLoading( false );
 		}
-	}, []);
+	}, [] );
 
 	const onResendClick = () => {
-		if (email.length > 0) {
-			setIsLoading(true);
+		if ( email.length > 0 ) {
+			setIsLoading( true );
 
-			resendVerification(email)
-				.catch(() => {
-					setIsResendError(true);
-				})
-				.finally(() => {
-					setIsLoading(false);
-					setIsResendFinished(true);
-				});
+			resendVerification( email )
+				.catch( () => {
+					setIsResendError( true );
+				} )
+				.finally( () => {
+					setIsLoading( false );
+					setIsResendFinished( true );
+				} );
 		}
 	};
 
 	return (
 		<PageWrapper>
 			<StyledVerify>
-				<PageCard isLoading={isLoading} isSkewed>
-					<WAOForm onSubmit={onResendClick} canSubmit={!isLoading && isError && !isResendFinished && isResendError && !isInvalid}>
+				<PageCard isLoading={ isLoading } isSkewed>
+					<WAOForm onSubmit={ onResendClick } canSubmit={ !isLoading && isError && !isResendFinished && isResendError && !isInvalid }>
 						<div className="verify-content">
-							{isLoading && (
+							{ isLoading && (
 								<div className="verify-loading">
 									Loading <i className="fas fa-spinner fa-spin"></i>
 								</div>
-							)}
-							{!isLoading && isError && (
+							) }
+							{ !isLoading && isError && (
 								<div className="verify-error">
-									{(!isResendFinished || (isResendFinished && isResendError)) && <div className="verify-error-title"> There was an error verifying your email.</div>}
+									{ ( !isResendFinished || ( isResendFinished && isResendError ) ) && <div className="verify-error-title"> There was an error verifying your email.</div> }
 
-									{(!isResendFinished || isResendError) && (
+									{ ( !isResendFinished || isResendError ) && (
 										<div>
 											<div className="verify-error-resend-title">Your verification token may have expired. Please enter the email you signed up with. A new verification email will be sent to you.</div>
-											<DataFieldEmail state={email} setState={setEmail} isInvalid={isInvalid} setIsInvalid={setIsInvalid} title="Email" isRequired />
+											<DataFieldEmail state={ email } setState={ setEmail } isInvalid={ isInvalid } setIsInvalid={ setIsInvalid } title="Email" isRequired />
 
 											<div className="verify-error-resend-button">
-												<WAOButton title="Resend" color="goldenrod" clickCallback={onResendClick} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+												<WAOButton title="Resend" color="goldenrod" clickCallback={ onResendClick } isLoading={ isLoading } isDisabled={ isLoading || isInvalid } isSubmit />
 											</div>
 
 											<div className="verify-signup">
 												Need an account? <Link to="/signup">Signup</Link>
 											</div>
 										</div>
-									)}
+									) }
 								</div>
-							)}
-							{!isLoading && !hasToken && (!isResendFinished || isResendError) && (
+							) }
+							{ !isLoading && !hasToken && ( !isResendFinished || isResendError ) && (
 								<div className="verify-error">
 									<div className="verify-error-title"> Resend Verification</div>
 
 									<div>
 										<div className="verify-error-resend-title">Please enter the email you signed up with. A new verification email will be sent to you.</div>
-										<DataFieldEmail state={email} setState={setEmail} isInvalid={isInvalid} setIsInvalid={setIsInvalid} title="Email" isRequired />
+										<DataFieldEmail state={ email } setState={ setEmail } isInvalid={ isInvalid } setIsInvalid={ setIsInvalid } title="Email" isRequired />
 
 										<div className="verify-error-resend-button">
-											<WAOButton title="Resend" color="golenrod" clickCallback={onResendClick} isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+											<WAOButton title="Resend" color="golenrod" clickCallback={ onResendClick } isLoading={ isLoading } isDisabled={ isLoading || isInvalid } isSubmit />
 										</div>
 
 										<div className="verify-signup">
@@ -162,14 +162,14 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 										</div>
 									</div>
 								</div>
-							)}
+							) }
 
-							{isResendFinished && !isResendError && (
+							{ isResendFinished && !isResendError && (
 								<div className="verify-error-resend-success">
 									<div className="verify-error-resend-success-title">Success!</div>
-									<div className="verify-error-resend-success-reminder">A verification email has been sent to {email}. Please check your inbox (and spam).</div>
+									<div className="verify-error-resend-success-reminder">A verification email has been sent to { email }. Please check your inbox (and spam).</div>
 								</div>
-							)}
+							) }
 						</div>
 					</WAOForm>
 				</PageCard>
@@ -178,7 +178,7 @@ const Verify = ({ match, history, verifyUser, resendVerification }) => {
 	);
 };
 
-const mapStateToProps = state => {};
+const mapStateToProps = state => { };
 
 export default connect(
 	mapStateToProps,
@@ -186,4 +186,4 @@ export default connect(
 		verifyUser: verifyUserAction,
 		resendVerification: resendVerificationAction
 	}
-)(Verify);
+)( Verify );

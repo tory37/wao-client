@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import { routePaths, isOnRoute, routeDefs } from '../routeDefs';
+import { routePaths, isOnRoute, routeDefs } from 'routeDefs';
 import { withRouter } from 'react-router-dom';
 
 import Header from './Header';
@@ -40,7 +40,7 @@ const StyledLayout = styled.div`
 
 	.layout-body-sidebar {
 		position: absolute;
-		right: -200px;
+		right: -210px;
 		top: 55px;
 		transition: right 300ms ease-in-out;
 		z-index: 1000;
@@ -67,7 +67,7 @@ const StyledLayout = styled.div`
 		}
 
 		main {
-			min-height: calc(100% - 5px - ${props => props.theme.footer.height + ' - ' + props.theme.footer.marginTop});
+			min-height: calc(100% - 5px - ${props => props.theme.footer.height + ' - ' + props.theme.footer.marginTop });
 		}
 
 		footer {
@@ -76,8 +76,8 @@ const StyledLayout = styled.div`
 
 			border-top: solid 5px black;
 			width: 100%;
-			height: ${props => props.theme.footer.height};
-			margin-top: ${props => props.theme.footer.marginTop};
+			height: ${props => props.theme.footer.height };
+			margin-top: ${props => props.theme.footer.marginTop };
 
 			display: flex;
 			flex-direction: row;
@@ -96,43 +96,43 @@ const StyledLayout = styled.div`
 	}
 `;
 
-const Layout = ({ children, auth, isSidebarOpen, location }) => (
+const Layout = ( { children, auth, isSidebarOpen, location } ) => (
 	<StyledLayout>
 		<div className="layout-header-wrapper">
 			<Header />
 		</div>
-		{auth.isAuthenticated && (
+		{ auth.isAuthenticated && (
 			<div className="layout-bugreportmodal-wrapper">
 				<BugReportModal />
 			</div>
-		)}
+		) }
 		<div className="layout-body-wrapper">
-			<main>{children}</main>
+			<main>{ children }</main>
 			<footer>
 				<a href="mailto:weebsandotakus@gmail.com">Support</a>
 			</footer>
 		</div>
 
-		<div className={'layout-body-sidebar' + (isSidebarOpen ? ' open' : '')}>
+		<div className={ 'layout-body-sidebar' + ( isSidebarOpen ? ' open' : '' ) }>
 			<SidebarMenu>
 				<LinkList title="Links">
-					<LinkListButton title="Home" color="#4a4a4a" link={routeDefs.home} isSelected={isOnRoute(location, routePaths.home)}  shouldCollapse={false} xl3/>
-					<LinkListButton title="Events" color="#4a4a4a" link={routeDefs.events} isSelected={isOnRoute(location, routePaths.events)} xl3/>
-					<LinkListButton title="About Us" color="#4a4a4a" link={routeDefs.aboutUs} isSelected={isOnRoute(location, routePaths.aboutUs)} xl3/>
-					{/* <LinkListButton title="Podcasts" color="#4a4a4a" link={routeDefs.podcasts} isSelected={isOnRoute(location, routePaths.podcasts)} xl3/> */}
+					<LinkListButton title="Home" color="#4a4a4a" link={ routeDefs.home } isSelected={ isOnRoute( location, routePaths.home ) } shouldCollapse={ false } xl3 />
+					<LinkListButton title="Events" color="#4a4a4a" link={ routeDefs.events } isSelected={ isOnRoute( location, routePaths.events ) } xl3 />
+					<LinkListButton title="About Us" color="#4a4a4a" link={ routeDefs.aboutUs } isSelected={ isOnRoute( location, routePaths.aboutUs ) } xl3 />
+					{/* <LinkListButton title="Podcasts" color="#4a4a4a" link={routeDefs.podcasts} isSelected={isOnRoute(location, routePaths.podcasts)} xl3/> */ }
 				</LinkList>
 			</SidebarMenu>
 		</div>
 	</StyledLayout>
 );
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => ( {
 	auth: state.auth,
 	isSidebarOpen: state.sidebar
-});
+} );
 
 Layout.propTypes = {
 	children: PropTypes.node.isRequired
 };
 
-export default connect(mapStateToProps)(withRouter(Layout));
+export default connect( mapStateToProps )( withRouter( Layout ) );

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Link, withRouter } from 'react-router-dom';
-import { routePaths, isOnRoute } from '../routeDefs';
+import { routePaths, isOnRoute } from 'routeDefs';
 
 import HeaderButton from './HeaderButton';
 import UserStatus from './UserStatus';
@@ -76,29 +76,29 @@ const StyledHeader = styled.div`
 	}
 `;
 
-const Header = ({ location }) => {
+const Header = ( { location } ) => {
 	return (
 		<StyledHeader>
 			<div className="header-logo-wrapper">
-				<Link to={routePaths.home}>
-					<img className="header-logo" alt="Weebs and Otakus Logo" src={process.env.PUBLIC_URL + '/img/logo_short.png'} />
-					{/* <div className="header-title">{'Weebs And Otakus'}</div> */}
+				<Link to={ routePaths.home }>
+					<img className="header-logo" alt="Weebs and Otakus Logo" src={ process.env.PUBLIC_URL + '/img/logo_short.png' } />
+					{/* <div className="header-title">{'Weebs And Otakus'}</div> */ }
 				</Link>
 			</div>
 			<div className="header-buttons">
-				<Link to={routePaths.home}>
-					<HeaderButton title="Home" clipPath="0 0, 99% 13%, 96% 100%, 7% 100%" isSelected={isOnRoute(location, routePaths.home)} />
+				<Link to={ routePaths.home }>
+					<HeaderButton title="Home" clipPath="0 0, 99% 13%, 96% 100%, 7% 100%" isSelected={ isOnRoute( location, routePaths.home ) } />
 				</Link>
-				<Link to={routePaths.events}>
-					<HeaderButton title="Events" clipPath="5% 17%, 96% 5%, 94% 100%, 7% 100%" isSelected={isOnRoute(location, routePaths.events)} />
+				<Link to={ routePaths.events }>
+					<HeaderButton title="Events" clipPath="5% 17%, 96% 5%, 94% 100%, 7% 100%" isSelected={ isOnRoute( location, routePaths.events ) } />
 				</Link>
-				<Link to={routePaths.aboutUs}>
-					<HeaderButton title="About" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={isOnRoute(location, routePaths.aboutUs)} />
+				<Link to={ routePaths.podcasts }>
+					<HeaderButton title="Podcast" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={ isOnRoute( location, routePaths.podcasts ) } />
 				</Link>
-				{/* <Link to={routePaths.podcasts}>
-					<HeaderButton title="Podcasts" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={isOnRoute(location, routePaths.podcasts)} />
-				</Link> */}
-				{/* AUTH */}
+				<Link to={ routePaths.aboutUs }>
+					<HeaderButton title="About" clipPath="5% 5%, 95% 11%, 92% 100%, 11% 100%" isSelected={ isOnRoute( location, routePaths.aboutUs ) } />
+				</Link>
+				{/* AUTH */ }
 				{/* <div className="user-menu-wrapper">
 					<UserStatus isSelected={isOnRoute(location, routePaths.userProfile)} />
 				</div> */}
@@ -113,4 +113,4 @@ const Header = ({ location }) => {
 	);
 };
 
-export default withRouter(Header);
+export default withRouter( Header );

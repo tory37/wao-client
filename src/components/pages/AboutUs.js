@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import aboutUsData from '../../data/aboutUs';
+import aboutUsData from 'data/aboutUs';
 
-import StaffCard from '../StaffCard';
+import StaffCard from 'components/StaffCard';
+import StyledHeaderSection from 'styles/SectionHeader';
+import SectionHeader from 'styles/SectionHeader';
 
 const StyledAboutUs = styled.div`
 	width: 100%;
@@ -11,15 +13,6 @@ const StyledAboutUs = styled.div`
 
 	.aboutus-section {
 		margin-bottom: 50px;
-	}
-
-	.aboutus-title {
-		width: 100%;
-		text-align: center;
-		font-size: 32px;
-		font-weight: 600;
-		margin-bottom: 10px;
-		font-family: NinjaNaruto;
 	}
 
 	.aboutus-header {
@@ -83,17 +76,17 @@ const AboutUs = ( { match, location, history } ) => {
 	return (
 		<StyledAboutUs>
 			<div className="aboutus-section">
-				<div className="aboutus-title">About Us</div>
+				<SectionHeader aligned='center'>About Us</SectionHeader>
 				<div className="aboutus-header">We'd like to give a special thanks to everyone involed in this awesome project. </div>
 			</div>
 
 			<div className="aboutus-section">
-				<div className="aboutus-title">Founders</div>
+				<StyledHeaderSection aligned="center">Founders</StyledHeaderSection>
 				<Founders />
 			</div>
 
 			<div className="aboutus-section">
-				<div className="aboutus-title">Contributors</div>
+				<StyledHeaderSection aligned="center">Contributors</StyledHeaderSection>
 				<Contributors />
 			</div>
 		</StyledAboutUs>
