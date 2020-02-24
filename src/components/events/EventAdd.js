@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import PageCard from '../PageCard';
 import WAOButton from '../WAOButton';
-import { createEvent as createEventAction } from '../../actions/eventActions';
+import { createEvent as createEventAction } from '../../store/events/actions';
 import WAOForm from '../WAOForm';
 import DataFieldText from '../dataFields/DataFieldText';
 import DataFieldTextArea from '../dataFields/DataFieldTextArea';
@@ -68,61 +68,61 @@ const StyledEventAdd = styled.div`
 	}
 `;
 
-const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
-	const [imageUrl, setImageUrl] = useState('');
-	const [isImageUrlInvalid, setIsImageUrlInvalid] = useState(false);
-	const [startDate, setStartDate] = useState(moment().unix());
-	const [isStartDateInvalid, setIsStartDateInvalid] = useState(false);
-	const [endDate, setEndDate] = useState(moment().unix());
-	const [isEndDateInvalid, setIsEndDateInvalid] = useState(false);
-	const [title, setTitle] = useState('');
-	const [isTitleInvalid, setIsTitleInvalid] = useState(false);
-	const [address, setAddress] = useState('');
-	const [lat, setLat] = useState('');
-	const [lng, setLng] = useState('');
-	const [isAddressInvalid, setIsAddressInvalid] = useState(false);
-	const [description, setDescription] = useState('');
-	const [isDescriptionInvalid, setIsDescriptionInvalid] = useState(false);
+const EventAdd = ( { createEvent, canAdd, onAddStart, onAddEnd } ) => {
+	const [ imageUrl, setImageUrl ] = useState( '' );
+	const [ isImageUrlInvalid, setIsImageUrlInvalid ] = useState( false );
+	const [ startDate, setStartDate ] = useState( moment().unix() );
+	const [ isStartDateInvalid, setIsStartDateInvalid ] = useState( false );
+	const [ endDate, setEndDate ] = useState( moment().unix() );
+	const [ isEndDateInvalid, setIsEndDateInvalid ] = useState( false );
+	const [ title, setTitle ] = useState( '' );
+	const [ isTitleInvalid, setIsTitleInvalid ] = useState( false );
+	const [ address, setAddress ] = useState( '' );
+	const [ lat, setLat ] = useState( '' );
+	const [ lng, setLng ] = useState( '' );
+	const [ isAddressInvalid, setIsAddressInvalid ] = useState( false );
+	const [ description, setDescription ] = useState( '' );
+	const [ isDescriptionInvalid, setIsDescriptionInvalid ] = useState( false );
 
-	const [isAdding, setIsAdding] = useState(false);
-	const [isLoading, setisLoading] = useState(false);
-	const [isInvalid, setIsInvalid] = useState(false);
+	const [ isAdding, setIsAdding ] = useState( false );
+	const [ isLoading, setisLoading ] = useState( false );
+	const [ isInvalid, setIsInvalid ] = useState( false );
 
 	const resetState = () => {
 		// Reset state
-		setImageUrl('');
-		setStartDate(moment().unix());
-		setEndDate(moment().unix());
-		setTitle('');
-		setAddress('');
-		setLat('');
-		setLng('');
-		setDescription('');
+		setImageUrl( '' );
+		setStartDate( moment().unix() );
+		setEndDate( moment().unix() );
+		setTitle( '' );
+		setAddress( '' );
+		setLat( '' );
+		setLng( '' );
+		setDescription( '' );
 	};
 
-	useEffect(() => {
-		setIsInvalid(isImageUrlInvalid || isStartDateInvalid || isEndDateInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid);
-	});
+	useEffect( () => {
+		setIsInvalid( isImageUrlInvalid || isStartDateInvalid || isEndDateInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid );
+	} );
 
 	const onAddClick = e => {
 		onAddStart();
-		setIsAdding(true);
+		setIsAdding( true );
 	};
 
 	const onCancel = e => {
-		setIsAdding(false);
+		setIsAdding( false );
 		resetState();
 		onAddEnd();
 	};
 
 	const onSave = e => {
-		if (isAdding && !isLoading && !isInvalid) {
-			setisLoading(true);
+		if ( isAdding && !isLoading && !isInvalid ) {
+			setisLoading( true );
 
 			const eventToAdd = {
 				imageUrl: imageUrl,
-				startTimestamp: moment(startDate).unix(), //  Make timestamp from date and time
-				endTimestamp: moment(endDate).unix(), // same
+				startTimestamp: moment( startDate ).unix(), //  Make timestamp from date and time
+				endTimestamp: moment( endDate ).unix(), // same
 				title: title,
 				address: address,
 				lat: lat,
@@ -130,55 +130,55 @@ const EventAdd = ({ createEvent, canAdd, onAddStart, onAddEnd }) => {
 				description: description
 			};
 
-			console.log('New Event: ', eventToAdd);
+			console.log( 'New Event: ', eventToAdd );
 
-			createEvent(eventToAdd)
-				.then(() => {
-					setIsAdding(false);
+			createEvent( eventToAdd )
+				.then( () => {
+					setIsAdding( false );
 					onAddEnd();
 
 					// Reset state
 					resetState();
-				})
-				.finally(() => {
-					setisLoading(false);
-				});
+				} )
+				.finally( () => {
+					setisLoading( false );
+				} );
 		}
 	};
 
 	return (
 		<StyledEventAdd>
-			{!isAdding && <WAOButton title="Add New" color="goldenrod" iconClass="far fa-plus-square" xl3 clickCallback={onAddClick} isDisabled={!canAdd} />}
-			{isAdding && (
+			{ !isAdding && <WAOButton title="Add New" color="goldenrod" iconClass="far fa-plus-square" xl3 clickCallback={ onAddClick } isDisabled={ !canAdd } /> }
+			{ isAdding && (
 				<div className="eventadd-view">
 					<PageCard>
-						<WAOForm onSubmit={onSave} canSubmitVarsArray={[isAdding, isLoading, isInvalid]}>
+						<WAOForm onSubmit={ onSave } canSubmitVarsArray={ [ isAdding, isLoading, isInvalid ] }>
 							<div className="eventadd-content">
-								<DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" isRequired />
-								<DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />
-								<DataFieldTextArea state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />
-								<DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired />
-								<DataFieldDatepicker state={startDate} setState={setStartDate} isInvalid={isStartDateInvalid} setIsInvalid={setIsStartDateInvalid} title="Start Timestamp" min={moment().unix()} step={1} isRequired />
-								<DataFieldDatepicker state={endDate} setState={setEndDate} isInvalid={isEndDateInvalid} setIsInvalid={setIsEndDateInvalid} title="End Timestamp" min={moment().unix()} step={1} isRequired />
+								<DataFieldText state={ imageUrl } setState={ setImageUrl } isInvalid={ isImageUrlInvalid } setIsInvalid={ setIsImageUrlInvalid } title="Image Url" isRequired />
+								<DataFieldText state={ title } setState={ setTitle } isInvalid={ isTitleInvalid } setIsInvalid={ setIsTitleInvalid } title="Title" isRequired />
+								<DataFieldTextArea state={ description } setState={ setDescription } isInvalid={ isDescriptionInvalid } setIsInvalid={ setIsDescriptionInvalid } title="Description" isRequired />
+								<DataFieldLocation address={ address } setAddress={ setAddress } setLat={ setLat } setLng={ setLng } isInvalid={ isAddressInvalid } setIsInvalid={ setIsAddressInvalid } title="Address" isRequired />
+								<DataFieldDatepicker state={ startDate } setState={ setStartDate } isInvalid={ isStartDateInvalid } setIsInvalid={ setIsStartDateInvalid } title="Start Timestamp" min={ moment().unix() } step={ 1 } isRequired />
+								<DataFieldDatepicker state={ endDate } setState={ setEndDate } isInvalid={ isEndDateInvalid } setIsInvalid={ setIsEndDateInvalid } title="End Timestamp" min={ moment().unix() } step={ 1 } isRequired />
 
 								<div className="eventadd-buttons">
 									<div className="eventadd-button-wrapper">
-										<WAOButton title="Quit" color="red" lg clickCallback={onCancel} iconClass="far fa-stop-circle" isLoading={isLoading} isDisabled={isLoading} />
+										<WAOButton title="Quit" color="red" lg clickCallback={ onCancel } iconClass="far fa-stop-circle" isLoading={ isLoading } isDisabled={ isLoading } />
 									</div>
-									<WAOButton title="Save" color="green" lg clickCallback={onSave} iconClass="far fa-play-circle" isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+									<WAOButton title="Save" color="green" lg clickCallback={ onSave } iconClass="far fa-play-circle" isLoading={ isLoading } isDisabled={ isLoading || isInvalid } isSubmit />
 								</div>
 							</div>
 						</WAOForm>
 					</PageCard>
 				</div>
-			)}
+			) }
 		</StyledEventAdd>
 	);
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ( {} );
 
 export default connect(
 	mapStateToProps,
 	{ createEvent: createEventAction }
-)(EventAdd);
+)( EventAdd );

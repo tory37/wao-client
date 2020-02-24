@@ -7,7 +7,7 @@ import theme from '../styles/theme';
 import store from '../store';
 // import setAuthToken from './utils/auth';
 // import { fetchUser, logoutUser, stopLoadingAuth } from './actions/authActions';
-import { fetchAllEvents } from '../actions/eventActions';
+import { fetchAllEvents } from '../store/events/actions';
 import styled from '@emotion/styled';
 
 import './App.css';
