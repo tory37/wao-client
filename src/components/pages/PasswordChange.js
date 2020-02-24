@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
-import { routePaths } from '../../routeDefs';
+import { routePaths } from 'routeDefs';
 
-import { updatePasswordWithToken as updatePasswordWithTokenAction } from '../../actions/authActions';
+import { updatePasswordWithToken as updatePasswordWithTokenAction } from 'store/auth/actions';
 
-import WAOForm from '../WAOForm';
-import PageWrapper from '../PageWrapper';
-import PageCard from '../PageCard';
-import WAOButton from '../WAOButton';
-import DataFieldPassword from '../dataFields/DateFieldPassword';
-import DataFieldConfirmPassword from '../dataFields/DataFieldConfirmPassword';
+import WAOForm from 'components/WAOForm';
+import PageWrapper from 'components/PageWrapper';
+import PageCard from 'components/PageCard';
+import WAOButton from 'components/WAOButton';
+import DataFieldPassword from 'components/dataFields/DateFieldPassword';
+import DataFieldConfirmPassword from 'components/dataFields/DataFieldConfirmPassword';
 
 const StyledPasswordChange = styled.div`
 	width: 100%;
@@ -38,51 +38,51 @@ const StyledPasswordChange = styled.div`
 	}
 `;
 
-const PasswordChange = ({ updatePasswordWithToken, history, match }) => {
-	const [isLoading, setIsLoading] = useState(false);
+const PasswordChange = ( { updatePasswordWithToken, history, match } ) => {
+	const [ isLoading, setIsLoading ] = useState( false );
 
-	const [password, setPassword] = useState('');
-	const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
-	const [confirmPassword, setConfirmPassword] = useState('');
-	const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] = useState(false);
+	const [ password, setPassword ] = useState( '' );
+	const [ isPasswordInvalid, setIsPasswordInvalid ] = useState( false );
+	const [ confirmPassword, setConfirmPassword ] = useState( '' );
+	const [ isConfirmPasswordInvalid, setIsConfirmPasswordInvalid ] = useState( false );
 
-	const [isInvalid, setIsInvalid] = useState(false);
+	const [ isInvalid, setIsInvalid ] = useState( false );
 
-	useEffect(() => {
-		setIsInvalid(isPasswordInvalid || isConfirmPasswordInvalid);
-	}, [isPasswordInvalid, isConfirmPasswordInvalid]);
+	useEffect( () => {
+		setIsInvalid( isPasswordInvalid || isConfirmPasswordInvalid );
+	}, [ isPasswordInvalid, isConfirmPasswordInvalid ] );
 
 	const onSave = () => {
-		setIsLoading(true);
+		setIsLoading( true );
 
 		const { token } = match.params;
 
-		updatePasswordWithToken(password, confirmPassword, token)
-			.then(() => {
-				history.push(routePaths.login);
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
+		updatePasswordWithToken( password, confirmPassword, token )
+			.then( () => {
+				history.push( routePaths.login );
+			} )
+			.finally( () => {
+				setIsLoading( false );
+			} );
 	};
 
 	return (
 		<PageWrapper>
 			<StyledPasswordChange>
 				<PageCard>
-					<WAOForm onSubmit={onSave} canSubmit={!isLoading && !isInvalid}>
+					<WAOForm onSubmit={ onSave } canSubmit={ !isLoading && !isInvalid }>
 						<div className="passwordchange-title">Change Password</div>
 
-						{!isLoading && (
+						{ !isLoading && (
 							<div className="passwordchange-form">
-								<DataFieldPassword state={password} setState={setPassword} isInvalid={isPasswordInvalid} setIsInvalid={setIsPasswordInvalid} shouldValidate />
-								<DataFieldConfirmPassword state={confirmPassword} setState={setConfirmPassword} isInvalid={isConfirmPasswordInvalid} setIsInvalid={setIsConfirmPasswordInvalid} password={password} />
+								<DataFieldPassword state={ password } setState={ setPassword } isInvalid={ isPasswordInvalid } setIsInvalid={ setIsPasswordInvalid } shouldValidate />
+								<DataFieldConfirmPassword state={ confirmPassword } setState={ setConfirmPassword } isInvalid={ isConfirmPasswordInvalid } setIsInvalid={ setIsConfirmPasswordInvalid } password={ password } />
 
 								<div className="passwordchange-button">
-									<WAOButton title="Save" color="goldenrod" clickCallback={onSave} lg iconClass="far fa-play-circle" isDisabled={isLoading || isInvalid} isLoading={isLoading} isSubmit />
+									<WAOButton title="Save" color="goldenrod" clickCallback={ onSave } lg iconClass="far fa-play-circle" isDisabled={ isLoading || isInvalid } isLoading={ isLoading } isSubmit />
 								</div>
 							</div>
-						)}
+						) }
 					</WAOForm>
 				</PageCard>
 			</StyledPasswordChange>
@@ -90,9 +90,9 @@ const PasswordChange = ({ updatePasswordWithToken, history, match }) => {
 	);
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ( {} );
 
 export default connect(
 	mapStateToProps,
 	{ updatePasswordWithToken: updatePasswordWithTokenAction }
-)(PasswordChange);
+)( PasswordChange );

@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import moment from 'moment';
-import { updateEvent as updateEventAction } from '../../actions/eventActions';
+import { updateEvent as updateEventAction } from 'store/events/actions';
 // import useOnSubmit from '../../hooks/useOnSubmit';
 
-import PageCard from '../PageCard';
+import PageCard from 'components/PageCard';
 import Img from 'react-image';
-import WAOButton from '../WAOButton';
-import WAOForm from '../WAOForm';
-import DataFieldText from '../dataFields/DataFieldText';
-import DataFieldTextArea from '../dataFields/DataFieldTextArea';
-import DataFieldNumber from '../dataFields/DataFieldNumber';
-import DataFieldDatepicker from '../dataFields/DataFieldDatepicker';
-import DataFieldLocation from '../dataFields/DataFieldLocation';
+import WAOButton from 'components/WAOButton';
+import WAOForm from 'components/WAOForm';
+import DataFieldText from 'components/dataFields/DataFieldText';
+import DataFieldTextArea from 'components/dataFields/DataFieldTextArea';
+import DataFieldNumber from 'components/dataFields/DataFieldNumber';
+import DataFieldDatepicker from 'components/dataFields/DataFieldDatepicker';
+import DataFieldLocation from 'components/dataFields/DataFieldLocation';
 
 // 500 x 262
 const StyledEventView = styled.div`
@@ -167,59 +167,59 @@ const StyledEventView = styled.div`
 	}
 `;
 
-const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
-	const [isEditing, setIsEditing] = useState(false);
-	const [isLoading, setisLoading] = useState(false);
-	const [isDescExpanded, setIsDescExpanded] = useState(false);
+const EventView = ( { event, canEdit, onEditStart, onEditEnd, updateEvent } ) => {
+	const [ isEditing, setIsEditing ] = useState( false );
+	const [ isLoading, setisLoading ] = useState( false );
+	const [ isDescExpanded, setIsDescExpanded ] = useState( false );
 
-	const [imageUrl, setImageUrl] = useState(event.imageUrl);
-	const [isImageUrlInvalid, setIsImageUrlInvalid] = useState(false);
-	const [startDate, setStartDate] = useState(moment.unix(event.startTimestamp).toDate());
-	const [isStartDateInvalid, setIsstartDateInvalid] = useState(false);
-	const [endDate, setEndDate] = useState(moment.unix(event.endTimestamp).toDate());
-	const [isEndDateInvalid, setIsendDateInvalid] = useState(false);
-	const [title, setTitle] = useState(event.title);
-	const [isTitleInvalid, setIsTitleInvalid] = useState(false);
-	const [address, setAddress] = useState(event.address);
-	const [isAddressInvalid, setIsAddressInvalid] = useState(false);
-	const [lat, setLat] = useState(event.lat);
-	const [lng, setLng] = useState(event.lng);
-	const [description, setDescription] = useState(event.description);
-	const [isDescriptionInvalid, setIsDescriptionInvalid] = useState(event.imageUrl);
+	const [ imageUrl, setImageUrl ] = useState( event.imageUrl );
+	const [ isImageUrlInvalid, setIsImageUrlInvalid ] = useState( false );
+	const [ startDate, setStartDate ] = useState( moment.unix( event.startTimestamp ).toDate() );
+	const [ isStartDateInvalid, setIsstartDateInvalid ] = useState( false );
+	const [ endDate, setEndDate ] = useState( moment.unix( event.endTimestamp ).toDate() );
+	const [ isEndDateInvalid, setIsendDateInvalid ] = useState( false );
+	const [ title, setTitle ] = useState( event.title );
+	const [ isTitleInvalid, setIsTitleInvalid ] = useState( false );
+	const [ address, setAddress ] = useState( event.address );
+	const [ isAddressInvalid, setIsAddressInvalid ] = useState( false );
+	const [ lat, setLat ] = useState( event.lat );
+	const [ lng, setLng ] = useState( event.lng );
+	const [ description, setDescription ] = useState( event.description );
+	const [ isDescriptionInvalid, setIsDescriptionInvalid ] = useState( event.imageUrl );
 
-	const [isInvalid, setIsInvalid] = useState(false);
+	const [ isInvalid, setIsInvalid ] = useState( false );
 
-	useEffect(() => {
-		setIsInvalid(isImageUrlInvalid || isStartDateInvalid || isEndDateInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid);
-	}, [isImageUrlInvalid, isStartDateInvalid, isEndDateInvalid, isTitleInvalid, isAddressInvalid, isDescriptionInvalid]);
+	useEffect( () => {
+		setIsInvalid( isImageUrlInvalid || isStartDateInvalid || isEndDateInvalid || isTitleInvalid || isAddressInvalid || isDescriptionInvalid );
+	}, [ isImageUrlInvalid, isStartDateInvalid, isEndDateInvalid, isTitleInvalid, isAddressInvalid, isDescriptionInvalid ] );
 
 	const onEdit = () => {
 		onEditStart();
-		setImageUrl(event.imageUrl);
-		setStartDate(moment.unix(event.startTimestamp).toDate());
-		setEndDate(moment.unix(event.endTimestamp).toDate());
-		setTitle(event.title);
-		setAddress(event.address);
-		setLat(event.lat);
-		setLng(event.lng);
-		setDescription(event.description);
+		setImageUrl( event.imageUrl );
+		setStartDate( moment.unix( event.startTimestamp ).toDate() );
+		setEndDate( moment.unix( event.endTimestamp ).toDate() );
+		setTitle( event.title );
+		setAddress( event.address );
+		setLat( event.lat );
+		setLng( event.lng );
+		setDescription( event.description );
 
-		setIsEditing(true);
+		setIsEditing( true );
 	};
 
 	const onCancel = () => {
 		onEditEnd();
-		setIsEditing(false);
+		setIsEditing( false );
 	};
 
 	const onSave = () => {
-		if (isEditing && !isLoading && !isInvalid) {
-			setisLoading(true);
+		if ( isEditing && !isLoading && !isInvalid ) {
+			setisLoading( true );
 
 			const formattedModdedEvent = {
 				imageUrl: imageUrl,
-				startTimestamp: moment(startDate).unix(), //  Make timestamp from date and time
-				endTimestamp: moment(endDate).unix(), // same
+				startTimestamp: moment( startDate ).unix(), //  Make timestamp from date and time
+				endTimestamp: moment( endDate ).unix(), // same
 				title: title,
 				address: address,
 				lat: lat,
@@ -227,112 +227,112 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 				description: description
 			};
 
-			updateEvent(event._id, formattedModdedEvent)
-				.then(() => {
-					setIsEditing(false);
+			updateEvent( event._id, formattedModdedEvent )
+				.then( () => {
+					setIsEditing( false );
 					onEditEnd();
-				})
-				.finally(() => {
-					setisLoading(false);
-				});
+				} )
+				.finally( () => {
+					setisLoading( false );
+				} );
 		}
 	};
 
 	const getDateDisplay = () => {
-		let startMoment = moment.unix(event.startTimestamp);
-		let endMoment = moment.unix(event.endTimestamp);
+		let startMoment = moment.unix( event.startTimestamp );
+		let endMoment = moment.unix( event.endTimestamp );
 
 		let differentYears = startMoment.year() !== endMoment.year();
 
-		let display = startMoment.format('dddd, MMMM D, ' + (differentYears ? 'YYYY' : '') + ' [at] h:mm A') + ' - ';
+		let display = startMoment.format( 'dddd, MMMM D, ' + ( differentYears ? 'YYYY' : '' ) + ' [at] h:mm A' ) + ' - ';
 
-		if (startMoment.isSame(endMoment, 'day')) {
-			display += endMoment.format('h:mm A');
+		if ( startMoment.isSame( endMoment, 'day' ) ) {
+			display += endMoment.format( 'h:mm A' );
 		} else {
-			display += endMoment.format('dddd, MMMM D YYYY [at] h:mm A');
+			display += endMoment.format( 'dddd, MMMM D YYYY [at] h:mm A' );
 		}
 
 		return display;
 	};
 
 	const toggleDescExpanded = () => {
-		setIsDescExpanded(!isDescExpanded);
+		setIsDescExpanded( !isDescExpanded );
 	};
 
 	// useOnSubmit(isEditing && !isLoading && !isInvalid, onSave, imageUrl, startTimestamp, endTimestamp, title, address, lat, lng, description);
 
 	return (
 		<StyledEventView>
-			<PageCard isLoading={isLoading}>
-				<WAOForm onSubmit={onSave}>
+			<PageCard isLoading={ isLoading }>
+				<WAOForm onSubmit={ onSave }>
 					<div className="eventview-wrapper">
-						{!isEditing && (
+						{ !isEditing && (
 							<div className="eventview-image-wrapper">
-								<Img src={event.imageUrl} />
+								<Img src={ event.imageUrl } />
 							</div>
-						)}
+						) }
 
 						<div className="eventview-content">
-							{isEditing && <DataFieldText state={imageUrl} setState={setImageUrl} isInvalid={isImageUrlInvalid} setIsInvalid={setIsImageUrlInvalid} title="Image Url" isRequired />}
+							{ isEditing && <DataFieldText state={ imageUrl } setState={ setImageUrl } isInvalid={ isImageUrlInvalid } setIsInvalid={ setIsImageUrlInvalid } title="Image Url" isRequired /> }
 
-							{!isEditing && <div className="eventview-title">{event.title}</div>}
+							{ !isEditing && <div className="eventview-title">{ event.title }</div> }
 
-							{isEditing && <DataFieldText state={title} setState={setTitle} isInvalid={isTitleInvalid} setIsInvalid={setIsTitleInvalid} title="Title" isRequired />}
+							{ isEditing && <DataFieldText state={ title } setState={ setTitle } isInvalid={ isTitleInvalid } setIsInvalid={ setIsTitleInvalid } title="Title" isRequired /> }
 
-							{!isEditing && (
+							{ !isEditing && (
 								<div className="eventview-description">
-									<div className="header-row" onClick={toggleDescExpanded}>
+									<div className="header-row" onClick={ toggleDescExpanded }>
 										<div>Description</div>
-										{isDescExpanded ? <span>Collapse</span> : <span>Expand</span>}
+										{ isDescExpanded ? <span>Collapse</span> : <span>Expand</span> }
 									</div>
 
-									<div className={'content ' + (isDescExpanded ? 'collapsed' : 'expanded')}>
-										{event.description.split('|').map((i,key) => {
-											return <div key={key}>{i}<br /></div>;
-										})}
+									<div className={ 'content ' + ( isDescExpanded ? 'collapsed' : 'expanded' ) }>
+										{ event.description.split( '|' ).map( ( i, key ) => {
+											return <div key={ key }>{ i }<br /></div>;
+										} ) }
 									</div>
 								</div>
-							)}
+							) }
 
-							{isEditing && <DataFieldTextArea state={description} setState={setDescription} isInvalid={isDescriptionInvalid} setIsInvalid={setIsDescriptionInvalid} title="Description" isRequired />}
+							{ isEditing && <DataFieldTextArea state={ description } setState={ setDescription } isInvalid={ isDescriptionInvalid } setIsInvalid={ setIsDescriptionInvalid } title="Description" isRequired /> }
 
-							{!isEditing && event.lat && event.lng && (
-								<a href={'http://www.google.com/maps/place/' + event.lat + ',' + event.lng} target="_blank" rel="noopener noreferrer" className="eventview-location eventview-entry">
+							{ !isEditing && event.lat && event.lng && (
+								<a href={ 'http://www.google.com/maps/place/' + event.lat + ',' + event.lng } target="_blank" rel="noopener noreferrer" className="eventview-location eventview-entry">
 									<i className="fas fa-street-view"></i>
-									<div className="eventview-location-address">{event.address}</div>
+									<div className="eventview-location-address">{ event.address }</div>
 									<span>Show Map</span>
 								</a>
-							)}
+							) }
 
-							{isEditing && <DataFieldLocation address={address} setAddress={setAddress} setLat={setLat} setLng={setLng} isInvalid={isAddressInvalid} setIsInvalid={setIsAddressInvalid} title="Address" isRequired />}
+							{ isEditing && <DataFieldLocation address={ address } setAddress={ setAddress } setLat={ setLat } setLng={ setLng } isInvalid={ isAddressInvalid } setIsInvalid={ setIsAddressInvalid } title="Address" isRequired /> }
 
 
-							{!isEditing && (
+							{ !isEditing && (
 								<div className="eventview-date eventview-entry">
 									<i className="far fa-clock"></i>
-									<span>{getDateDisplay()}</span>
+									<span>{ getDateDisplay() }</span>
 								</div>
-							)}
+							) }
 
-							{isEditing && <DataFieldDatepicker state={startDate} setState={setStartDate} isInvalid={isStartDateInvalid} setIsInvalid={setIsstartDateInvalid} title="Start Date" isRequired />}
-							{isEditing && <DataFieldDatepicker state={endDate} setState={setEndDate} isInvalid={isEndDateInvalid} setIsInvalid={setIsendDateInvalid} title="End Date" isRequired />}
+							{ isEditing && <DataFieldDatepicker state={ startDate } setState={ setStartDate } isInvalid={ isStartDateInvalid } setIsInvalid={ setIsstartDateInvalid } title="Start Date" isRequired /> }
+							{ isEditing && <DataFieldDatepicker state={ endDate } setState={ setEndDate } isInvalid={ isEndDateInvalid } setIsInvalid={ setIsendDateInvalid } title="End Date" isRequired /> }
 
-							{!isEditing && canEdit && (
+							{ !isEditing && canEdit && (
 								<div className="eventview-buttons">
-									<WAOButton title="Edit" color="orange" useUserColor clickCallback={onEdit} md isDisabled={!canEdit} iconClass="fas fa-edit" />
+									<WAOButton title="Edit" color="orange" useUserColor clickCallback={ onEdit } md isDisabled={ !canEdit } iconClass="fas fa-edit" />
 								</div>
-							)}
+							) }
 
-							{isEditing && (
+							{ isEditing && (
 								<div className="eventview-buttons">
 									<div className="eventview-button-wrapper">
-										<WAOButton title="Quit" color="red" iconClass="far fa-stop-circle" lg clickCallback={onCancel} />
+										<WAOButton title="Quit" color="red" iconClass="far fa-stop-circle" lg clickCallback={ onCancel } />
 									</div>
 									<div>
-										<WAOButton title="Save" color="green" clickCallback={onSave} iconClass="far fa-play-circle" isLoading={isLoading} isDisabled={isLoading || isInvalid} isSubmit />
+										<WAOButton title="Save" color="green" clickCallback={ onSave } iconClass="far fa-play-circle" isLoading={ isLoading } isDisabled={ isLoading || isInvalid } isSubmit />
 									</div>
 								</div>
-							)}
+							) }
 						</div>
 					</div>
 				</WAOForm>
@@ -341,9 +341,9 @@ const EventView = ({ event, canEdit, onEditStart, onEditEnd, updateEvent }) => {
 	);
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ( {} );
 
 export default connect(
 	mapStateToProps,
 	{ updateEvent: updateEventAction }
-)(EventView);
+)( EventView );

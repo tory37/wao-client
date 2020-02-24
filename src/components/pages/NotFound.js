@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import PageWrapper from '../PageWrapper';
-import PageCard from '../PageCard';
+import PageWrapper from 'components/PageWrapper';
+import PageCard from 'components/PageCard';
 
 const StyledNotFound = styled.div`
 	width: 100%;

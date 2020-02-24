@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { connect } from 'react-redux';
-import { fetchAllBugReports as fetchAllBugReportsAction } from '../actions/bugActions';
+import { fetchAllBugReports as fetchAllBugReportsAction } from 'store/bugReports/actions';
 import _ from 'lodash';
 
 import PageCard from './PageCard';
@@ -54,95 +54,95 @@ const StyledBugReportList = styled.div`
 	}
 `;
 
-const BugReportList = ({ bugReports, fetchAllBugReports }) => {
+const BugReportList = ( { bugReports, fetchAllBugReports } ) => {
 	const openTab = 'OPEN';
 	const fixedTab = 'FIXED';
 	const wontFixTab = 'WONTFIX';
 
-	const [selectedTab, setSelectedTab] = useState(openTab);
-	const [isLoading, setIsLoading] = useState(false);
+	const [ selectedTab, setSelectedTab ] = useState( openTab );
+	const [ isLoading, setIsLoading ] = useState( false );
 
-	const [openBugs, setOpenBugs] = useState([]);
-	const [fixedBugs, setFixedBugs] = useState([]);
-	const [wontFixBugs, setWontFixBugs] = useState([]);
-	const [selectedBugs, setSelectedBugs] = useState([]);
+	const [ openBugs, setOpenBugs ] = useState( [] );
+	const [ fixedBugs, setFixedBugs ] = useState( [] );
+	const [ wontFixBugs, setWontFixBugs ] = useState( [] );
+	const [ selectedBugs, setSelectedBugs ] = useState( [] );
 
-	useEffect(() => {
-		setIsLoading(true);
-		fetchAllBugReports().finally(() => {
-			setIsLoading(false);
-		});
-	}, []);
+	useEffect( () => {
+		setIsLoading( true );
+		fetchAllBugReports().finally( () => {
+			setIsLoading( false );
+		} );
+	}, [] );
 
-	useEffect(() => {
+	useEffect( () => {
 		setReports();
-	}, [bugReports]);
+	}, [ bugReports ] );
 
 	const setReports = () => {
-		const open = _.filter(bugReports, report => {
+		const open = _.filter( bugReports, report => {
 			return report.status === openTab;
-		});
+		} );
 
-		setOpenBugs(open);
+		setOpenBugs( open );
 
-		const fixed = _.filter(bugReports, report => {
+		const fixed = _.filter( bugReports, report => {
 			return report.status === fixedTab;
-		});
+		} );
 
-		setFixedBugs(fixed);
+		setFixedBugs( fixed );
 
-		const rejected = _.filter(bugReports, report => {
+		const rejected = _.filter( bugReports, report => {
 			return report.status === wontFixTab;
-		});
+		} );
 
-		setWontFixBugs(rejected);
+		setWontFixBugs( rejected );
 
-		switch (selectedTab) {
+		switch ( selectedTab ) {
 			case openTab:
-				setSelectedBugs(open);
+				setSelectedBugs( open );
 				break;
 			case fixedTab:
-				setSelectedBugs(fixed);
+				setSelectedBugs( fixed );
 				break;
 			case wontFixTab:
-				setSelectedBugs(rejected);
+				setSelectedBugs( rejected );
 				break;
 			default:
-				setSelectedBugs(open);
+				setSelectedBugs( open );
 				break;
 		}
 	};
 
 	const onSelectTab = tab => {
-		setSelectedTab(tab);
-		switch (tab) {
+		setSelectedTab( tab );
+		switch ( tab ) {
 			case openTab:
-				setSelectedBugs(openBugs);
+				setSelectedBugs( openBugs );
 				break;
 			case fixedTab:
-				setSelectedBugs(fixedBugs);
+				setSelectedBugs( fixedBugs );
 				break;
 			case wontFixTab:
-				setSelectedBugs(wontFixBugs);
+				setSelectedBugs( wontFixBugs );
 				break;
 			default:
-				setSelectedBugs(openBugs);
+				setSelectedBugs( openBugs );
 				break;
 		}
 	};
 
 	return (
 		<StyledBugReportList>
-			<PageCard isLoading={isLoading}>
+			<PageCard isLoading={ isLoading }>
 				<div className="bugreportlist-title">Bug Reports</div>
 
 				<div className="bugreportlist-tabs">
-					<WAOButton title={'Open'} color="gold" sm clickCallback={() => onSelectTab(openTab)} isSelected={selectedTab === openTab} />
-					<WAOButton title={'Fixed'} color="green" sm clickCallback={() => onSelectTab(fixedTab)} isSelected={selectedTab === fixedTab} />
-					<WAOButton title={"Won't Fix"} color="red" xl clickCallback={() => onSelectTab(wontFixTab)} isSelected={selectedTab === wontFixTab} />
+					<WAOButton title={ 'Open' } color="gold" sm clickCallback={ () => onSelectTab( openTab ) } isSelected={ selectedTab === openTab } />
+					<WAOButton title={ 'Fixed' } color="green" sm clickCallback={ () => onSelectTab( fixedTab ) } isSelected={ selectedTab === fixedTab } />
+					<WAOButton title={ "Won't Fix" } color="red" xl clickCallback={ () => onSelectTab( wontFixTab ) } isSelected={ selectedTab === wontFixTab } />
 				</div>
 
-				{selectedBugs.length > 0 && (
+				{ selectedBugs.length > 0 && (
 					<div className="bugreportlist-icons">
 						<div className="descriptions">
 							<i className="fas fa-book" />
@@ -156,20 +156,20 @@ const BugReportList = ({ bugReports, fetchAllBugReports }) => {
 							<i className="fas fa-arrow-circle-right" />
 						</div>
 					</div>
-				)}
+				) }
 
-				{selectedBugs.length > 0 && selectedBugs.map(bugReport => <BugReport bugReport={bugReport} key={bugReport._id + bugReport.status} />)}
-				{selectedBugs.length === 0 && <div className="bugreportlist-no-bugs">There are no {selectedTab == openTab ? 'open' : selectedTab === fixedTab ? 'fixed' : 'rejected'} bugs</div>}
+				{ selectedBugs.length > 0 && selectedBugs.map( bugReport => <BugReport bugReport={ bugReport } key={ bugReport._id + bugReport.status } /> ) }
+				{ selectedBugs.length === 0 && <div className="bugreportlist-no-bugs">There are no { selectedTab == openTab ? 'open' : selectedTab === fixedTab ? 'fixed' : 'rejected' } bugs</div> }
 			</PageCard>
 		</StyledBugReportList>
 	);
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => ( {
 	bugReports: state.bugReports
-});
+} );
 
 export default connect(
 	mapStateToProps,
 	{ fetchAllBugReports: fetchAllBugReportsAction }
-)(BugReportList);
+)( BugReportList );

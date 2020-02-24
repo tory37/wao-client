@@ -1,0 +1,3 @@
+export const SET_BUG_REPORTS = 'SET_BUG_REPORTS';
+export const ADD_BUG_REPORT = 'ADD_BUG_REPORT';
+export const UPDATE_BUG_REPORT = 'UPDATE_BUG_REPORT';

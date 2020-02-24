@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import aboutUsData from '../../data/aboutUs';
+import aboutUsData from 'data/aboutUs';
 
-import StaffCard from '../StaffCard';
-import StyledHeaderSection from '../../styles/SectionHeader';
-import SectionHeader from '../../styles/SectionHeader';
+import StaffCard from 'components/StaffCard';
+import StyledHeaderSection from 'styles/SectionHeader';
+import SectionHeader from 'styles/SectionHeader';
 
 const StyledAboutUs = styled.div`
 	width: 100%;

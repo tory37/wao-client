@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { SET_CURRENT_USER, USER_LOADING } from '../actions/types';
+import { SET_CURRENT_USER, USER_LOADING } from './types';
 
 const initialState = {
 	isAuthenticated: false,
@@ -7,13 +7,13 @@ const initialState = {
 	loading: false
 };
 
-export default (state = initialState, action) => {
-	switch (action.type) {
+export default ( state = initialState, action ) => {
+	switch ( action.type ) {
 		case SET_CURRENT_USER:
 			return {
 				...state,
-				isAuthenticated: !_.isEmpty(action.payload),
-				isAdmin: _.includes(action.payload.roles, 'ADMIN'),
+				isAuthenticated: !_.isEmpty( action.payload ),
+				isAdmin: _.includes( action.payload.roles, 'ADMIN' ),
 				user: { ...action.payload, color: 'red' }
 			};
 		case USER_LOADING:

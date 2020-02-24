@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import PageCard from '../PageCard';
-import BugReportList from '../BugReportList';
+import PageCard from 'components/PageCard';
+import BugReportList from 'components/BugReportList';
 
 const StyledAdminDash = styled.div`
 	width: 100%;
@@ -18,7 +18,7 @@ const StyledAdminDash = styled.div`
 	}
 `;
 
-const AdminDash = ({ auth }) => {
+const AdminDash = ( { auth } ) => {
 	return (
 		<StyledAdminDash>
 			<div className="admindash-bugs">
@@ -28,8 +28,8 @@ const AdminDash = ({ auth }) => {
 	);
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => ( {
 	auth: state.auth
-});
+} );
 
 export default AdminDash;
