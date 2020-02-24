@@ -3,16 +3,16 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from 'emotion-theming';
 // import jwtDecode from 'jwt-decode';
 import { ToastContainer } from 'react-toastify';
-import theme from '../styles/theme';
-import store from '../store';
+import theme from '../../styles/theme';
+import store from '../../store';
 // import setAuthToken from './utils/auth';
 // import { fetchUser, logoutUser, stopLoadingAuth } from './actions/authActions';
-import { fetchAllEvents } from '../store/events/actions';
+import { fetchAllEvents } from '../../store/events/actions';
 import styled from '@emotion/styled';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
-import Routes from '../Routes';
+import Routes from 'Routes';
 
 const StyledApp = styled.div`
 	width: 100vw;
